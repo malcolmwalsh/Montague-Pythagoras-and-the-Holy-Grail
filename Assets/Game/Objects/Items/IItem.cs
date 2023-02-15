@@ -1,4 +1,5 @@
-﻿namespace Assets.Game.Objects
+﻿#nullable enable
+namespace Assets.Game.Objects
 {
     internal interface IItem : IObject
     {

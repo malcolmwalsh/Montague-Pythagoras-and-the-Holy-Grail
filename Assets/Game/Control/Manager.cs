@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
+#nullable enable
 namespace Assets.Game.Control
 {
     internal class Manager : MonoBehaviour

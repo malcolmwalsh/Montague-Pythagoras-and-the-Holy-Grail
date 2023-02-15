@@ -1,4 +1,5 @@
-﻿using Assets.Game.Objects;
+﻿#nullable enable
+using Assets.Game.Objects;
 
 namespace Assembly_CSharp
 {

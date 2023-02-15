@@ -1,4 +1,5 @@
-﻿using Assets.Game.Objects;
+﻿#nullable enable
+using Assets.Game.Objects;
 using System.Collections.Generic;
 using static Assets.Game.Navigation.Enums;
 
