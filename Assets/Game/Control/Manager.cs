@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+﻿using Assets.Game.Objects;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 namespace Assets.Game.Control
 {
@@ -9,9 +12,9 @@ namespace Assets.Game.Control
         private bool exitGame = false;
         private bool winGame = false;
 
-        //private IPlayer player;
+        private IPlayer player;
 
-        //private ISet<IRoom> rooms;
+        private ISet<IRoom> rooms;
 
         private Key quitKey = Key.Escape;
         private Key helpKey = Key.H;
@@ -26,6 +29,8 @@ namespace Assets.Game.Control
         // Begin MonoBehaviour
         public void Start()
         {
+            print("Manager started");
+
             // Set up all the obstacles
 
             // Set up all the items
@@ -35,6 +40,44 @@ namespace Assets.Game.Control
             // Hold a reference to the current keyboard
             keyboard = Keyboard.current;
 
+        }
+
+        public void Update()
+        {
+            if (!Keyboard.current.anyKey.wasPressedThisFrame) return;  // Nothing pressed
+
+            // Loop through all keys and find the one pressed 
+            // TODO: Seems very inefficient!
+            foreach (KeyControl k in keyboard.allKeys)
+            {
+                if (k.wasPressedThisFrame)
+                {
+                    // What is pressed
+                    Key pressedKey = k.keyCode;
+
+                    if (pressedKey.Equals(quitKey))
+                    {
+                        // Quit game
+                        QuitGame();
+                        break;
+                    }
+                    else if (pressedKey.Equals(helpKey))
+                    {
+                        // TODO
+                    }
+                    else
+                    {
+                        // TODO
+                    }
+                }
+            }
+        }
+        // End MonoBehaviour
+
+        private void QuitGame()
+        {
+            // Quitting game
+            exitGame = true;
         }
     }
 }
