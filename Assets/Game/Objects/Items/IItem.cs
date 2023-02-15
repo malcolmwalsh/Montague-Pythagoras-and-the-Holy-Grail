@@ -3,6 +3,6 @@
     internal interface IItem : IObject
     {
         // Properties
-        IObstacle NemisisObstacle { get;  }
+        IObstacle? NemisisObstacle { get; }
     }
 }
