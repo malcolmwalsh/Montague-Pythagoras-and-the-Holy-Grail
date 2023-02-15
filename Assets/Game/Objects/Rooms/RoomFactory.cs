@@ -11,6 +11,7 @@ namespace Assets.Game.Objects.Rooms
             {
                 "StartRoom" => new StartRoom(),
                 "Outside" => new OutsideRoom(),
+                "GrandEntrance" => new GrandEntrance(),
                 _ => throw new ApplicationException(string.Format($"Room `{itemName}` cannot be created")),
             };
         }

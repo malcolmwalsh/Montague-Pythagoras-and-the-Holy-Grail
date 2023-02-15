@@ -61,7 +61,8 @@ namespace Assets.Game.Control
             ObjectFactory<IRoom> roomFactory = new RoomFactory();
             IRoom startRoom = roomFactory.GetObject("StartRoom");
             IRoom outside = roomFactory.GetObject("Outside");
-            rooms = new HashSet<IRoom>(new List<IRoom>() { startRoom, outside });
+            IRoom grandEntrance = roomFactory.GetObject("GrandEntrance");
+            rooms = new HashSet<IRoom>(new List<IRoom>() { startRoom, outside, grandEntrance });
             print("...done");
 
             // Assign nemeses to obstacles
