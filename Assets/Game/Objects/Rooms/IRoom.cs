@@ -1,6 +1,6 @@
 ﻿namespace Assets.Game.Objects
 {
-    internal interface IRoom
+    internal interface IRoom : IObject
     {
         // Properties
         bool IsStartRoom { get; }

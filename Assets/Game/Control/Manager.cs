@@ -1,4 +1,7 @@
 ﻿using Assets.Game.Objects;
+using Assets.Game.Objects.Items;
+using Assets.Game.Objects.Obstacles;
+using Assets.Game.Objects.Rooms;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,7 +17,10 @@ namespace Assets.Game.Control
 
         private IPlayer player;
 
+        private ISet<IDoor> doors;
+        private ISet<IObstacle> obstacles;
         private ISet<IRoom> rooms;
+        private ISet<IItem> items;
 
         private Key quitKey = Key.Escape;
         private Key helpKey = Key.H;
@@ -32,10 +38,23 @@ namespace Assets.Game.Control
             print("Manager started");
 
             // Set up all the obstacles
+            print("Creating obstacles...");
+            ObjectFactory<IObstacle> obstacleFactory = new ObstacleFactory();
+            print("...done");
 
             // Set up all the items
+            print("Creating items...");
+            ObjectFactory<IItem> itemFactory = new ItemFactory();
+            IItem woollyHat = itemFactory.GetObject("WoollyHat");
+            IItem magicSword = itemFactory.GetObject("MagicSword");
+            IItem brassKey = itemFactory.GetObject("BrassKey");
+            items = new HashSet<IItem>(new List<IItem>() { woollyHat, magicSword, brassKey });
+            print("...done");
 
             // Set up all the rooms
+            print("Creating rooms...");
+            ObjectFactory<IRoom> roomFactory = new RoomFactory();
+            print("...done");
 
             // Hold a reference to the current keyboard
             keyboard = Keyboard.current;
