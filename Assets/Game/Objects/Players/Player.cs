@@ -1,38 +1,42 @@
-using Assets.Game.Navigation;
 using Assets.Game.Objects;
 using System.Collections.Generic;
-using UnityEngine;
+using static Assets.Game.Navigation.Enums;
 
-public class Player : MonoBehaviour, IPlayer
+internal class Player : IPlayer
 {
-    // Fields
-    private ISet<IItem> items;    
+    // Fields    
+    private readonly string name;
+    private readonly string description;
+
+    private ISet<IItem> items;
+
+    // Constructors
+    public Player(string name, string description)
+    {
+        this.name = name;
+        this.description = description;
+    }
+
+    // Properties
+    public string Name => name;
+    public string Description => description;
 
     // Methods
 
-    // Begin MonoBehaviour
-    void Start()
-    {
-        
-    }
-    void Update()
-    {
-
-    }
-    // End MonoBenhaviour
-
     // Begin IPlayer
-    void IPlayer.TryMove(Enums.CompassDirection direction)
+    public void TryMove(CompassDirection direction)
     {
+        // TODO
         throw new System.NotImplementedException();
     }
 
     public void InspectRoom()
     {
+        // TODO
         throw new System.NotImplementedException();
     }
 
-    bool IPlayer.HasItem(IItem item)
+    public bool HasItem(IItem item)
     {
         return items.Contains(item);
     }

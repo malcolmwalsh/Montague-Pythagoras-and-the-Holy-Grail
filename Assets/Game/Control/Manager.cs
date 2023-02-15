@@ -77,6 +77,7 @@ namespace Assets.Game.Control
             IDoor guardedDoor = new Door("GuardedDoor", "Hard to see the door through the enormous knight in full armour that stands in front of it", billiardsRoom,grandEntrance, enemy);
             IDoor diningDoor = new Door("DiningDoor", "An ornate door with a small plaque: 'Dining hall'", roomA: grandEntrance, roomB: diningHall);
             IDoor exteriorDoor = new Door("ExteriorDoor", "A thick door with a mail slot", outside, diningHall, bitterCold);
+            doors = new HashSet<IDoor>(new List<IDoor>() { closetDoor, brassDoor, guardedDoor, diningDoor, exteriorDoor });
             print("...done");
 
             // Assign nemeses to obstacles
@@ -102,29 +103,13 @@ namespace Assets.Game.Control
             AssignDoorBetweenRooms(billiardsRoom, outside, exteriorDoor, CompassDirection.North);
             print("...done");
 
+            // Create a player object
+            print("Creating player...");
+            player = new Player("Player", "Our hero, but he is very small");
+            print("...done");
+
             // Hold a reference to the current keyboard
             keyboard = Keyboard.current;
-
-        }
-
-        private static void AssignDoorBetweenRooms(IRoom roomA, IRoom roomB, IDoor door, CompassDirection direction)
-        {
-            CompassDirection oppositeDirection = GetOppositeDirection(direction);
-
-            roomA.SetDoorInDirection(direction, door);
-            roomB.SetDoorInDirection(oppositeDirection, door);
-        }
-
-        private static CompassDirection GetOppositeDirection(CompassDirection direction)
-        {
-            return direction switch
-            {
-                CompassDirection.North => CompassDirection.South,
-                CompassDirection.South => CompassDirection.North,
-                CompassDirection.East => CompassDirection.West,
-                CompassDirection.West => CompassDirection.East,
-                _ => throw new System.NotImplementedException($"Unknown direction: {direction}"),
-            };
         }
 
         public void Update()
@@ -133,12 +118,12 @@ namespace Assets.Game.Control
 
             // Loop through all keys and find the one pressed 
             // TODO: Seems very inefficient!
-            foreach (KeyControl k in keyboard.allKeys)
+            foreach (KeyControl keyID in keyboard.allKeys)
             {
-                if (k.wasPressedThisFrame)
+                if (keyID.wasPressedThisFrame)
                 {
                     // What is pressed
-                    Key pressedKey = k.keyCode;
+                    Key pressedKey = keyID.keyCode;
 
                     if (pressedKey.Equals(quitKey))
                     {
@@ -163,6 +148,29 @@ namespace Assets.Game.Control
         {
             // Quitting game
             exitGame = true;
+        }
+
+        private static void AssignDoorBetweenRooms(IRoom roomA,
+                                                   IRoom roomB,
+                                                   IDoor door,
+                                                   CompassDirection direction)
+        {
+            CompassDirection oppositeDirection = GetOppositeDirection(direction);
+
+            roomA.SetDoorInDirection(direction, door);
+            roomB.SetDoorInDirection(oppositeDirection, door);
+        }
+
+        private static CompassDirection GetOppositeDirection(CompassDirection direction)
+        {
+            return direction switch
+            {
+                CompassDirection.North => CompassDirection.South,
+                CompassDirection.South => CompassDirection.North,
+                CompassDirection.East => CompassDirection.West,
+                CompassDirection.West => CompassDirection.East,
+                _ => throw new System.NotImplementedException($"Unknown direction: {direction}"),
+            };
         }
     }
 }

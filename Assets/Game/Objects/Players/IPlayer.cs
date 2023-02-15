@@ -2,7 +2,7 @@
 
 namespace Assets.Game.Objects
 {
-    internal interface IPlayer
+    internal interface IPlayer : IObject
     {
         // Methods
         bool HasItem(IItem item);
