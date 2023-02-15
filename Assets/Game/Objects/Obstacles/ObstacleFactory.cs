@@ -7,7 +7,13 @@ namespace Assets.Game.Objects.Obstacles
     {
         internal override IObstacle GetObject(string itemName)
         {
-            throw new NotImplementedException();
+            return itemName switch
+            {
+                "Enemy" => new Enemy(),
+                "BrassLock" => new BrassLock(),
+                "BitterCold" => new BitterCold(),
+                _ => throw new ApplicationException(string.Format($"Obstacle `{itemName}` cannot be created")),
+            };
         }
     }
 }

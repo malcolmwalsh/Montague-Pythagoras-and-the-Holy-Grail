@@ -1,7 +1,7 @@
 ﻿#nullable enable
 namespace Assets.Game.Objects
 {
-    internal class BitterCold : IObstacle
+    internal class BrassLock : IObstacle
     {
         // Fields
         private IItem? nemesisItem;
@@ -12,7 +12,7 @@ namespace Assets.Game.Objects
         // Methods
         public void SetNemesis(IItem item)
         {
-            this.nemesisItem = item;
+            nemesisItem = item;
         }
     }
 }

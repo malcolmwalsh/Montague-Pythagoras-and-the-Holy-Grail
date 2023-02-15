@@ -5,5 +5,7 @@ namespace Assets.Game.Objects
     {
         // Properties
         IObstacle? NemisisObstacle { get; }
+
+        void SetNemesis(IObstacle obstacle);
     }
 }

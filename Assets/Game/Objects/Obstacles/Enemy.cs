@@ -1,13 +1,18 @@
-﻿namespace Assets.Game.Objects
+﻿#nullable enable
+namespace Assets.Game.Objects
 {
     internal class Enemy : IObstacle
     {
         // Fields
-        private readonly IItem nemesisItem;
+        private IItem? nemesisItem;
 
         // Properties
-        public IItem NemesisItem { get => nemesisItem; }
+        public IItem? NemesisItem => nemesisItem;
 
-        // Constructors
+        // Methods
+        public void SetNemesis(IItem item)
+        {
+            this.nemesisItem = item;
+        }
     }
 }

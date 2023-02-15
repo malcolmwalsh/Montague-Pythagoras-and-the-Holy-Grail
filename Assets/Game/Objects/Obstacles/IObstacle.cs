@@ -4,5 +4,7 @@
     {
         // Properties
         IItem NemesisItem { get; }
+
+        void SetNemesis(IItem item);
     }
 }

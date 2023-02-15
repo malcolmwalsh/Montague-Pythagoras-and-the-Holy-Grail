@@ -15,7 +15,7 @@ namespace Assembly_CSharp
         public IObstacle? NemisisObstacle => nemesisObstacle;
 
         // Methods
-        internal void SetNemesis(IObstacle obstacle)
+        public void SetNemesis(IObstacle obstacle)
         {
             nemesisObstacle = obstacle;
         }
