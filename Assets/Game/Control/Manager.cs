@@ -1,4 +1,5 @@
-﻿using Assets.Game.Objects;
+﻿using Assembly_CSharp;
+using Assets.Game.Objects;
 using Assets.Game.Objects.Items;
 using Assets.Game.Objects.Obstacles;
 using Assets.Game.Objects.Rooms;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using static Assets.Game.Navigation.Enums;
 
 #nullable enable
 namespace Assets.Game.Control
@@ -62,7 +64,19 @@ namespace Assets.Game.Control
             IRoom startRoom = roomFactory.GetObject("StartRoom");
             IRoom outside = roomFactory.GetObject("Outside");
             IRoom grandEntrance = roomFactory.GetObject("GrandEntrance");
+            IRoom library = roomFactory.GetObject("Library");
+            IRoom diningHall = roomFactory.GetObject("DiningHall");
+            IRoom billiardsRoom = roomFactory.GetObject("BilliardsRoom");
             rooms = new HashSet<IRoom>(new List<IRoom>() { startRoom, outside, grandEntrance });
+            print("...done");
+
+            // Set up all the doors
+            print("Creating doors...");
+            IDoor closetDoor = new Door("ClosetDoor", "A small flimsy door", roomA: startRoom, roomB: grandEntrance);
+            IDoor brassDoor = new Door("BrassDoor", "A huge brass door with a small plaque: 'Library'", library, grandEntrance, brassLock);
+            IDoor guardedDoor = new Door("GuardedDoor", "Hard to see the door through the enormous knight in full armour that stands in front of it", billiardsRoom,grandEntrance, enemy);
+            IDoor diningDoor = new Door("DiningDoor", "An ornate door with a small plaque: 'Dining hall'", roomA: grandEntrance, roomB: diningHall);
+            IDoor exteriorDoor = new Door("ExteriorDoor", "A thick door with a mail slot", outside, diningHall, bitterCold);
             print("...done");
 
             // Assign nemeses to obstacles
@@ -79,13 +93,38 @@ namespace Assets.Game.Control
             magicSword.SetNemesis(enemy);
             print("...done");
 
-            // Assign obstacles to rooms
+            // Assign doors to rooms
             print("Assigning to rooms...");
+            AssignDoorBetweenRooms(grandEntrance, startRoom, closetDoor, CompassDirection.South);
+            AssignDoorBetweenRooms(grandEntrance, library, brassDoor, CompassDirection.West);
+            AssignDoorBetweenRooms(grandEntrance, diningHall, diningDoor, CompassDirection.East);
+            AssignDoorBetweenRooms(grandEntrance, billiardsRoom, guardedDoor, CompassDirection.North);
+            AssignDoorBetweenRooms(billiardsRoom, outside, exteriorDoor, CompassDirection.North);
             print("...done");
 
             // Hold a reference to the current keyboard
             keyboard = Keyboard.current;
 
+        }
+
+        private static void AssignDoorBetweenRooms(IRoom roomA, IRoom roomB, IDoor door, CompassDirection direction)
+        {
+            CompassDirection oppositeDirection = GetOppositeDirection(direction);
+
+            roomA.SetDoorInDirection(direction, door);
+            roomB.SetDoorInDirection(oppositeDirection, door);
+        }
+
+        private static CompassDirection GetOppositeDirection(CompassDirection direction)
+        {
+            return direction switch
+            {
+                CompassDirection.North => CompassDirection.South,
+                CompassDirection.South => CompassDirection.North,
+                CompassDirection.East => CompassDirection.West,
+                CompassDirection.West => CompassDirection.East,
+                _ => throw new System.NotImplementedException($"Unknown direction: {direction}"),
+            };
         }
 
         public void Update()

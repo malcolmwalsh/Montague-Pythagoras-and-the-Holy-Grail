@@ -11,7 +11,7 @@ namespace Assets.Game.Objects
         bool IsStartRoom { get; }
         bool IsFinalRoom { get; }
         ISet<IItem> Items { get; }
-        IDictionary<CompassDirection, IDoor?> Doors { get; }
+        IDictionary<CompassDirection, IDoor> Doors { get; }
 
         // Methods
         bool HasItem()

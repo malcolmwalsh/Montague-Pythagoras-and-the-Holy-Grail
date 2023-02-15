@@ -9,11 +9,14 @@ namespace Assets.Game.Objects.Rooms
         {
             return itemName switch
             {
-                "StartRoom" => new StartRoom(),
-                "Outside" => new OutsideRoom(),
-                "GrandEntrance" => new GrandEntrance(),
+                "StartRoom" => new Room(itemName, "A small closet", true, false),
+                "Outside" => new Room(itemName, "The freezing wind hits your face...", false, true),
+                "GrandEntrance" => new Room(itemName, "A huge entrance room with doors on all four walls"),
+                "Library" => new Room(itemName, "There's books floor to ceiling."),
+                "DiningHall" => new Room(itemName, "An cavernous room with a large diniing table in the middle"),
+                "BilliardsRoom" => new Room(itemName, "A small room with a large billiards table in the centre"),
                 _ => throw new ApplicationException(string.Format($"Room `{itemName}` cannot be created")),
-            };
+            }; ;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Assets.Game.Objects;
+﻿#nullable enable
+using Assets.Game.Objects;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,16 +7,42 @@ namespace Assembly_CSharp
 {
     internal class Door : IDoor
     {
+        // Constructors
+        public Door(string name, string description, IRoom roomA, IRoom roomB)
+        {
+            this.name = name;
+            this.description = description;
+
+            this.roomA = roomA;
+            this.roomB = roomB;            
+        }
+
+        public Door(string name, string description, IRoom roomA, IRoom roomB, IObstacle obstacle) : this(name, description, roomA, roomB)
+        {
+            obstacles.Add(obstacle);
+
+            this.locked = true;
+        }
+        
         // Fields
-        private ISet<IObstacle> obstacles;
-        private IRoom roomA;
-        private IRoom roomB;
+        private readonly string name;
+        private readonly string description;
+
+        private readonly ISet<IObstacle> obstacles = new HashSet<IObstacle>();
+        private readonly IRoom roomA;
+        private readonly IRoom roomB;
         private bool locked;
 
-        // Constructors
-
+        // Properties
+        public string Name => name;
+        public string Description => description;
 
         // Methods
+        public bool ConnectsRoom(IRoom room)
+        {
+            return room.Equals(roomA) || room.Equals(roomB);
+        }
+
         public bool IsLocked()
         {
             return locked;

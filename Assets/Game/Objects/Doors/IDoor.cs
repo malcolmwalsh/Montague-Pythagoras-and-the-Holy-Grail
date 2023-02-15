@@ -2,6 +2,8 @@
 {
     internal interface IDoor : IObject
     {
+        bool ConnectsRoom(IRoom room);
+
         // Methods
         IRoom GetConnectingRoom(IRoom currentRoom);
         bool IsLocked();

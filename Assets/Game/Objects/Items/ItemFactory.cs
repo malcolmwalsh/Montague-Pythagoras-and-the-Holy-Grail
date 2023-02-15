@@ -1,5 +1,4 @@
-﻿using Assembly_CSharp;
-using System;
+﻿using System;
 
 namespace Assets.Game.Objects.Items
 {
@@ -9,9 +8,9 @@ namespace Assets.Game.Objects.Items
         {
             return itemName switch
             {
-                "BrassKey" => new BrassKey(),
-                "WoollyHat" => new WoollyHat(),
-                "MagicSword" => new MagicSword(),
+                "BrassKey" => new Item(itemName, "A large, heavy key made of a shiny golden brown metal"),
+                "WoollyHat" => new Item(itemName, "A beanie made of alpaca wool"),
+                "MagicSword" => new Item(itemName, "A heavy sword that whispers riddles to you as you carry it around"),
                 _ => throw new ApplicationException(string.Format($"Item `{itemName}` cannot be created")),
             };
         }
