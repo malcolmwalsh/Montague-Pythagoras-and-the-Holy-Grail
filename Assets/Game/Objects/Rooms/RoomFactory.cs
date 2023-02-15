@@ -1,4 +1,5 @@
 ﻿using Assets.Game.Objects.Items;
+using System;
 
 namespace Assets.Game.Objects.Rooms
 {
@@ -6,7 +7,12 @@ namespace Assets.Game.Objects.Rooms
     {
         internal override IRoom GetObject(string itemName)
         {
-            throw new System.NotImplementedException();
+            return itemName switch
+            {
+                "StartRoom" => new StartRoom(),
+                "Outside" => new OutsideRoom(),
+                _ => throw new ApplicationException(string.Format($"Room `{itemName}` cannot be created")),
+            };
         }
     }
 }

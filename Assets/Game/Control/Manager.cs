@@ -59,6 +59,9 @@ namespace Assets.Game.Control
             // Set up all the rooms
             print("Creating rooms...");
             ObjectFactory<IRoom> roomFactory = new RoomFactory();
+            IRoom startRoom = roomFactory.GetObject("StartRoom");
+            IRoom outside = roomFactory.GetObject("Outside");
+            rooms = new HashSet<IRoom>(new List<IRoom>() { startRoom, outside });
             print("...done");
 
             // Assign nemeses to obstacles
