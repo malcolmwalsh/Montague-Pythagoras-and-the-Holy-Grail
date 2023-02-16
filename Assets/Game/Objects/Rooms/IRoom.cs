@@ -41,6 +41,6 @@ namespace Assets.Game.Objects
         void SetDoorInDirection(CompassDirection direction, IDoor door)
         {
             Doors.Add(direction, door);
-        }
+        }        
     }
 }

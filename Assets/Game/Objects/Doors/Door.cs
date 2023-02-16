@@ -17,11 +17,14 @@ namespace Assembly_CSharp
             this.roomB = roomB;            
         }
 
-        public Door(string name, string description, IRoom roomA, IRoom roomB, IObstacle obstacle) : this(name, description, roomA, roomB)
+        public Door(string name, string description, IRoom roomA, IRoom roomB, IObstacle obstacle, string blockedText, string unblockText) : this(name, description, roomA, roomB)
         {
             obstacles.Add(obstacle);
 
-            this.locked = true;
+            this.blockedText = blockedText;
+            this.unblockText = unblockText;
+
+            this.blocked = true;            
         }
         
         // Fields
@@ -31,7 +34,9 @@ namespace Assembly_CSharp
         private readonly ISet<IObstacle> obstacles = new HashSet<IObstacle>();
         private readonly IRoom roomA;
         private readonly IRoom roomB;
-        private bool locked;
+        private bool blocked;
+        private string? blockedText;
+        private string? unblockText;
 
         // Properties
         public string Name => name;
@@ -43,9 +48,14 @@ namespace Assembly_CSharp
             return room.Equals(roomA) || room.Equals(roomB);
         }
 
-        public bool IsLocked()
+        public bool IsBlocked()
         {
-            return locked;
+            return blocked;
+        }
+
+        public void Unblock()
+        {
+            this.blocked = false;
         }
 
         public bool TryTraverse(IPlayer player)
@@ -53,10 +63,10 @@ namespace Assembly_CSharp
             if (!HasObstacle())
             {
                 // No obstacle, unlock if not already
-                locked = false;
+                blocked = false;
             }
 
-            if (!IsLocked()) return true;  // Not locked
+            if (!IsBlocked()) return true;  // Not locked
 
             // So we have an obstacle
             bool hasNotItem = false;
@@ -87,6 +97,16 @@ namespace Assembly_CSharp
         private bool HasObstacle()
         {
             return obstacles.Any();
+        }
+
+        public string? GetBlockedText()
+        {
+            return this.blockedText;
+        }
+
+        public string? GetUnblockText()
+        {
+            return this.unblockText;
         }
     }
 }

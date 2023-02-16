@@ -1,3 +1,4 @@
+#nullable enable
 using Assets.Game.Objects;
 using System.Collections.Generic;
 using static Assets.Game.Navigation.Enums;
@@ -8,18 +9,22 @@ internal class Player : IPlayer
     private readonly string name;
     private readonly string description;
 
-    private ISet<IItem> items;
+    private IRoom? currentRoom;
+
+    private ISet<IItem> items = new HashSet<IItem>();
 
     // Constructors
-    public Player(string name, string description)
+    public Player(string name, string description, IRoom currentRoom)
     {
         this.name = name;
         this.description = description;
+        this.currentRoom = currentRoom;
     }
 
     // Properties
     public string Name => name;
     public string Description => description;
+    public IRoom? CurrentRoom { get => currentRoom; set => currentRoom = value; }
 
     // Methods
 
