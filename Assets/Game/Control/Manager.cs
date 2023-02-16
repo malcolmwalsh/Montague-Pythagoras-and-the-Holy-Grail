@@ -5,6 +5,8 @@ using Assets.Game.Objects.Obstacles;
 using Assets.Game.Objects.Rooms;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -85,21 +87,21 @@ namespace Assets.Game.Control
             PrintText("...done");
 
             // Assign nemeses to obstacles
-            PrintText("Assigning to obstacles...");
+            PrintText("Assigning obstacles...");
             brassLock.SetNemesis(brassKey);
             bitterCold.SetNemesis(woollyHat);
             enemy.SetNemesis(magicSword);
             PrintText("...done");
 
             // Assign nemeses to items
-            PrintText("Assigning to items...");
+            PrintText("Assigning items...");
             brassKey.SetNemesis(brassLock);
             woollyHat.SetNemesis(bitterCold);
             magicSword.SetNemesis(enemy);
             PrintText("...done");
 
             // Assign doors to rooms
-            PrintText("Assigning to rooms...");
+            PrintText("Assigning doors to rooms...");
             AssignDoorBetweenRooms(grandEntrance, startRoom, closetDoor, CompassDirection.South);
             AssignDoorBetweenRooms(grandEntrance, library, brassDoor, CompassDirection.West);
             AssignDoorBetweenRooms(grandEntrance, diningHall, diningDoor, CompassDirection.East);
@@ -107,9 +109,16 @@ namespace Assets.Game.Control
             AssignDoorBetweenRooms(billiardsRoom, outside, exteriorDoor, CompassDirection.North);
             PrintText("...done");
 
+            // Assign items to rooms
+            PrintText("Assigning items to rooms...");
+            grandEntrance.AddItem(woollyHat);
+            diningHall.AddItem(brassKey);
+            library.AddItem(magicSword);
+            PrintText("...done");
+
             // Create a player object
             PrintText("Creating player...");
-            player = new Player("Player", "Our hero, but he is very small", startRoom);
+            player = new Player("Montague Pythagoras", "Our hero, but he is very small", startRoom);
             PrintText("...done");
 
             // Hold a reference to the current keyboard
@@ -145,7 +154,12 @@ namespace Assets.Game.Control
                     else if (pressedKey.Equals(helpKey))
                     {
                         // Help
-                        ShowHelp();
+                        PrintHelpText();
+                    }
+                    else if (pressedKey.Equals(inspectKey))
+                    {
+                        // Inspect room
+                        InspectRoom(player.CurrentRoom);
                     }
                     else if (movementKeys.Keys.Contains(pressedKey))
                     {
@@ -160,9 +174,25 @@ namespace Assets.Game.Control
 
                     break;  // Stop looping, found the key
                 }
-            }        
+            }
+
+            if (winGame)
+            {
+                // Won the game!
+                PrintWinGameText();
+            }
+
+            if (exitGame)
+            {
+                // TODO: Exit the game
+            }
         }
         // End MonoBehaviour
+
+        private void PrintWinGameText()
+        {
+            throw new NotImplementedException();
+        }
 
         private void PrintMovingIntoNewRoomText(IRoom currentRoom, IRoom newRoom)
         {
@@ -255,16 +285,65 @@ namespace Assets.Game.Control
 
                     // Set new room as current room
                     player.CurrentRoom = newRoom;
+
+                    // Describe new room
+                    PrintRoomDescriptionText(newRoom);
+
+                    // TODO: Check for NPC in room
+
+                    // Check whether this is the final room
+                    if (newRoom.IsFinalRoom)
+                    {
+                        // Set win
+                        winGame = true;
+                    }
                 }
             }
         }
 
-        private void ShowHelp()
+        private void PrintRoomDescriptionText(IRoom newRoom)
+        {
+            string text = newRoom.Description;
+            PrintText(text);
+        }
+
+        private void PrintHelpText()
         {
             // TODO: Help text
             throw new NotImplementedException();
         }
-        
+
+        private void InspectRoom(IRoom room)
+        {
+            // TODO: Has to tell the player where the doors are
+
+
+            string text = $"You walk around the room slowly, pushing and prodding at things.";
+
+            // Check for items in the room
+            if (room.HasItem())
+            {
+                text += "A shiny object grabs your attention.\n";
+
+                // Get the item
+                IItem? item = room.GetItem();
+
+                if (item != null)
+                {
+                    // Shouldn't be null as we checked above
+                    text += $"You see a {item} and greedily put it in your backpack.";
+
+                    // Player now has this item
+                    player.AddItem(item);
+                }
+            }
+            else
+            {
+                text += "In the end, there's nothing of interest.";
+            }
+
+            PrintText(text);
+        }        
 
         private void QuitGame()
         {

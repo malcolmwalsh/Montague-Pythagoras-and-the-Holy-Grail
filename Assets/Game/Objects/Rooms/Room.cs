@@ -1,6 +1,7 @@
 ﻿#nullable enable
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using static Assets.Game.Navigation.Enums;
 
 namespace Assets.Game.Objects.Rooms
@@ -33,8 +34,7 @@ namespace Assets.Game.Objects.Rooms
 
         // Begin IRoom
         public bool IsStartRoom => isStartRoom;
-        public bool IsFinalRoom => isFinalRoom;
-        public ISet<IItem> Items => items;
+        public bool IsFinalRoom => isFinalRoom;        
         public IDictionary<CompassDirection, IDoor> Doors => doors;
         // End IRoom
 
@@ -55,6 +55,31 @@ namespace Assets.Game.Objects.Rooms
 
             // Add
             doors.Add(direction, door);
+        }
+
+        public bool HasItem()
+        {
+            return items.Any();
+        }
+
+        public void AddItem(IItem item)
+        {
+            items.Add(item);
+        }
+
+        public IItem? GetItem()
+        {
+            IItem item = items.FirstOrDefault();
+
+            // Items have been taken
+            items.Clear();
+
+            return item;
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

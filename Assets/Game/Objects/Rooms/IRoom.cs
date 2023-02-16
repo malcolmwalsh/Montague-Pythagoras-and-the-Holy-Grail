@@ -9,21 +9,10 @@ namespace Assets.Game.Objects
     {
         // Properties
         bool IsStartRoom { get; }
-        bool IsFinalRoom { get; }
-        ISet<IItem> Items { get; }
+        bool IsFinalRoom { get; }        
         IDictionary<CompassDirection, IDoor> Doors { get; }
 
         // Methods
-        bool HasItem()
-        {
-            return Items.Any();
-        }
-
-        void AddItem(IItem item)
-        {
-            Items.Add(item);
-        }
-
         bool HasDoorInDirection(CompassDirection direction)
         {
             IDoor? door = GetDoorInDirection(direction);
@@ -41,6 +30,10 @@ namespace Assets.Game.Objects
         void SetDoorInDirection(CompassDirection direction, IDoor door)
         {
             Doors.Add(direction, door);
-        }        
+        }
+
+        void AddItem(IItem item);
+        bool HasItem();
+        IItem? GetItem();
     }
 }

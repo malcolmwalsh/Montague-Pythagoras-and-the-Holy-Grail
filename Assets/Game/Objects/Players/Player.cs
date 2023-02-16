@@ -1,7 +1,6 @@
 #nullable enable
 using Assets.Game.Objects;
 using System.Collections.Generic;
-using static Assets.Game.Navigation.Enums;
 
 internal class Player : IPlayer
 {
@@ -29,21 +28,14 @@ internal class Player : IPlayer
     // Methods
 
     // Begin IPlayer
-    public void TryMove(CompassDirection direction)
-    {
-        // TODO
-        throw new System.NotImplementedException();
-    }
-
-    public void InspectRoom()
-    {
-        // TODO
-        throw new System.NotImplementedException();
-    }
-
     public bool HasItem(IItem item)
     {
         return items.Contains(item);
+    }
+
+    public void AddItem(IItem item)
+    {
+        this.items.Add(item);
     }
     // End IPlayer
    

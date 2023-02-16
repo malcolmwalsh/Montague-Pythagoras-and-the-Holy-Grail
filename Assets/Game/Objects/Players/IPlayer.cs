@@ -1,6 +1,4 @@
-﻿using static Assets.Game.Navigation.Enums;
-
-namespace Assets.Game.Objects
+﻿namespace Assets.Game.Objects
 {
     internal interface IPlayer : IObject
     {
@@ -9,7 +7,6 @@ namespace Assets.Game.Objects
 
         // Methods
         bool HasItem(IItem item);
-        void InspectRoom();        
-        void TryMove(CompassDirection direction);
+        void AddItem(IItem item);
     }
 }
