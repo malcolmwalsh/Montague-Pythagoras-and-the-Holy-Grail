@@ -5,8 +5,6 @@ using Assets.Game.Objects.Obstacles;
 using Assets.Game.Objects.Rooms;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -15,7 +13,7 @@ using static Assets.Game.Navigation.Enums;
 #nullable enable
 namespace Assets.Game.Control
 {
-    internal class Manager : MonoBehaviour
+    public class Manager : MonoBehaviour
     {
         // Fields
         private bool exitGame = false;
@@ -39,6 +37,9 @@ namespace Assets.Game.Control
         private IDictionary<Key, CompassDirection> movementKeys;
 
         private Keyboard keyboard;
+
+        // Properties
+        public bool WinGame { get => winGame; set => winGame = value; }
 
         // Methods
         // Begin MonoBehaviour
@@ -176,7 +177,7 @@ namespace Assets.Game.Control
                 }
             }
 
-            if (winGame)
+            if (WinGame)
             {
                 // Won the game!
                 PrintWinGameText();
@@ -298,7 +299,7 @@ namespace Assets.Game.Control
                     if (newRoom.IsFinalRoom)
                     {
                         // Set win
-                        winGame = true;
+                        WinGame = true;
                     }
                 }
             }
