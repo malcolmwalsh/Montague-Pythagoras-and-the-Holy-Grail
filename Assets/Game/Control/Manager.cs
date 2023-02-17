@@ -26,7 +26,9 @@ namespace Assets.Game.Control
         private ISet<IRoom> rooms;
         private ISet<IItem> items;
 
+        private Key newGameKey = Key.N;
         private Key quitKey = Key.Escape;
+
         private Key helpKey = Key.H;
         private Key inspectKey = Key.I;
 
@@ -37,6 +39,8 @@ namespace Assets.Game.Control
         private IDictionary<Key, CompassDirection> movementKeys;
 
         private Keyboard keyboard;
+
+        private bool gameInProgress;  // Will be true once player has passed the main menu screen.        
 
         // Properties
         public bool WinGame { get => winGame; set => winGame = value; }
@@ -132,6 +136,9 @@ namespace Assets.Game.Control
                 { moveSouthKey, CompassDirection.South},
                 { moveWestKey, CompassDirection.West } 
             };
+
+            // Main menu
+            PrintMainMenu();
         }
 
         public void Update()
@@ -160,12 +167,16 @@ namespace Assets.Game.Control
                     else if (pressedKey.Equals(inspectKey))
                     {
                         // Inspect room
-                        InspectRoom(player.CurrentRoom);
+                        if (this.gameInProgress) InspectRoom(player.CurrentRoom);
                     }
                     else if (movementKeys.Keys.Contains(pressedKey))
                     {
                         // Wants to move to another room
-                        TryMoveIntoNewRoom(pressedKey);
+                        if (this.gameInProgress) TryMoveIntoNewRoom(pressedKey);
+                    }
+                    else if (pressedKey.Equals(newGameKey))
+                    {
+                        if (!this.gameInProgress) StartNewGame();
                     }
                     else
                     {
@@ -189,6 +200,21 @@ namespace Assets.Game.Control
             }
         }
         // End MonoBehaviour
+
+        private void StartNewGame()
+        {
+            // TODO
+            throw new NotImplementedException();
+        }
+
+
+        private void PrintMainMenu()
+        {
+            // TODO: Add menu
+            string text = $"Welcome to Monague Pythagoras and the Holey Grail\nPress {helpKey} for help";
+
+            PrintText(text);
+        }
 
         private void PrintWinGameText()
         {
