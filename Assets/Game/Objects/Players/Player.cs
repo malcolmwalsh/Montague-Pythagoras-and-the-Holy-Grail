@@ -38,5 +38,9 @@ internal class Player : IPlayer
         this.items.Add(item);
     }
     // End IPlayer
-   
+
+    public override string ToString()
+    {
+        return Name;
+    }
 }

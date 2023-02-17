@@ -108,5 +108,10 @@ namespace Assembly_CSharp
         {
             return this.unblockText;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

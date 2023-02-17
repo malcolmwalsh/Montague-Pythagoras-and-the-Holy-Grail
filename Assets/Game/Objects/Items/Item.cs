@@ -32,5 +32,10 @@ namespace Assets.Game.Objects.Items
         {
             nemesisObstacle = obstacle;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
