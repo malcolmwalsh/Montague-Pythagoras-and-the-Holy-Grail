@@ -191,7 +191,10 @@ namespace Assets.Game.Control
 
         private void PrintWinGameText()
         {
-            throw new NotImplementedException();
+            string text = $"You walk off into the freezing night, only stopping briefly to turn around and look back. There's mixed emotions, but overall you feel content.\n";
+            text += $"Then, without warning a police car pulls up and the officers jump out and start shouting at you and reaching for their tasers. Your adventure is over.";
+            
+            PrintText(text);
         }
 
         private void PrintMovingIntoNewRoomText(IRoom currentRoom, IRoom newRoom)
