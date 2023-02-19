@@ -5,6 +5,7 @@ using Assets.Game.Objects.Obstacles;
 using Assets.Game.Objects.Rooms;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -66,24 +67,25 @@ namespace Assets.Game.Control
             IItem woollyHat = itemFactory.GetObject("WoollyHat");
             IItem magicSword = itemFactory.GetObject("MagicSword");
             IItem brassKey = itemFactory.GetObject("BrassKey");
-            items = new HashSet<IItem>() { woollyHat, magicSword, brassKey };
+            IItem pinkCowboyHat = itemFactory.GetObject("PinkCowboyHat");
+            items = new HashSet<IItem>() { woollyHat, magicSword, brassKey, pinkCowboyHat };
             PrintText("...done");
 
             // Set up all the rooms
             PrintText("Creating rooms...");
             ObjectFactory<IRoom> roomFactory = new RoomFactory();
-            IRoom startRoom = roomFactory.GetObject("StartRoom");
+            IRoom closet = roomFactory.GetObject("Closet");
             IRoom outside = roomFactory.GetObject("Outside");
             IRoom grandEntrance = roomFactory.GetObject("GrandEntrance");
             IRoom library = roomFactory.GetObject("Library");
             IRoom diningHall = roomFactory.GetObject("DiningHall");
             IRoom billiardsRoom = roomFactory.GetObject("BilliardsRoom");
-            rooms = new HashSet<IRoom>() { startRoom, outside, grandEntrance, library, diningHall, billiardsRoom };
+            rooms = new HashSet<IRoom>() { closet, outside, grandEntrance, library, diningHall, billiardsRoom };
             PrintText("...done");
 
             // Set up all the doors
             PrintText("Creating doors...");
-            IDoor closetDoor = new Door("ClosetDoor", "A small flimsy door", roomA: startRoom, roomB: grandEntrance);
+            IDoor closetDoor = new Door("ClosetDoor", "A small flimsy door", roomA: closet, roomB: grandEntrance);
             IDoor brassDoor = new Door("BrassDoor", "A huge brass door with a small plaque: 'Library'", library, grandEntrance, brassLock, "A thick-set brass handle is locked tight", "With a satisfying click, the key turns the lock");
             IDoor guardedDoor = new Door("GuardedDoor", "Hard to see the door through the enormous knight in full armour that stands in front of it", billiardsRoom, grandEntrance, enemy, "There's no way to pass the guard without ending up dead, or worse", "\"Tis but a scratch\", shouts the knight, as you step over his limbless torso.");
             IDoor diningDoor = new Door("DiningDoor", "An ornate door with a small plaque: 'Dining hall'", roomA: grandEntrance, roomB: diningHall);
@@ -107,7 +109,7 @@ namespace Assets.Game.Control
 
             // Assign doors to rooms
             PrintText("Assigning doors to rooms...");
-            AssignDoorBetweenRooms(grandEntrance, startRoom, closetDoor, CompassDirection.South);
+            AssignDoorBetweenRooms(grandEntrance, closet, closetDoor, CompassDirection.South);
             AssignDoorBetweenRooms(grandEntrance, library, brassDoor, CompassDirection.West);
             AssignDoorBetweenRooms(grandEntrance, diningHall, diningDoor, CompassDirection.East);
             AssignDoorBetweenRooms(grandEntrance, billiardsRoom, guardedDoor, CompassDirection.North);
@@ -119,11 +121,12 @@ namespace Assets.Game.Control
             grandEntrance.AddItem(woollyHat);
             diningHall.AddItem(brassKey);
             library.AddItem(magicSword);
+            closet.AddItem(pinkCowboyHat);
             PrintText("...done");
 
             // Create a player object
             PrintText("Creating player...");
-            player = new Player("Montague Pythagoras", "Our hero, but he is very small", startRoom);
+            player = new Player("Montague Pythagoras", "Our hero, but he is very small", closet);
             PrintText("...done");
 
             // Hold a reference to the current keyboard
@@ -154,41 +157,69 @@ namespace Assets.Game.Control
                     // What is pressed
                     Key pressedKey = keyID.keyCode;
 
-                    if (pressedKey.Equals(quitKey))
-                    {
-                        // Quit game
-                        QuitGame();
-                    }
-                    else if (pressedKey.Equals(helpKey))
+                    if (pressedKey.Equals(helpKey))
                     {
                         // Help
                         PrintHelpText();
-                    }
-                    else if (pressedKey.Equals(inspectKey))
+                    } 
+                    else if (!this.gameInProgress)
                     {
-                        // Inspect room
-                        if (this.gameInProgress) InspectRoom(player.CurrentRoom);
-                    }
-                    else if (movementKeys.Keys.Contains(pressedKey))
-                    {
-                        // Wants to move to another room
-                        if (this.gameInProgress) TryMoveIntoNewRoom(pressedKey);
-                    }
-                    else if (pressedKey.Equals(newGameKey))
-                    {
-                        if (!this.gameInProgress) StartNewGame();
+                        // In main menu
+
+                        if (pressedKey.Equals(quitKey))
+                        {
+                            // Quit game (will set exitGame = true)
+                            QuitGame();
+                        }
+                        else if (pressedKey.Equals(newGameKey))
+                        {
+                            // New game
+                            StartNewGame();
+
+                            // Introduction
+                            PrintIntroduction();
+
+                            // Inspect initial room
+                            InspectRoom(player.CurrentRoom);
+                        }
+                        else
+                        {
+                            // Invalid key
+                            PrintInvalidKeyText(pressedKey);
+                        }
                     }
                     else
                     {
-                        // Invalid key
-                        PrintInvalidKeyText(pressedKey);
-                    }
+                        // Within the game
 
-                    break;  // Stop looping, found the key
+                        if (pressedKey.Equals(inspectKey))
+                        {
+                            // Inspect room
+                            InspectRoom(player.CurrentRoom);
+                        }
+                        else if (movementKeys.Keys.Contains(pressedKey))
+                        {
+                            // Wants to move to another room
+                            TryMoveIntoNewRoom(pressedKey);
+                        }
+                        else if (pressedKey.Equals(quitKey))
+                        {
+                            // Quit run
+                            QuitRun();
+
+                            // Main menu
+                            PrintMainMenu();
+                        }
+                        else
+                        {
+                            // Invalid key
+                            PrintInvalidKeyText(pressedKey);
+                        }
+                    }                    
                 }
             }
 
-            if (WinGame)
+            if (winGame)
             {
                 // Won the game!
                 PrintWinGameText();
@@ -196,28 +227,62 @@ namespace Assets.Game.Control
 
             if (exitGame)
             {
-                // TODO: Exit the game
+                // Exit the game
+                ExitGame();
             }
         }
         // End MonoBehaviour
 
+        private void ExitGame()
+        {
+            string text = "When you're chewing on life's gristle, don't grumble, give a whistle. And this'll help things turn out for the best. And...\n" +
+                "Always look on the bright side of life.";
+            PrintText(text);
+
+            #if UNITY_STANDALONE
+                Application.Quit();
+            #endif
+            #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+            #endif            
+        }        
+
         private void StartNewGame()
         {
-            // TODO
-            throw new NotImplementedException();
+            // For the menu options, now in a game
+            this.gameInProgress = true;
+
+            ClearLog();
+
+            string text = "A new game. You must go into it and love everyone, try to make everyone happy, and bring peace and contentment everywhere you go.\n" +
+                "Although you'll do better at the game if you don't";
+
+            PrintText(text);
         }
 
+        private void PrintIntroduction()
+        {
+            string text = $"You find yourself in a medium-sized closet, surrounded by various tins, jars, blankets, brooms, and a single pink cowboy hat.\n" +
+                $"As nice as the closet is, you'd rather be outside, leaping from tree to tree as they float down the mighty rivers of British Columbia!";
+
+            PrintText(text);
+        }
 
         private void PrintMainMenu()
         {
-            // TODO: Add menu
-            string text = $"Welcome to Monague Pythagoras and the Holey Grail\nPress {helpKey} for help";
+            ClearLog();
+
+            // Menu
+            string text = $"Welcome to Monague Pythagoras and the Holey Grail\nPress {helpKey} for help, {newGameKey} for a new game or {quitKey} to shuffle of this mortal coil";
 
             PrintText(text);
         }
 
         private void PrintWinGameText()
         {
+            // For the menu options, no longer in a game
+            this.gameInProgress = false;
+
             string text = $"You walk off into the freezing night, only stopping briefly to turn around and look back. There's mixed emotions, but overall you feel content.\n";
             text += $"Then, without warning a police car pulls up and the officers jump out and start shouting at you and reaching for their tasers. Your adventure is over.";
             
@@ -226,6 +291,8 @@ namespace Assets.Game.Control
 
         private void PrintMovingIntoNewRoomText(IRoom currentRoom, IRoom newRoom)
         {
+            ClearLog();
+
             string text = $"You open the door and pass from {currentRoom} into {newRoom}";
             PrintText(text);
         }
@@ -339,8 +406,13 @@ namespace Assets.Game.Control
 
         private void PrintHelpText()
         {
-            // TODO: Help text
-            throw new NotImplementedException();
+            ClearLog();
+
+            // Help text
+            string text = $"Use the {moveNorthKey}, {moveSouthKey}, {moveWestKey} and {moveEastKey} to move North, South, West and East respectively. Use {inspectKey} to inspect a room for items. \n" +
+                $"Press {helpKey} for this help at any time. To bravely run away, press {quitKey} to return to the main menu and then {quitKey} again to exit the game altogether";
+
+            PrintText(text);
         }
 
         private void InspectRoom(IRoom room)
@@ -353,7 +425,7 @@ namespace Assets.Game.Control
             // Check for items in the room
             if (room.HasItem())
             {
-                text += "A shiny object grabs your attention.\n";
+                text += " A shiny object grabs your attention.\n";
 
                 // Get the item
                 IItem? item = room.GetItem();
@@ -361,7 +433,7 @@ namespace Assets.Game.Control
                 if (item != null)
                 {
                     // Shouldn't be null as we checked above
-                    text += $"You see a {item} and greedily put it in your backpack.";
+                    text += $"You see a {item}. {item.Description}";
 
                     // Player now has this item
                     player.AddItem(item);
@@ -369,11 +441,21 @@ namespace Assets.Game.Control
             }
             else
             {
-                text += "In the end, there's nothing of interest.";
+                text += " In the end, there's nothing of interest.";
             }
 
             PrintText(text);
-        }        
+        }
+
+        private void QuitRun()
+        {
+            // For the menu options, no longer in a game
+            this.gameInProgress = false;
+
+            string text = "This run is no more";
+
+            PrintText(text);
+        }
 
         private void QuitGame()
         {
@@ -402,6 +484,16 @@ namespace Assets.Game.Control
                 CompassDirection.West => CompassDirection.East,
                 _ => throw new System.NotImplementedException($"Unknown direction: {direction}"),
             };
+        }
+
+        private void ClearLog()
+        {
+            // https://stackoverflow.com/questions/40577412/clear-editor-console-logs-from-script
+
+            var assembly = Assembly.GetAssembly(typeof(UnityEditor.Editor));
+            var type = assembly.GetType("UnityEditor.LogEntries");
+            var method = type.GetMethod("Clear");
+            method.Invoke(new object(), null);
         }
     }
 }

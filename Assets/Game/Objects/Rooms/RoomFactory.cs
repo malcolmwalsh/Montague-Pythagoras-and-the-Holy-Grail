@@ -9,7 +9,7 @@ namespace Assets.Game.Objects.Rooms
         {
             return itemName switch
             {
-                "StartRoom" => new Room(itemName, "A small closet", true, false),
+                "Closet" => new Room(itemName, "A medium-sized closet", true, false),
                 "Outside" => new Room(itemName, "The freezing wind hits your face...", false, true),
                 "GrandEntrance" => new Room(itemName, "A huge entrance room with doors on all four walls"),
                 "Library" => new Room(itemName, "There's books floor to ceiling."),
