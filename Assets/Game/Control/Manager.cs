@@ -235,8 +235,7 @@ namespace Assets.Game.Control
 
         private void ExitGame()
         {
-            string text = "When you're chewing on life's gristle, don't grumble, give a whistle. And this'll help things turn out for the best. And...\n" +
-                "Always look on the bright side of life.";
+            string text = "When you're chewing on life's gristle, don't grumble, give a whistle. And this'll help things turn out for the best.";
             PrintText(text);
 
             #if UNITY_STANDALONE
@@ -392,7 +391,8 @@ namespace Assets.Game.Control
                     if (newRoom.IsFinalRoom)
                     {
                         // Set win
-                        WinGame = true;
+                        winGame = true;
+                        exitGame = true;
                     }
                 }
             }
