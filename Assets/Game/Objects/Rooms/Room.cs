@@ -4,6 +4,7 @@ using Assets.Game.Objects.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using static Assets.Game.Navigation.Enums;
 
 namespace Assets.Game.Objects.Rooms
@@ -82,6 +83,25 @@ namespace Assets.Game.Objects.Rooms
         public override string ToString()
         {
             return Name;
+        }
+
+        public int NumDoors()
+        {
+            return doors.Count;
+        }
+
+        public string DoorLocationText()
+        {
+            StringBuilder sb = new();
+
+            foreach (KeyValuePair<CompassDirection, IDoor> entry in doors)
+            {
+                string text = $"There is a door to the {entry.Key}. ";
+
+                sb.Append(text);
+            }
+
+            return sb.ToString();
         }
     }
 }

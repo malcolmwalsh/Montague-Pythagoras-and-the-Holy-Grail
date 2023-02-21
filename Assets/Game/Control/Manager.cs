@@ -417,23 +417,22 @@ namespace Assets.Game.Control
 
         private void InspectRoom(IRoom room)
         {
-            // TODO: Has to tell the player where the doors are
+            string text = room.Description;
 
+            text += room.DoorLocationText();
 
-            string text = $"You walk around the room slowly, pushing and prodding at things.";
+            text += $"\nYou walk around the room slowly, pushing and prodding at things.";
 
             // Check for items in the room
             if (room.HasItem())
             {
-                text += " A shiny object grabs your attention.\n";
-
                 // Get the item
                 IItem? item = room.GetItem();
 
                 if (item != null)
                 {
                     // Shouldn't be null as we checked above
-                    text += $"You see a {item}. {item.Description}";
+                    text += $" You see a {item}. {item.Description}";
 
                     // Player now has this item
                     player.AddItem(item);

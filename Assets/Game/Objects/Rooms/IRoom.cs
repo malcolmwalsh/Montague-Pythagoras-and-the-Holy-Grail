@@ -36,5 +36,7 @@ namespace Assets.Game.Objects.Rooms
         void AddItem(IItem item);
         bool HasItem();
         IItem? GetItem();
+        int NumDoors();
+        string DoorLocationText();
     }
 }
