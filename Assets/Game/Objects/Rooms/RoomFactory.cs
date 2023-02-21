@@ -12,7 +12,7 @@ namespace Assets.Game.Objects.Rooms
                 "Outside" => new Room(itemName, "The freezing wind hits your face as you step outside and into the blizzard. ", false, true),
                 "GrandEntrance" => new Room(itemName, "This is a huge entrance room with doors on all four walls. "),
                 "Library" => new Room(itemName, "This library has books floor to ceiling. "),
-                "DiningHall" => new Room(itemName, "You're in a cavernous room with a large diniing table in the middle. "),
+                "DiningHall" => new Room(itemName, "You're in a cavernous room with a large dining table in the middle. "),
                 "BilliardsRoom" => new Room(itemName, "This is a relatively small room with a large billiards table in the centre. "),
                 _ => throw new ApplicationException(string.Format($"Room `{itemName}` cannot be created")),
             }; ;

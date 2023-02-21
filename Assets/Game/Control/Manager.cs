@@ -417,9 +417,7 @@ namespace Assets.Game.Control
 
         private void InspectRoom(IRoom room)
         {
-            string text = room.Description;
-
-            text += room.DoorLocationText();
+            string text = room.DoorLocationText();
 
             text += $"\nYou walk around the room slowly, pushing and prodding at things.";
 
