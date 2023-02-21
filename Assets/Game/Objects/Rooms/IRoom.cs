@@ -15,6 +15,15 @@ namespace Assets.Game.Objects.Rooms
         IDictionary<CompassDirection, IDoor> Doors { get; }
 
         // Methods
+        void AddItem(IItem item);
+        bool HasItem();
+        IItem? GetItem();
+        int NumDoors();
+        string DoorLocationText();
+        void AddNPC(INPC npc);
+        bool HasNPC();
+        INPC? GetNPC();
+
         bool HasDoorInDirection(CompassDirection direction)
         {
             IDoor? door = GetDoorInDirection(direction);
@@ -34,12 +43,6 @@ namespace Assets.Game.Objects.Rooms
             Doors.Add(direction, door);
         }
 
-        void AddItem(IItem item);
-        bool HasItem();
-        IItem? GetItem();
-        int NumDoors();
-        string DoorLocationText();
-        void AddNPC(INPC npc);
-        bool HasNPC();
+
     }
 }

@@ -1,61 +1,55 @@
 ﻿using System.Collections.Generic;
 
+#nullable enable
 namespace Assets.Game.Objects.NPCs
 {
-    public class BridgeKeeper : NPC
+    public abstract class BridgeKeeper : NPC
     {
         // Constructors
-        public BridgeKeeper(string name, string description) : base(name, description)
+        public BridgeKeeper(string name, string description, bool canAskQuestions, int favouriteNumber) : base(name, description, canAskQuestions)
         {
-            firstLines.Add("Hello tiny human, are you looking for something?");
-
-            secondLines.Add("What is your favourite colour?");
+            this.favouriteNumber = favouriteNumber;
         }
 
         // Fields
-        private bool alreadyInteracted = false; // Will become true after the first interaction with this NPC
+        private int lineIndex = 0;
 
-        private int lineIndex;
+        protected IList<string> lines = new List<string>(); // Will use these the first time he's encountered        
 
-        private IList<string> firstLines = new List<string>(); // Will use these the first time he's encountered
-        private IList<string> secondLines = new List<string>(); // Will use thes the second time
+        protected readonly int favouriteNumber;
 
         // Properties
 
         // Methods
-        public override void Meet()
+        public override string Meet()
         {
             // Meet the NPC
 
-            // We've met him once now
-            alreadyInteracted = true;
-
-            // Reset the line number
-            lineIndex= 0;
+            // Return the intro text;
+            return Description;
         }
 
-        public override string Talk()
+        public override string? Talk()
         {
-            IList<string> lines;
-            if (!alreadyInteracted)
-            {
-                lines = firstLines;                
-            }
-            else
-            {
-                lines = secondLines;
-            }
-
-            // Get the next line
-            lineIndex++;
+            string? line;            
 
             if (lineIndex >= lines.Count)
             {
-                // Can't go outside the list length
-                lineIndex = lines.Count - 1;
-            }            
+                // Run out of lines
+                line = null;
+            }
+            else
+            {
+                line = lines[lineIndex];
+                lineIndex++;
+            }
 
-            return lines[lineIndex];
+            return line;
+        }
+
+        public override bool CanAskQuestions()
+        {
+            return canAskQuestions;
         }
     }
 }

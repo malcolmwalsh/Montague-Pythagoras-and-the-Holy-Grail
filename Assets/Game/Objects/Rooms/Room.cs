@@ -118,5 +118,10 @@ namespace Assets.Game.Objects.Rooms
         {
             return npcs.Any();  
         }
+
+        public INPC? GetNPC()
+        {
+            return npcs.FirstOrDefault();
+        }
     }
 }

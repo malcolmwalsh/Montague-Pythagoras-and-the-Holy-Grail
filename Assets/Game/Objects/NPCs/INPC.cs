@@ -1,8 +1,12 @@
-﻿namespace Assets.Game.Objects.NPCs
+﻿#nullable enable
+namespace Assets.Game.Objects.NPCs
 {
     public interface INPC : IObject
     {
-        void Meet();
-        string Talk();
+        string Meet();
+        string? Talk();
+        string Leave();
+        string? Ask(string question);
+        bool CanAskQuestions();
     }
 }

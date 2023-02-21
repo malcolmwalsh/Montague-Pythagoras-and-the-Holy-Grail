@@ -99,8 +99,10 @@ namespace Assets.Game.Control
 
             // Set up all the doors
             PrintText("Creating NPCs...");
-            INPC bridgeKeeper = new BridgeKeeper("The BridgeKeeper", "An old, hagger old man. He smells of spam.");
-            npcs = new HashSet<INPC>() { bridgeKeeper };
+            int favouriteNumber = Random.Range(23, 43);
+            INPC bridgeKeeper0 = new BridgeKeeper0("The BridgeKeeper", "An old, hagged man smelling of spam approaches you.", favouriteNumber);
+            INPC bridgeKeeper1 = new BridgeKeeper1("The BridgeKeeper", "The old, hagged man from earlier skips towards you.", favouriteNumber);
+            npcs = new HashSet<INPC>() { bridgeKeeper0, bridgeKeeper1 };
             PrintText("...done");
 
             // Assign nemeses to obstacles
@@ -138,12 +140,16 @@ namespace Assets.Game.Control
             PrintText("Assigning NPCs to rooms...");
             IList<IRoom> roomsOKWithNPC = rooms.Where(r => !r.IsFinalRoom).Where(r => !r.IsStartRoom).ToList<IRoom>();
 
-            // TODO: Need to avoid the bridgekeeper being in the first, final and penultimate room the first time
+            // TODO: Need to avoid the bridgekeeper0 being in the first, final and penultimate room the first time
 
             // Randomly choose a room for the bridgeKeeper to first appear in
             int roomIndex = Random.Range(0, roomsOKWithNPC.Count() - 1);
             IRoom roomForNPC = roomsOKWithNPC[roomIndex];
-            roomForNPC.AddNPC(bridgeKeeper);
+            roomForNPC.AddNPC(bridgeKeeper0);
+
+            // Add second bridgekeeper to penultimate room
+            // TODO: Add isPenultimateRoom flag on rooms
+            billiardsRoom.AddNPC(bridgeKeeper1);
             PrintText("...done");
 
             // Create a player object
@@ -407,7 +413,14 @@ namespace Assets.Game.Control
                     // Describe new room
                     PrintRoomDescriptionText(newRoom);
 
-                    // TODO: Check for NPC in room
+                    // Check for NPC in room
+                    if (newRoom.HasNPC())
+                    {
+                        // There's an NPC here
+                        INPC npc = newRoom.GetNPC()!;
+
+                        InteractWithNPC(npc);
+                    }
 
                     // Check whether this is the final room
                     if (newRoom.IsFinalRoom)
@@ -418,7 +431,7 @@ namespace Assets.Game.Control
                     }
                 }
             }
-        }
+        }       
 
         private void PrintRoomDescriptionText(IRoom newRoom)
         {
@@ -513,6 +526,27 @@ namespace Assets.Game.Control
             var type = assembly.GetType("UnityEditor.LogEntries");
             var method = type.GetMethod("Clear");
             method.Invoke(new object(), null);
+        }
+
+        private void InteractWithNPC(INPC npc)
+        {
+            // Meet the npc
+            string line = npc.Meet();
+            PrintText(line);
+
+            // Interact with npc
+
+            string? chat = npc.Talk();
+            while (chat is not null)
+            {                
+                PrintText(chat);
+
+                chat = npc.Talk();
+            } 
+
+            // NPC leaves
+            line = npc.Leave();
+            PrintText(line);
         }
     }
 }
