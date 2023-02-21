@@ -44,7 +44,13 @@ namespace Assets.Game.Control
 
         private Keyboard? keyboard;
 
-        private bool gameInProgress;  // Will be true once player has passed the main menu screen.        
+        private enum GameState
+        {
+            MainMenu, 
+            Navigation, 
+            NPCInteraction
+        }
+        private GameState gameState = GameState.MainMenu;  // Start in main menu state
 
         // Properties
         public bool WinGame { get => winGame; set => winGame = value; }
@@ -189,7 +195,7 @@ namespace Assets.Game.Control
                         // Help
                         PrintHelpText();
                     } 
-                    else if (!this.gameInProgress)
+                    else if (gameState.Equals(GameState.MainMenu))
                     {
                         // In main menu
 
@@ -215,9 +221,9 @@ namespace Assets.Game.Control
                             PrintInvalidKeyText(pressedKey);
                         }
                     }
-                    else
+                    else if (gameState.Equals(GameState.Navigation))
                     {
-                        // Within the game
+                        // Navigating the game
 
                         if (pressedKey.Equals(inspectKey))
                         {
@@ -276,7 +282,7 @@ namespace Assets.Game.Control
         private void StartNewGame()
         {
             // For the menu options, now in a game
-            this.gameInProgress = true;
+            this.gameState = GameState.Navigation;
 
             ClearLog();
 
@@ -306,8 +312,8 @@ namespace Assets.Game.Control
 
         private void PrintWinGameText()
         {
-            // For the menu options, no longer in a game
-            this.gameInProgress = false;
+            // For the key press detection, no longer in a game
+            this.gameState = GameState.MainMenu;
 
             string text = $"You walk off into the freezing night, only stopping briefly to turn around and look back. There's mixed emotions, but overall you feel content.\n";
             text += $"Then, without warning a police car pulls up and the officers jump out and start shouting at you and reaching for their tasers.";

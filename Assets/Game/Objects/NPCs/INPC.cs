@@ -1,4 +1,5 @@
 ﻿#nullable enable
+
 namespace Assets.Game.Objects.NPCs
 {
     public interface INPC : IObject

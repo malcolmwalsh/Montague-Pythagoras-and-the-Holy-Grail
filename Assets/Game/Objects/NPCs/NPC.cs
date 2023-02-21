@@ -1,4 +1,6 @@
 ﻿#nullable enable
+using UnityEngine;
+
 namespace Assets.Game.Objects.NPCs
 {
     public abstract class NPC : INPC
@@ -12,7 +14,7 @@ namespace Assets.Game.Objects.NPCs
         }
 
         // Fields
-        private readonly string name;
+        private readonly new string name;
         private readonly string description;
         protected readonly bool canAskQuestions;
 
