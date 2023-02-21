@@ -1,6 +1,7 @@
 ﻿#nullable enable
 using Assets.Game.Objects.Doors;
 using Assets.Game.Objects.Items;
+using Assets.Game.Objects.NPCs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,8 +29,12 @@ namespace Assets.Game.Objects.Rooms
 
         private readonly bool isStartRoom = false;
         private readonly bool isFinalRoom = false;
+
         private readonly ISet<IItem> items = new HashSet<IItem>();
+
         private readonly IDictionary<CompassDirection, IDoor> doors = new Dictionary<CompassDirection, IDoor>();
+
+        private ISet<INPC> npcs= new HashSet<INPC>();
 
         // Properties
         public string Name => name;
@@ -102,6 +107,16 @@ namespace Assets.Game.Objects.Rooms
             }
 
             return sb.ToString();
+        }
+
+        public void AddNPC(INPC npc)
+        {
+            npcs.Add(npc);
+        }
+
+        public bool HasNPC()
+        {
+            return npcs.Any();  
         }
     }
 }

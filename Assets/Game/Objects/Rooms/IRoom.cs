@@ -1,6 +1,7 @@
 ﻿#nullable enable
 using Assets.Game.Objects.Doors;
 using Assets.Game.Objects.Items;
+using Assets.Game.Objects.NPCs;
 using System.Collections.Generic;
 using static Assets.Game.Navigation.Enums;
 
@@ -38,5 +39,7 @@ namespace Assets.Game.Objects.Rooms
         IItem? GetItem();
         int NumDoors();
         string DoorLocationText();
+        void AddNPC(INPC npc);
+        bool HasNPC();
     }
 }

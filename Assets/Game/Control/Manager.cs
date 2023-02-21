@@ -1,10 +1,12 @@
 ﻿using Assets.Game.Objects;
 using Assets.Game.Objects.Doors;
 using Assets.Game.Objects.Items;
+using Assets.Game.Objects.NPCs;
 using Assets.Game.Objects.Obstacles;
 using Assets.Game.Objects.Players;
 using Assets.Game.Objects.Rooms;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -26,6 +28,7 @@ namespace Assets.Game.Control
         private ISet<IObstacle> obstacles;
         private ISet<IRoom> rooms;
         private ISet<IItem> items;
+        private ISet<INPC> npcs;
 
         private Key newGameKey = Key.N;
         private Key quitKey = Key.Escape;
@@ -41,7 +44,8 @@ namespace Assets.Game.Control
 
         private Keyboard keyboard;
 
-        private bool gameInProgress;  // Will be true once player has passed the main menu screen.        
+        private bool gameInProgress;  // Will be true once player has passed the main menu screen.
+        
 
         // Properties
         public bool WinGame { get => winGame; set => winGame = value; }
@@ -93,6 +97,12 @@ namespace Assets.Game.Control
             doors = new HashSet<IDoor>() { closetDoor, brassDoor, guardedDoor, diningDoor, exteriorDoor };
             PrintText("...done");
 
+            // Set up all the doors
+            PrintText("Creating NPCs...");
+            INPC bridgeKeeper = new BridgeKeeper("The BridgeKeeper", "An old, hagger old man. He smells of spam.");
+            npcs = new HashSet<INPC>() { bridgeKeeper };
+            PrintText("...done");
+
             // Assign nemeses to obstacles
             PrintText("Assigning obstacles...");
             brassLock.SetNemesis(brassKey);
@@ -122,6 +132,18 @@ namespace Assets.Game.Control
             diningHall.AddItem(brassKey);
             library.AddItem(magicSword);
             closet.AddItem(pinkCowboyHat);
+            PrintText("...done");
+
+            // Assign NPC to room
+            PrintText("Assigning NPCs to rooms...");
+            IList<IRoom> roomsOKWithNPC = rooms.Where(r => !r.IsFinalRoom).Where(r => !r.IsStartRoom).ToList<IRoom>();
+
+            // TODO: Need to avoid the bridgekeeper being in the first, final and penultimate room the first time
+
+            // Randomly choose a room for the bridgeKeeper to first appear in
+            int roomIndex = Random.Range(0, roomsOKWithNPC.Count() - 1);
+            IRoom roomForNPC = roomsOKWithNPC[roomIndex];
+            roomForNPC.AddNPC(bridgeKeeper);
             PrintText("...done");
 
             // Create a player object
