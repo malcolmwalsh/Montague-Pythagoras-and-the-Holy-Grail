@@ -22,13 +22,13 @@ namespace Assets.Game.Control
         private bool exitGame = false;
         private bool winGame = false;
 
-        private IPlayer player;
+        private IPlayer? player;
 
-        private ISet<IDoor> doors;
-        private ISet<IObstacle> obstacles;
-        private ISet<IRoom> rooms;
-        private ISet<IItem> items;
-        private ISet<INPC> npcs;
+        private ISet<IDoor>? doors;
+        private ISet<IObstacle>? obstacles;
+        private ISet<IRoom>? rooms;
+        private ISet<IItem>? items;
+        private ISet<INPC>? npcs;
 
         private Key newGameKey = Key.N;
         private Key quitKey = Key.Escape;
@@ -40,12 +40,11 @@ namespace Assets.Game.Control
         private Key moveSouthKey = Key.S;
         private Key moveWestKey = Key.A;        
         private Key moveEastKey = Key.D;        
-        private IDictionary<Key, CompassDirection> movementKeys;
+        private IDictionary<Key, CompassDirection>? movementKeys;
 
-        private Keyboard keyboard;
+        private Keyboard? keyboard;
 
-        private bool gameInProgress;  // Will be true once player has passed the main menu screen.
-        
+        private bool gameInProgress;  // Will be true once player has passed the main menu screen.        
 
         // Properties
         public bool WinGame { get => winGame; set => winGame = value; }
@@ -178,7 +177,7 @@ namespace Assets.Game.Control
 
             // Loop through all keys and find the one pressed 
             // TODO: Seems very inefficient!
-            foreach (KeyControl keyID in keyboard.allKeys)
+            foreach (KeyControl keyID in keyboard!.allKeys)
             {
                 if (keyID.wasPressedThisFrame)
                 {
@@ -208,7 +207,7 @@ namespace Assets.Game.Control
                             PrintIntroduction();
 
                             // Inspect initial room
-                            InspectRoom(player.CurrentRoom);
+                            InspectRoom(player!.CurrentRoom);
                         }
                         else
                         {
@@ -223,9 +222,9 @@ namespace Assets.Game.Control
                         if (pressedKey.Equals(inspectKey))
                         {
                             // Inspect room
-                            InspectRoom(player.CurrentRoom);
+                            InspectRoom(player!.CurrentRoom);
                         }
-                        else if (movementKeys.Keys.Contains(pressedKey))
+                        else if (movementKeys!.Keys.Contains(pressedKey))
                         {
                             // Wants to move to another room
                             TryMoveIntoNewRoom(pressedKey);
@@ -311,7 +310,7 @@ namespace Assets.Game.Control
             this.gameInProgress = false;
 
             string text = $"You walk off into the freezing night, only stopping briefly to turn around and look back. There's mixed emotions, but overall you feel content.\n";
-            text += $"Then, without warning a police car pulls up and the officers jump out and start shouting at you and reaching for their tasers. Your adventure is over.";
+            text += $"Then, without warning a police car pulls up and the officers jump out and start shouting at you and reaching for their tasers.";
             
             PrintText(text);
         }
@@ -328,11 +327,13 @@ namespace Assets.Game.Control
         {
             string text = selectedDoor.GetBlockedText();
             PrintText(text);
-        }        
+        }
 
-        private void PrintText(string text)
+        private void PrintText(string? text)
         {
-            print(text);
+            if (text is not null) { 
+                print(text);
+            }
         }
 
         private void PrintInvalidKeyText(Key key)
@@ -356,10 +357,10 @@ namespace Assets.Game.Control
         private void TryMoveIntoNewRoom(Key pressedKey)
         {
             // Get direction from dictionary
-            CompassDirection direction = movementKeys[pressedKey];
+            CompassDirection direction = movementKeys![pressedKey];
 
             // Pick up current room from player
-            IRoom currentRoom = player.CurrentRoom;
+            IRoom currentRoom = player!.CurrentRoom;
 
             // Is there a door there?
             if (!currentRoom.HasDoorInDirection(direction))
@@ -468,7 +469,7 @@ namespace Assets.Game.Control
                     text += $" You see a {item}. {item.Description}";
 
                     // Player now has this item
-                    player.AddItem(item);
+                    player!.AddItem(item);
                 }
             }
             else
@@ -535,14 +536,23 @@ namespace Assets.Game.Control
             PrintText(line);
 
             // Interact with npc
-
             string? chat = npc.Talk();
             while (chat is not null)
             {                
                 PrintText(chat);
 
                 chat = npc.Talk();
-            } 
+            }
+
+            // Ask NPC a question
+            if (npc.CanAskQuestions())
+            {
+                string question = "Which kind of swallow: African or European?";
+                PrintText(question);
+
+                string? response = npc.Ask(question);
+                PrintText(response);
+            }
 
             // NPC leaves
             line = npc.Leave();
