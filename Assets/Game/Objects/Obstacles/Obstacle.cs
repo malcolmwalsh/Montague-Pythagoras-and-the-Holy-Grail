@@ -1,15 +1,13 @@
 ﻿#nullable enable
 using Assets.Game.Objects.Items;
-using Assets.Game.Objects.Obstacles;
-using Unity.VisualScripting;
 
 namespace Assets.Game.Objects.Obstacles
 {
     internal class Obstacle : IObstacle
     {
         // Fields
-        private readonly string name;
-        private readonly string description;
+        private string name;
+        private string description;
 
         private IItem? nemesisItem;
 
@@ -27,8 +25,8 @@ namespace Assets.Game.Objects.Obstacles
 
         // Properties
         public IItem? NemesisItem => nemesisItem;
-        public string Name => name;
-        public string Description => description;
+        public string Name { get => name; set => name = value; }
+        public string Description { get => description; set => description = value; }
 
         // Methods
         public void SetNemesis(IItem item)

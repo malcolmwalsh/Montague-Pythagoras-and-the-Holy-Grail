@@ -31,8 +31,8 @@ namespace Assets.Game.Objects.Doors
         }
 
         // Fields
-        private readonly string name;
-        private readonly string description;
+        private string name;
+        private string description;
 
         private readonly ISet<IObstacle> obstacles = new HashSet<IObstacle>();
         private readonly IRoom roomA;
@@ -42,8 +42,8 @@ namespace Assets.Game.Objects.Doors
         private string? unblockText;
 
         // Properties
-        public string Name => name;
-        public string Description => description;
+        public string Name { get => name; set => name = value; }
+        public string Description { get => description; set => description = value; }
 
         // Methods
         public bool ConnectsRoom(IRoom room)

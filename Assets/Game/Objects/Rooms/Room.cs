@@ -23,8 +23,8 @@ namespace Assets.Game.Objects.Rooms
         public Room(string name, string description) : this(name, description, false, false) { }
 
         // Fields
-        private readonly string name;
-        private readonly string description;
+        private string name;
+        private string description;
 
         private readonly bool isStartRoom = false;
         private readonly bool isFinalRoom = false;
@@ -32,8 +32,8 @@ namespace Assets.Game.Objects.Rooms
         private readonly IDictionary<CompassDirection, IDoor> doors = new Dictionary<CompassDirection, IDoor>();
 
         // Properties
-        public string Name => name;
-        public string Description => description;
+        public string Name { get => name; set => name = value; }
+        public string Description { get => description; set => description = value; }
 
         // Begin IRoom
         public bool IsStartRoom => isStartRoom;

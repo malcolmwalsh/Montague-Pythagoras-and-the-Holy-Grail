@@ -1,4 +1,5 @@
-﻿using Assets.Game.Objects.Items;
+﻿using Assets.Game.Control;
+using Assets.Game.Objects.Items;
 using Assets.Game.Objects.Rooms;
 
 namespace Assets.Game.Objects.Players
@@ -7,6 +8,7 @@ namespace Assets.Game.Objects.Players
     {
         // Properties
         IRoom CurrentRoom { get; set; }
+        Manager Manager { get; set; }
 
         // Methods
         bool HasItem(IItem item);

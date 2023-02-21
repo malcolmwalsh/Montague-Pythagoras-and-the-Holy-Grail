@@ -3,7 +3,7 @@
     public interface IObject
     {
         // Properties
-        string Name { get; }
-        string Description { get; }       
+        string Name { get; set; }
+        string Description { get; set;  }
     }
 }

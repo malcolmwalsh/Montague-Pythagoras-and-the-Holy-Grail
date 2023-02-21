@@ -7,8 +7,8 @@ namespace Assets.Game.Objects.Items
     internal class Item : IItem
     {
         // Fields
-        private readonly string name;
-        private readonly string description;
+        private string name;
+        private string description;
 
         private IObstacle? nemesisObstacle;
 
@@ -25,8 +25,8 @@ namespace Assets.Game.Objects.Items
         }
 
         // Properties
-        public string Name => name;
-        public string Description => description;
+        public string Name { get => name; set => name = value; }
+        public string Description { get => description; set => description = value; }
 
         public IObstacle? NemisisObstacle => nemesisObstacle;
 
