@@ -1,8 +1,8 @@
 ﻿namespace Assets.Game.Navigation
 {
-    internal class Enums
+    public class Enums
     {
-        internal enum CompassDirection
+        public enum CompassDirection
         {
             North, 
             South, 

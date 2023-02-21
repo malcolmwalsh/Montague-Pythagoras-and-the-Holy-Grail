@@ -1,22 +1,23 @@
 ﻿#nullable enable
+using Assets.Game.Objects.Doors;
+using Assets.Game.Objects.Items;
 using System.Collections.Generic;
-using System.Linq;
 using static Assets.Game.Navigation.Enums;
 
-namespace Assets.Game.Objects
+namespace Assets.Game.Objects.Rooms
 {
-    internal interface IRoom : IObject
+    public interface IRoom : IObject
     {
         // Properties
         bool IsStartRoom { get; }
-        bool IsFinalRoom { get; }        
+        bool IsFinalRoom { get; }
         IDictionary<CompassDirection, IDoor> Doors { get; }
 
         // Methods
         bool HasDoorInDirection(CompassDirection direction)
         {
             IDoor? door = GetDoorInDirection(direction);
-            
+
             return door is not null;
         }
 

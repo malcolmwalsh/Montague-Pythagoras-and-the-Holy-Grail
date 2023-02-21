@@ -1,5 +1,4 @@
-﻿using Assets.Game.Objects.Items;
-using System;
+﻿using System;
 
 namespace Assets.Game.Objects.Rooms
 {

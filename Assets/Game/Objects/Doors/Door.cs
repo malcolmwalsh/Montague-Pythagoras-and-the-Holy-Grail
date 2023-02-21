@@ -1,11 +1,14 @@
 ﻿#nullable enable
-using Assets.Game.Objects;
+using Assets.Game.Objects.Items;
+using Assets.Game.Objects.Obstacles;
+using Assets.Game.Objects.Players;
+using Assets.Game.Objects.Rooms;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Assembly_CSharp
+namespace Assets.Game.Objects.Doors
 {
-    internal class Door : IDoor
+    public class Door : IDoor
     {
         // Constructors
         public Door(string name, string description, IRoom roomA, IRoom roomB)
@@ -14,7 +17,7 @@ namespace Assembly_CSharp
             this.description = description;
 
             this.roomA = roomA;
-            this.roomB = roomB;            
+            this.roomB = roomB;
         }
 
         public Door(string name, string description, IRoom roomA, IRoom roomB, IObstacle obstacle, string blockedText, string unblockText) : this(name, description, roomA, roomB)
@@ -24,9 +27,9 @@ namespace Assembly_CSharp
             this.blockedText = blockedText;
             this.unblockText = unblockText;
 
-            this.blocked = true;            
+            blocked = true;
         }
-        
+
         // Fields
         private readonly string name;
         private readonly string description;
@@ -55,7 +58,7 @@ namespace Assembly_CSharp
 
         public void Unblock()
         {
-            this.blocked = false;
+            blocked = false;
         }
 
         public bool TryTraverse(IPlayer player)
@@ -101,12 +104,12 @@ namespace Assembly_CSharp
 
         public string? GetBlockedText()
         {
-            return this.blockedText;
+            return blockedText;
         }
 
         public string? GetUnblockText()
         {
-            return this.unblockText;
+            return unblockText;
         }
 
         public override string ToString()

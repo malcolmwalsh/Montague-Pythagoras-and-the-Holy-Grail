@@ -1,4 +1,7 @@
 ﻿#nullable enable
+using Assets.Game.Objects.Items;
+using Assets.Game.Objects.Obstacles;
+
 namespace Assets.Game.Objects.Items
 {
     internal class Item : IItem

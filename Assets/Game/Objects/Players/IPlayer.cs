@@ -1,6 +1,9 @@
-﻿namespace Assets.Game.Objects
+﻿using Assets.Game.Objects.Items;
+using Assets.Game.Objects.Rooms;
+
+namespace Assets.Game.Objects.Players
 {
-    internal interface IPlayer : IObject
+    public interface IPlayer : IObject
     {
         // Properties
         IRoom CurrentRoom { get; set; }

@@ -1,6 +1,8 @@
-﻿namespace Assets.Game.Objects
+﻿using Assets.Game.Objects.Items;
+
+namespace Assets.Game.Objects.Obstacles
 {
-    internal interface IObstacle : IObject
+    public interface IObstacle : IObject
     {
         // Properties
         IItem NemesisItem { get; }

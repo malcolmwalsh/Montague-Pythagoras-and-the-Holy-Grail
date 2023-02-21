@@ -1,4 +1,6 @@
 ﻿#nullable enable
+using Assets.Game.Objects.Doors;
+using Assets.Game.Objects.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +8,7 @@ using static Assets.Game.Navigation.Enums;
 
 namespace Assets.Game.Objects.Rooms
 {
-    internal class Room : IRoom
+    public class Room : IRoom
     {
         // Constructors
         public Room(string name, string description, bool isStartRoom, bool isFinalRoom)

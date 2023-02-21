@@ -1,4 +1,4 @@
-﻿namespace Assets.Game.Objects.Items
+﻿namespace Assets.Game.Objects
 {
     internal abstract class ObjectFactory<S> where S : IObject
     {

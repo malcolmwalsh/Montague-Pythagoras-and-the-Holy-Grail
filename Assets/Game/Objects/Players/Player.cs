@@ -1,46 +1,50 @@
 #nullable enable
-using Assets.Game.Objects;
+using Assets.Game.Objects.Items;
+using Assets.Game.Objects.Rooms;
 using System.Collections.Generic;
 
-internal class Player : IPlayer
+namespace Assets.Game.Objects.Players
 {
-    // Fields    
-    private readonly string name;
-    private readonly string description;
-
-    private IRoom? currentRoom;
-
-    private ISet<IItem> items = new HashSet<IItem>();
-
-    // Constructors
-    public Player(string name, string description, IRoom currentRoom)
+    internal class Player : IPlayer
     {
-        this.name = name;
-        this.description = description;
-        this.currentRoom = currentRoom;
-    }
+        // Fields    
+        private readonly string name;
+        private readonly string description;
 
-    // Properties
-    public string Name => name;
-    public string Description => description;
-    public IRoom? CurrentRoom { get => currentRoom; set => currentRoom = value; }
+        private IRoom? currentRoom;
 
-    // Methods
+        private ISet<IItem> items = new HashSet<IItem>();
 
-    // Begin IPlayer
-    public bool HasItem(IItem item)
-    {
-        return items.Contains(item);
-    }
+        // Constructors
+        public Player(string name, string description, IRoom currentRoom)
+        {
+            this.name = name;
+            this.description = description;
+            this.currentRoom = currentRoom;
+        }
 
-    public void AddItem(IItem item)
-    {
-        this.items.Add(item);
-    }
-    // End IPlayer
+        // Properties
+        public string Name => name;
+        public string Description => description;
+        public IRoom? CurrentRoom { get => currentRoom; set => currentRoom = value; }
 
-    public override string ToString()
-    {
-        return Name;
+        // Methods
+
+        // Begin IPlayer
+        public bool HasItem(IItem item)
+        {
+            return items.Contains(item);
+        }
+
+        public void AddItem(IItem item)
+        {
+            this.items.Add(item);
+        }
+        // End IPlayer
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Assets.Game.Objects
 {
-    internal interface IObject
+    public interface IObject
     {
         // Properties
         string Name { get; }

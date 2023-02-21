@@ -1,4 +1,6 @@
 ﻿#nullable enable
+using Assets.Game.Objects.Items;
+using Assets.Game.Objects.Obstacles;
 using Unity.VisualScripting;
 
 namespace Assets.Game.Objects.Obstacles

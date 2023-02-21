@@ -1,6 +1,9 @@
-﻿namespace Assets.Game.Objects
+﻿using Assets.Game.Objects.Players;
+using Assets.Game.Objects.Rooms;
+
+namespace Assets.Game.Objects.Doors
 {
-    internal interface IDoor : IObject
+    public interface IDoor : IObject
     {
         bool ConnectsRoom(IRoom room);
         string GetBlockedText();

@@ -1,7 +1,9 @@
 ﻿#nullable enable
-namespace Assets.Game.Objects
+using Assets.Game.Objects.Obstacles;
+
+namespace Assets.Game.Objects.Items
 {
-    internal interface IItem : IObject
+    public interface IItem : IObject
     {
         // Properties
         IObstacle? NemisisObstacle { get; }
