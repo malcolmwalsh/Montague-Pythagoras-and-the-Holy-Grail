@@ -489,7 +489,7 @@ namespace Assets.Game.Control
         private void QuitRun()
         {
             // For the menu options, no longer in a game
-            this.gameInProgress = false;
+            this.gameState = GameState.MainMenu;
 
             string text = "This run is no more";
 

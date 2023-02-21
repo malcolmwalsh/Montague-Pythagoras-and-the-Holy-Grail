@@ -14,7 +14,7 @@ namespace Assets.Game.Objects.NPCs
         }
 
         // Fields
-        private readonly new string name;
+        private readonly string name;
         private readonly string description;
         protected readonly bool canAskQuestions;
 
