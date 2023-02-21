@@ -1,7 +1,7 @@
 #nullable enable
+using Assets.Game.Objects.Backpacks;
 using Assets.Game.Objects.Items;
 using Assets.Game.Objects.Rooms;
-using System.Collections.Generic;
 
 namespace Assets.Game.Objects.Players
 {
@@ -13,7 +13,7 @@ namespace Assets.Game.Objects.Players
 
         private IRoom? currentRoom;
 
-        private ISet<IItem> items = new HashSet<IItem>();
+        private IBackpack backpack = new Backpack();        
 
         // Constructors
         public Player(string name, string description, IRoom currentRoom)
@@ -33,12 +33,12 @@ namespace Assets.Game.Objects.Players
         // Begin IPlayer
         public bool HasItem(IItem item)
         {
-            return items.Contains(item);
+            return backpack.Contains(item);
         }
 
         public void AddItem(IItem item)
         {
-            this.items.Add(item);
+            this.backpack.Add(item);
         }
         // End IPlayer
 
