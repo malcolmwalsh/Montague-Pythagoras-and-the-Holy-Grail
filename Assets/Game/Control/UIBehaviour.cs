@@ -10,7 +10,7 @@ using static Assets.Game.Navigation.Enums;
 #nullable enable
 namespace Assets.Game.Control
 {
-    internal class UI : MonoBehaviour
+    internal class UIBehaviour : MonoBehaviour
     {
         // Constructors
         
@@ -22,9 +22,7 @@ namespace Assets.Game.Control
         public event EventHandler? InspectRoomEvent;
         public event EventHandler<MoveInDirectionEventArgs>? TryMoveToRoomEvent;
 
-        private Keyboard keyboard;
-
-        private IDictionary<Key, CompassDirection>? movementKeys;
+        private Keyboard keyboard;        
 
         // Methods
         // Begin MonoBehaviour
@@ -93,7 +91,7 @@ namespace Assets.Game.Control
         private void PrintInvalidKeyText(Key key)
         {
             string text = $"Invalid key ({key}). Try again, or press {KeyBindings.helpKey} for help";
-            UI.PrintText(text);
+            UIBehaviour.PrintText(text);
         }
 
         // Static
@@ -114,13 +112,13 @@ namespace Assets.Game.Control
 
         public static void PrintHelpText()
         {
-            UI.ClearLog();
+            UIBehaviour.ClearLog();
 
             // Help text
             string text = $"Use the {KeyBindings.moveNorthKey}, {KeyBindings.moveSouthKey}, {KeyBindings.moveWestKey} and {KeyBindings.moveEastKey} to move North, South, West and East respectively. Use {KeyBindings.inspectKey} to inspect a room for items. \n" +
                 $"Press {KeyBindings.helpKey} for this help at any time. To bravely run away, press {KeyBindings.quitKey} to return to the main menu and then {KeyBindings.quitKey} again to exit the game altogether";
 
-            UI.PrintText(text);
+            UIBehaviour.PrintText(text);
         }
     }
 }

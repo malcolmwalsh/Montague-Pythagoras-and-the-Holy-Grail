@@ -13,34 +13,37 @@ namespace Assets.Game.Objects.Players
 {
     internal class PlayerBehaviour : MonoBehaviour, IPlayer
     {
-        // Fields    
+        // Parameters
+        public GameObject uiObj;
+
+        // Fields
         private string name;
         private string description;
 
-        private Manager manager;
+        private ManagerBehaviour manager;
         private IRoom? currentRoom;
 
-        private IBackpack backpack = new Backpack();
+        private IBackpack backpack = new BackpackLogic();
 
-        private UI ui;
+        private GameObject myUIObj;
+        private UIBehaviour ui;
 
         // Properties        
         public IRoom? CurrentRoom { get => currentRoom; set => currentRoom = value; }
         public string Name { get => name; set => name = value; }
         public string Description { get => description; set => description = value; }
-        public Manager Manager { get => manager; set => manager = value; }
+        public ManagerBehaviour Manager { get => manager; set => manager = value; }
 
         // Methods
 
         // Begin MonoBehaviour
-        public void Awake()
-        {            
-        }
-
         public void Start()
         {
+            Debug.Log("Player behaviour script starts");
+
             // Set up UI
-            ui = gameObject.AddComponent<UI>();
+            myUIObj = Instantiate(uiObj);
+            ui = myUIObj.GetComponent<UIBehaviour>();
             ui.InspectRoomEvent += InspectRoomEvent;
             ui.TryMoveToRoomEvent += TryMoveToRoomEvent;
             ui.QuitGameEvent += QuitRunEvent;
@@ -60,7 +63,7 @@ namespace Assets.Game.Objects.Players
 
         private void HelpTextEvent(object sender, EventArgs e)
         {
-            UI.PrintHelpText();
+            UIBehaviour.PrintHelpText();
         }
 
         private void QuitRunEvent(object sender, EventArgs e)
@@ -171,7 +174,7 @@ namespace Assets.Game.Objects.Players
         private void PrintRoomDescriptionText(IRoom newRoom)
         {
             string text = newRoom.Description;
-            UI.PrintText(text);
+            UIBehaviour.PrintText(text);
         }
 
         private void InspectRoom(IRoom room)
@@ -200,33 +203,43 @@ namespace Assets.Game.Objects.Players
                 text += " In the end, there's nothing of interest.";
             }
 
-            UI.PrintText(text);
+            UIBehaviour.PrintText(text);
         }
 
         private void PrintInvalidDirectionText(CompassDirection direction)
         {
             string text = $"No door in the direction selected ({direction}). Try again, or press {KeyBindings.inspectKey} to inspect the room again, or press {KeyBindings.helpKey} for help";
-            UI.PrintText(text);
+            UIBehaviour.PrintText(text);
         }
 
         private void PrintUnblockingDoorText(IDoor selectedDoor)
         {
             string text = selectedDoor.GetUnblockText();
-            UI.PrintText(text);
+            UIBehaviour.PrintText(text);
         }
 
         private void PrintMovingIntoNewRoomText(IRoom currentRoom, IRoom newRoom)
         {
-            UI.ClearLog();
+            UIBehaviour.ClearLog();
 
             string text = $"You open the door and pass from {currentRoom} into {newRoom}";
-            UI.PrintText(text);
+            UIBehaviour.PrintText(text);
         }
 
         private void PrintCannotEnterDoorText(IDoor selectedDoor)
         {
             string text = selectedDoor.GetBlockedText();
-            UI.PrintText(text);
+            UIBehaviour.PrintText(text);
+        }
+
+        public void Enable()
+        {
+            this.enabled = true;
+        }
+
+        public void Disable()
+        {
+            this.enabled = false;
         }
     }
 

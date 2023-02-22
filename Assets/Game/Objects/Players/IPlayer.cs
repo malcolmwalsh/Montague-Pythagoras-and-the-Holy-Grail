@@ -8,10 +8,12 @@ namespace Assets.Game.Objects.Players
     {
         // Properties
         IRoom CurrentRoom { get; set; }
-        Manager Manager { get; set; }
+        ManagerBehaviour Manager { get; set; }
 
         // Methods
         bool HasItem(IItem item);
         void AddItem(IItem item);
+        void Enable();
+        void Disable();
     }
 }

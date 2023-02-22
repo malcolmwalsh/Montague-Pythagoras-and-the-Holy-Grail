@@ -8,10 +8,10 @@ using System.Linq;
 
 namespace Assets.Game.Objects.Doors
 {
-    public class Door : IDoor
+    public class DoorLogic : IDoor
     {
         // Constructors
-        public Door(string name, string description, IRoom roomA, IRoom roomB)
+        public DoorLogic(string name, string description, IRoom roomA, IRoom roomB)
         {
             this.name = name;
             this.description = description;
@@ -20,7 +20,7 @@ namespace Assets.Game.Objects.Doors
             this.roomB = roomB;
         }
 
-        public Door(string name, string description, IRoom roomA, IRoom roomB, IObstacle obstacle, string blockedText, string unblockText) : this(name, description, roomA, roomB)
+        public DoorLogic(string name, string description, IRoom roomA, IRoom roomB, IObstacle obstacle, string blockedText, string unblockText) : this(name, description, roomA, roomB)
         {
             obstacles.Add(obstacle);
 

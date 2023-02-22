@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Assets.Game.Objects.Backpacks
 {
-    public class Backpack : IBackpack
+    public class BackpackLogic : IBackpack
     {
         // Constructors
 

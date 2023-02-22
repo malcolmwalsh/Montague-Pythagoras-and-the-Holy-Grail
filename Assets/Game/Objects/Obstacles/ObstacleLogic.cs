@@ -3,7 +3,7 @@ using Assets.Game.Objects.Items;
 
 namespace Assets.Game.Objects.Obstacles
 {
-    internal class Obstacle : IObstacle
+    internal class ObstacleLogic : IObstacle
     {
         // Fields
         private string name;
@@ -12,13 +12,13 @@ namespace Assets.Game.Objects.Obstacles
         private IItem? nemesisItem;
 
         // Constructors
-        public Obstacle(string name, string description)
+        public ObstacleLogic(string name, string description)
         {
             this.name = name;
             this.description = description;
         }
 
-        public Obstacle(string name, string description, IItem? nemesisItem) : this(name, description)
+        public ObstacleLogic(string name, string description, IItem? nemesisItem) : this(name, description)
         {
             this.nemesisItem = nemesisItem;
         }

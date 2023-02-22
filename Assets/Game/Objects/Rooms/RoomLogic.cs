@@ -9,10 +9,10 @@ using static Assets.Game.Navigation.Enums;
 
 namespace Assets.Game.Objects.Rooms
 {
-    public class Room : IRoom
+    public class RoomLogic : IRoom
     {
         // Constructors
-        public Room(string name, string description, bool isStartRoom, bool isFinalRoom)
+        public RoomLogic(string name, string description, bool isStartRoom, bool isFinalRoom)
         {
             this.isFinalRoom = isFinalRoom;
             this.isStartRoom = isStartRoom;
@@ -20,7 +20,7 @@ namespace Assets.Game.Objects.Rooms
             this.description = description;
         }        
         
-        public Room(string name, string description) : this(name, description, false, false) { }
+        public RoomLogic(string name, string description) : this(name, description, false, false) { }
 
         // Fields
         private string name;
