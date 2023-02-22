@@ -5,45 +5,26 @@ using Assets.Game.Objects.Players;
 using Assets.Game.Objects.Rooms;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Assets.Game.Objects.Doors
 {
-    public class Door : IDoor
+    public class DoorBehaviour : MonoBehaviour, IDoor
     {
-        // Constructors
-        public Door(string name, string description, IRoom roomA, IRoom roomB)
-        {
-            this.name = name;
-            this.description = description;
-
-            this.roomA = roomA;
-            this.roomB = roomB;
-        }
-
-        public Door(string name, string description, IRoom roomA, IRoom roomB, IObstacle obstacle, string blockedText, string unblockText) : this(name, description, roomA, roomB)
-        {
-            obstacles.Add(obstacle);
-
-            this.blockedText = blockedText;
-            this.unblockText = unblockText;
-
-            blocked = true;
-        }
+        // Parameters
+        [SerializeField] private string description;
+        [SerializeField] private List<GameObject> obstacles;
+        [SerializeField] private GameObject roomA;
+        [SerializeField] private GameObject roomB;
+        [SerializeField] private string? blockedText;
+        [SerializeField] private string? unblockText;
 
         // Fields
-        private readonly string name;
-        private readonly string description;
-
-        private readonly ISet<IObstacle> obstacles = new HashSet<IObstacle>();
-        private readonly IRoom roomA;
-        private readonly IRoom roomB;
-        private bool blocked;
-        private string? blockedText;
-        private string? unblockText;
+        private bool blocked;        
 
         // Properties
-        public string Name => name;
-        public string Description => description;
+        public string Name { get => name; set => name = value; }
+        public string Description { get => description; set => description = value; }
 
         // Methods
         public bool ConnectsRoom(IRoom room)
@@ -73,10 +54,12 @@ namespace Assets.Game.Objects.Doors
 
             // So we have an obstacle
             bool hasNotItem = false;
-            foreach (IObstacle obstacle in obstacles)
+            foreach (GameObject obstacleObj in obstacles)
             {
+                IObstacle obstacle = obstacleObj.GetComponent<ObstacleBehaviour>();
+
                 // What unblocks this obstacle?
-                IItem obstacleNemesisItem = obstacle.NemesisItem;
+                IItem obstacleNemesisItem = obstacle.NemesisBehaviour;
 
                 // Does player have it?
                 if (!player.HasItem(obstacleNemesisItem))
@@ -94,7 +77,7 @@ namespace Assets.Game.Objects.Doors
 
         public IRoom GetConnectingRoom(IRoom currentRoom)
         {
-            return currentRoom.Equals(roomA) ? roomB : roomA;
+            return currentRoom.Equals(roomA.GetComponent<RoomBehaviour>()) ? roomB.GetComponent<RoomBehaviour>() : roomA.GetComponent<RoomBehaviour>();
         }
 
         private bool HasObstacle()
@@ -115,6 +98,11 @@ namespace Assets.Game.Objects.Doors
         public override string ToString()
         {
             return Name;
+        }
+
+        public GameObject GetGameObject()
+        {
+            return gameObject;
         }
     }
 }
