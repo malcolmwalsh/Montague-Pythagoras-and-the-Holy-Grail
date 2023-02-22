@@ -8,31 +8,26 @@ using UnityEngine;
 using static Assets.Game.Navigation.Enums;
 
 #nullable enable
-
 namespace Assets.Game.Objects.Players
 {
     internal class PlayerBehaviour : MonoBehaviour, IPlayer
     {
         // Parameters
-        [SerializeField] private GameObject uiObj;
+        [SerializeField] private string? description;
 
-        // Fields
-        private string? name;
-        private string? description;
+        [SerializeField] private GameObject ui;        
+        [SerializeField] private GameObject currentRoom;
+        [SerializeField] private GameObject backpack;
 
-        private ManagerBehaviour? manager;
-        private IRoom? currentRoom;
+        [SerializeField] private ManagerBehaviour? manager;
 
-        private IBackpack backpack = new BackpackLogic();
-
-        private GameObject myUIObj;
-        private UIBehaviour ui;
+        // Fields        
+        private UIBehaviour uiBehaviour;
 
         // Properties        
-        public IRoom? CurrentRoom { get => currentRoom; set => currentRoom = value; }
+        public ManagerBehaviour? Manager { get => manager; set => manager = value; }
         public string Name { get => name; set => name = value; }
-        public string Description { get => description; set => description = value; }
-        public ManagerBehaviour Manager { get => manager; set => manager = value; }
+        public string? Description { get => description; set => description = value; }
 
         // Methods
 
@@ -42,18 +37,17 @@ namespace Assets.Game.Objects.Players
             //Debug.Log("Player behaviour script starts");
 
             // Set up UI
-            myUIObj = Instantiate(uiObj);
-            ui = myUIObj.GetComponent<UIBehaviour>();
-            ui.InspectRoomEvent += InspectRoomEvent;
-            ui.TryMoveToRoomEvent += TryMoveToRoomEvent;
-            ui.QuitGameEvent += QuitRunEvent;
-            ui.HelpEvent += HelpTextEvent;
+            uiBehaviour = ui.GetComponent<UIBehaviour>();
+            uiBehaviour.InspectRoomEvent += InspectRoomEvent;
+            uiBehaviour.TryMoveToRoomEvent += TryMoveToRoomEvent;
+            uiBehaviour.QuitGameEvent += QuitRunEvent;
+            uiBehaviour.HelpEvent += HelpTextEvent;
         }
         // End MonoBehaviour
 
         private void InspectRoomEvent(object sender, EventArgs e)
         {
-            InspectRoom(this.currentRoom!);
+            InspectRoom(currentRoom!.GetComponent<RoomBehaviour>());
         }
 
         private void TryMoveToRoomEvent(object sender, MoveInDirectionEventArgs e)
@@ -69,33 +63,33 @@ namespace Assets.Game.Objects.Players
         private void QuitRunEvent(object sender, EventArgs e)
         {
             // Quitting run
-            Manager.QuitRun();
+            Manager!.QuitRun();
         }
 
         // Begin IPlayer
         public bool HasItem(IItem item)
         {
-            return backpack.Contains(item);
+            return backpack.GetComponent<BackpackBehaviour>().Contains(item);
         }
 
         public void AddItem(IItem item)
         {
-            this.backpack.Add(item);
+            this.backpack.GetComponent<BackpackBehaviour>().Add(item);
         }
         // End IPlayer
 
         public override string ToString()
         {
-            return Name;
+            return name;
         }
 
         private void TryMoveIntoNewRoom(CompassDirection direction)
         {
             // Pick up current room
-            IRoom currentRoom = this.CurrentRoom!;
+            IRoom currentRoomBehaviour = currentRoom!.GetComponent<RoomBehaviour>();
 
             // Is there a door there?
-            if (!currentRoom.HasDoorInDirection(direction))
+            if (!currentRoomBehaviour.HasDoorInDirection(direction))
             {
                 // No door in that direction
                 // Return text to indicate that to player
@@ -104,7 +98,7 @@ namespace Assets.Game.Objects.Players
             else
             {
                 // Is door in that direction
-                IDoor selectedDoor = currentRoom.GetDoorInDirection(direction)!;
+                IDoor selectedDoor = currentRoomBehaviour.GetDoorInDirection(direction)!;
 
                 // Is the door blocked / locked
                 if (selectedDoor.IsBlocked())
@@ -135,21 +129,21 @@ namespace Assets.Game.Objects.Players
                 if (!selectedDoor.IsBlocked())
                 {
                     // Get room that connects with the current room using this door	                                
-                    IRoom newRoom = selectedDoor.GetConnectingRoom(currentRoom);
+                    IRoom newRoomBehaviour = selectedDoor.GetConnectingRoom(currentRoomBehaviour);
 
                     // Print text informing player that they are moving into new room
-                    PrintMovingIntoNewRoomText(currentRoom, newRoom);
+                    PrintMovingIntoNewRoomText(currentRoomBehaviour, newRoomBehaviour);
 
                     // Set new room as current room
-                    this.CurrentRoom = newRoom;
+                    currentRoom = newRoomBehaviour.GetGameObject();
 
                     // Describe new room
-                    PrintRoomDescriptionText(newRoom);
+                    PrintRoomDescriptionText(newRoomBehaviour);
 
                     // TODO: Check for NPC in room
 
                     // Check whether this is the final room
-                    if (newRoom.IsFinalRoom)
+                    if (newRoomBehaviour.IsFinalRoom)
                     {
                         WinGame();
                     }
@@ -160,7 +154,7 @@ namespace Assets.Game.Objects.Players
         private void WinGame()
         {
             // Won the game
-            manager.WinGame();
+            Manager!.WinGame();
         }
 
         private void PrintRoomDescriptionText(IRoom newRoom)
@@ -179,7 +173,7 @@ namespace Assets.Game.Objects.Players
             if (room.HasItem())
             {
                 // Get the item
-                IItem? item = room.GetItem();
+                IItem? item = room.GetItemBehaviour();
 
                 if (item != null)
                 {
@@ -224,9 +218,9 @@ namespace Assets.Game.Objects.Players
             UIBehaviour.PrintText(text);
         }        
 
-        private void OnDestroy()
+        public GameObject GetGameObject()
         {
-            Destroy(myUIObj);
+            return gameObject;
         }
     }
 

@@ -1,9 +1,13 @@
-﻿namespace Assets.Game.Objects
+﻿using UnityEngine;
+
+namespace Assets.Game.Objects
 {
     public interface IObject
     {
         // Properties
-        string Name { get; set; }
         string Description { get; set;  }
+
+        // Methods
+        GameObject GetGameObject();
     }
 }

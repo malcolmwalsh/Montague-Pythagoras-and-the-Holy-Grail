@@ -1,9 +1,10 @@
 ﻿using Assets.Game.Objects.Items;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Game.Objects.Backpacks
 {
-    public class BackpackLogic : IBackpack
+    public class BackpackBehaviour : MonoBehaviour, IBackpack
     {
         // Constructors
 

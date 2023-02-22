@@ -1,12 +1,5 @@
-﻿using Assets.Game.Objects;
-using Assets.Game.Objects.Doors;
-using Assets.Game.Objects.Items;
-using Assets.Game.Objects.Obstacles;
-using Assets.Game.Objects.Players;
-using Assets.Game.Objects.Rooms;
+﻿using Assets.Game.Objects.Players;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using static Assets.Game.Navigation.Enums;
 
@@ -16,20 +9,12 @@ namespace Assets.Game.Control
     public class ManagerBehaviour : MonoBehaviour
     {
         // Parameters
-        [SerializeField] private GameObject playerObj;
-        [SerializeField] private GameObject uiObj;
+        [SerializeField] private GameObject player;
+        [SerializeField] private GameObject ui;
 
-        // Fields
-        private System.Collections.Generic.ISet<IDoor> doors;
-        private System.Collections.Generic.ISet<IObstacle> obstacles;
-        private System.Collections.Generic.ISet<IRoom> rooms;
-        private System.Collections.Generic.ISet<IItem> items;
-
-        private GameObject myUIObj;
-        private UIBehaviour ui;
-
-        private GameObject myPlayerObj;
-        private IPlayer? player;        
+        // Fields        
+        private UIBehaviour? uiBehaviour;        
+        private PlayerBehaviour? playerBehaviour;
 
         // Properties
         //public bool WinGame { get => winGame; set => winGame = value; }
@@ -39,12 +24,11 @@ namespace Assets.Game.Control
         public void Awake()
         {
             // Set up UI
-            UIBehaviour.PrintText("Creating UI...");
-            myUIObj = Instantiate(uiObj);
-            ui = myUIObj.GetComponent<UIBehaviour>();
-            ui.HelpEvent += HelpTextEvent;
-            ui.NewGameEvent += StartNewGameEvent;
-            ui.QuitGameEvent += ExitGameEvent;
+            UIBehaviour.PrintText("Creating UI...");            
+            uiBehaviour = ui.GetComponent<UIBehaviour>();
+            uiBehaviour.HelpEvent += HelpTextEvent;
+            uiBehaviour.NewGameEvent += StartNewGameEvent;
+            uiBehaviour.QuitGameEvent += ExitGameEvent;
             UIBehaviour.PrintText("...done");
         }
 
@@ -54,91 +38,6 @@ namespace Assets.Game.Control
             PrintMainMenu();
         }
         // End MonoBehaviour
-
-        private void CreateAllObjects()
-        {
-            // Set up all the obstacles
-            //UIBehaviour.PrintText("Creating obstacles...");
-            ObjectFactory<IObstacle> obstacleFactory = new ObstacleFactory();
-            IObstacle brassLock = obstacleFactory.GetObject("BrassLock");
-            IObstacle enemy = obstacleFactory.GetObject("Enemy");
-            IObstacle bitterCold = obstacleFactory.GetObject("BitterCold");
-            obstacles = new HashSet<IObstacle>() { bitterCold, brassLock, enemy };
-            //UIBehaviour.PrintText("...done");
-
-            // Set up all the items
-            //UIBehaviour.PrintText("Creating items...");
-            ObjectFactory<IItem> itemFactory = new ItemFactory();
-            IItem woollyHat = itemFactory.GetObject("WoollyHat");
-            IItem magicSword = itemFactory.GetObject("MagicSword");
-            IItem brassKey = itemFactory.GetObject("BrassKey");
-            IItem pinkCowboyHat = itemFactory.GetObject("PinkCowboyHat");
-            items = new HashSet<IItem>() { woollyHat, magicSword, brassKey, pinkCowboyHat };
-            //UIBehaviour.PrintText("...done");
-
-            // Set up all the rooms
-            //UIBehaviour.PrintText("Creating rooms...");
-            ObjectFactory<IRoom> roomFactory = new RoomFactory();
-            IRoom closet = roomFactory.GetObject("Closet");
-            IRoom outside = roomFactory.GetObject("Outside");
-            IRoom grandEntrance = roomFactory.GetObject("GrandEntrance");
-            IRoom library = roomFactory.GetObject("Library");
-            IRoom diningHall = roomFactory.GetObject("DiningHall");
-            IRoom billiardsRoom = roomFactory.GetObject("BilliardsRoom");
-            rooms = new HashSet<IRoom>() { closet, outside, grandEntrance, library, diningHall, billiardsRoom };
-            //UIBehaviour.PrintText("...done");
-
-            // Set up all the doors
-            //UIBehaviour.PrintText("Creating doors...");
-            IDoor closetDoor = new DoorLogic("ClosetDoor", "A small flimsy door", roomA: closet, roomB: grandEntrance);
-            IDoor brassDoor = new DoorLogic("BrassDoor", "A huge brass door with a small plaque: 'Library'", library, grandEntrance, brassLock, "A thick-set brass handle is locked tight", "With a satisfying click, the key turns the lock");
-            IDoor guardedDoor = new DoorLogic("GuardedDoor", "Hard to see the door through the enormous knight in full armour that stands in front of it", billiardsRoom, grandEntrance, enemy, "There's no way to pass the guard without ending up dead, or worse", "\"Tis but a scratch\", shouts the knight, as you step over his limbless torso.");
-            IDoor diningDoor = new DoorLogic("DiningDoor", "An ornate door with a small plaque: 'Dining hall'", roomA: grandEntrance, roomB: diningHall);
-            IDoor exteriorDoor = new DoorLogic("ExteriorDoor", "A thick door with a mail slot", outside, diningHall, bitterCold, "There's no way you can survive out there without sensible attire", "Armed with your trusty woolly hat, you gather your things and venture forth.");
-            doors = new HashSet<IDoor>() { closetDoor, brassDoor, guardedDoor, diningDoor, exteriorDoor };
-            //UIBehaviour.PrintText("...done");
-
-            // Assign nemeses to obstacles
-            //UIBehaviour.PrintText("Assigning obstacles...");
-            brassLock.SetNemesis(brassKey);
-            bitterCold.SetNemesis(woollyHat);
-            enemy.SetNemesis(magicSword);
-            //UIBehaviour.PrintText("...done");
-
-            // Assign nemeses to items
-            //UIBehaviour.PrintText("Assigning items...");
-            brassKey.SetNemesis(brassLock);
-            woollyHat.SetNemesis(bitterCold);
-            magicSword.SetNemesis(enemy);
-            //UIBehaviour.PrintText("...done");
-
-            // Assign doors to rooms
-            //UIBehaviour.PrintText("Assigning doors to rooms...");
-            AssignDoorBetweenRooms(grandEntrance, closet, closetDoor, CompassDirection.South);
-            AssignDoorBetweenRooms(grandEntrance, library, brassDoor, CompassDirection.West);
-            AssignDoorBetweenRooms(grandEntrance, diningHall, diningDoor, CompassDirection.East);
-            AssignDoorBetweenRooms(grandEntrance, billiardsRoom, guardedDoor, CompassDirection.North);
-            AssignDoorBetweenRooms(billiardsRoom, outside, exteriorDoor, CompassDirection.North);
-            //UIBehaviour.PrintText("...done");
-
-            // Assign items to rooms
-            //UIBehaviour.PrintText("Assigning items to rooms...");
-            grandEntrance.AddItem(woollyHat);
-            diningHall.AddItem(brassKey);
-            library.AddItem(magicSword);
-            closet.AddItem(pinkCowboyHat);
-            //UIBehaviour.PrintText("...done");
-
-            // Set up player
-            //UIBehaviour.PrintText("Creating player...");
-            myPlayerObj = Instantiate(playerObj);
-            player = myPlayerObj.GetComponent<PlayerBehaviour>();
-            player.Name = "Montague Pythagoras";
-            player.Description = "Our hero, but he is very small";
-            player.Manager = this;
-            player.CurrentRoom = rooms.First(r => r.IsStartRoom);
-            //UIBehaviour.PrintText("...done");
-        }
 
         private void ExitGameEvent(object sender, EventArgs e)
         {
@@ -162,11 +61,11 @@ namespace Assets.Game.Control
                 "Although you'll do better at the game if you don't";
             UIBehaviour.PrintText(text);
 
-            // Create everyhthing
-            CreateAllObjects();
-
             // Shut down our UI so we don't detect key presses
-            ui.enabled = false;
+            uiBehaviour!.enabled = false;
+
+            // Activate player
+            player.SetActive(true);
 
             // Introduction
             PrintIntroduction();
@@ -193,12 +92,14 @@ namespace Assets.Game.Control
             PrintWinGameText();
 
             // Enable our ui
-            ui.enabled = true;  // Our UI need to be up again now
+            uiBehaviour!.enabled = true;  // Our UI need to be up again now
 
-            // Destroy our player
-            Destroy(myPlayerObj);
+            //// Destroy our player
+            //Destroy(player);
 
-            PrintMainMenu();
+            //PrintMainMenu();
+
+            ExitGame();
         }
 
         internal void QuitRun()
@@ -207,12 +108,14 @@ namespace Assets.Game.Control
             UIBehaviour.PrintText(text);
 
             // Enable our ui
-            ui.enabled = true;  // Our UI need to be up again now
+            uiBehaviour!.enabled = true;  // Our UI need to be up again now
 
-            // Destroy our player
-            Destroy(myPlayerObj);
+            //// Destroy our player
+            //Destroy(player);
 
-            PrintMainMenu();
+            //PrintMainMenu();
+
+            ExitGame();
         }
 
         private void PrintIntroduction()
@@ -239,29 +142,6 @@ namespace Assets.Game.Control
             text += $"Then, without warning a police car pulls up and the officers jump out and start shouting at you and reaching for their tasers. Your adventure is over.";
             
             UIBehaviour.PrintText(text);
-        }        
-
-        private static void AssignDoorBetweenRooms(IRoom roomA,
-                                                   IRoom roomB,
-                                                   IDoor door,
-                                                   CompassDirection direction)
-        {
-            CompassDirection oppositeDirection = GetOppositeDirection(direction);
-
-            roomA.SetDoorInDirection(direction, door);
-            roomB.SetDoorInDirection(oppositeDirection, door);
-        }
-
-        private static CompassDirection GetOppositeDirection(CompassDirection direction)
-        {
-            return direction switch
-            {
-                CompassDirection.North => CompassDirection.South,
-                CompassDirection.South => CompassDirection.North,
-                CompassDirection.East => CompassDirection.West,
-                CompassDirection.West => CompassDirection.East,
-                _ => throw new System.NotImplementedException($"Unknown direction: {direction}"),
-            };
-        }        
+        }                
     }
 }
