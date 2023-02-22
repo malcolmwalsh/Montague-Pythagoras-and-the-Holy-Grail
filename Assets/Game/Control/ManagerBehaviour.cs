@@ -7,7 +7,6 @@ using Assets.Game.Objects.Rooms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using static Assets.Game.Navigation.Enums;
 
@@ -17,8 +16,8 @@ namespace Assets.Game.Control
     public class ManagerBehaviour : MonoBehaviour
     {
         // Parameters
-        public GameObject playerObj;
-        public GameObject uiObj;
+        [SerializeField] private GameObject playerObj;
+        [SerializeField] private GameObject uiObj;
 
         // Fields
         private System.Collections.Generic.ISet<IDoor> doors;
@@ -49,29 +48,36 @@ namespace Assets.Game.Control
             UIBehaviour.PrintText("...done");
         }
 
+        public void Start()
+        {
+            // Main menu
+            PrintMainMenu();
+        }
+        // End MonoBehaviour
+
         private void CreateAllObjects()
         {
             // Set up all the obstacles
-            UIBehaviour.PrintText("Creating obstacles...");
+            //UIBehaviour.PrintText("Creating obstacles...");
             ObjectFactory<IObstacle> obstacleFactory = new ObstacleFactory();
             IObstacle brassLock = obstacleFactory.GetObject("BrassLock");
             IObstacle enemy = obstacleFactory.GetObject("Enemy");
             IObstacle bitterCold = obstacleFactory.GetObject("BitterCold");
             obstacles = new HashSet<IObstacle>() { bitterCold, brassLock, enemy };
-            UIBehaviour.PrintText("...done");
+            //UIBehaviour.PrintText("...done");
 
             // Set up all the items
-            UIBehaviour.PrintText("Creating items...");
+            //UIBehaviour.PrintText("Creating items...");
             ObjectFactory<IItem> itemFactory = new ItemFactory();
             IItem woollyHat = itemFactory.GetObject("WoollyHat");
             IItem magicSword = itemFactory.GetObject("MagicSword");
             IItem brassKey = itemFactory.GetObject("BrassKey");
             IItem pinkCowboyHat = itemFactory.GetObject("PinkCowboyHat");
             items = new HashSet<IItem>() { woollyHat, magicSword, brassKey, pinkCowboyHat };
-            UIBehaviour.PrintText("...done");
+            //UIBehaviour.PrintText("...done");
 
             // Set up all the rooms
-            UIBehaviour.PrintText("Creating rooms...");
+            //UIBehaviour.PrintText("Creating rooms...");
             ObjectFactory<IRoom> roomFactory = new RoomFactory();
             IRoom closet = roomFactory.GetObject("Closet");
             IRoom outside = roomFactory.GetObject("Outside");
@@ -80,66 +86,59 @@ namespace Assets.Game.Control
             IRoom diningHall = roomFactory.GetObject("DiningHall");
             IRoom billiardsRoom = roomFactory.GetObject("BilliardsRoom");
             rooms = new HashSet<IRoom>() { closet, outside, grandEntrance, library, diningHall, billiardsRoom };
-            UIBehaviour.PrintText("...done");
+            //UIBehaviour.PrintText("...done");
 
             // Set up all the doors
-            UIBehaviour.PrintText("Creating doors...");
+            //UIBehaviour.PrintText("Creating doors...");
             IDoor closetDoor = new DoorLogic("ClosetDoor", "A small flimsy door", roomA: closet, roomB: grandEntrance);
             IDoor brassDoor = new DoorLogic("BrassDoor", "A huge brass door with a small plaque: 'Library'", library, grandEntrance, brassLock, "A thick-set brass handle is locked tight", "With a satisfying click, the key turns the lock");
             IDoor guardedDoor = new DoorLogic("GuardedDoor", "Hard to see the door through the enormous knight in full armour that stands in front of it", billiardsRoom, grandEntrance, enemy, "There's no way to pass the guard without ending up dead, or worse", "\"Tis but a scratch\", shouts the knight, as you step over his limbless torso.");
             IDoor diningDoor = new DoorLogic("DiningDoor", "An ornate door with a small plaque: 'Dining hall'", roomA: grandEntrance, roomB: diningHall);
             IDoor exteriorDoor = new DoorLogic("ExteriorDoor", "A thick door with a mail slot", outside, diningHall, bitterCold, "There's no way you can survive out there without sensible attire", "Armed with your trusty woolly hat, you gather your things and venture forth.");
             doors = new HashSet<IDoor>() { closetDoor, brassDoor, guardedDoor, diningDoor, exteriorDoor };
-            UIBehaviour.PrintText("...done");
+            //UIBehaviour.PrintText("...done");
 
             // Assign nemeses to obstacles
-            UIBehaviour.PrintText("Assigning obstacles...");
+            //UIBehaviour.PrintText("Assigning obstacles...");
             brassLock.SetNemesis(brassKey);
             bitterCold.SetNemesis(woollyHat);
             enemy.SetNemesis(magicSword);
-            UIBehaviour.PrintText("...done");
+            //UIBehaviour.PrintText("...done");
 
             // Assign nemeses to items
-            UIBehaviour.PrintText("Assigning items...");
+            //UIBehaviour.PrintText("Assigning items...");
             brassKey.SetNemesis(brassLock);
             woollyHat.SetNemesis(bitterCold);
             magicSword.SetNemesis(enemy);
-            UIBehaviour.PrintText("...done");
+            //UIBehaviour.PrintText("...done");
 
             // Assign doors to rooms
-            UIBehaviour.PrintText("Assigning doors to rooms...");
+            //UIBehaviour.PrintText("Assigning doors to rooms...");
             AssignDoorBetweenRooms(grandEntrance, closet, closetDoor, CompassDirection.South);
             AssignDoorBetweenRooms(grandEntrance, library, brassDoor, CompassDirection.West);
             AssignDoorBetweenRooms(grandEntrance, diningHall, diningDoor, CompassDirection.East);
             AssignDoorBetweenRooms(grandEntrance, billiardsRoom, guardedDoor, CompassDirection.North);
             AssignDoorBetweenRooms(billiardsRoom, outside, exteriorDoor, CompassDirection.North);
-            UIBehaviour.PrintText("...done");
+            //UIBehaviour.PrintText("...done");
 
             // Assign items to rooms
-            UIBehaviour.PrintText("Assigning items to rooms...");
+            //UIBehaviour.PrintText("Assigning items to rooms...");
             grandEntrance.AddItem(woollyHat);
             diningHall.AddItem(brassKey);
             library.AddItem(magicSword);
             closet.AddItem(pinkCowboyHat);
-            UIBehaviour.PrintText("...done");
+            //UIBehaviour.PrintText("...done");
 
             // Set up player
-            UIBehaviour.PrintText("Creating player...");
+            //UIBehaviour.PrintText("Creating player...");
             myPlayerObj = Instantiate(playerObj);
             player = myPlayerObj.GetComponent<PlayerBehaviour>();
             player.Name = "Montague Pythagoras";
             player.Description = "Our hero, but he is very small";
             player.Manager = this;
             player.CurrentRoom = rooms.First(r => r.IsStartRoom);
-            UIBehaviour.PrintText("...done");
+            //UIBehaviour.PrintText("...done");
         }
-
-        public void Start()
-        {
-            // Main menu
-            PrintMainMenu();
-        }
-        // End MonoBehaviour
 
         private void ExitGameEvent(object sender, EventArgs e)
         {
@@ -166,11 +165,8 @@ namespace Assets.Game.Control
             // Create everyhthing
             CreateAllObjects();
 
-            // Shut down our UI
+            // Shut down our UI so we don't detect key presses
             ui.enabled = false;
-
-            // Enable the player
-            player!.Enable();
 
             // Introduction
             PrintIntroduction();
@@ -194,9 +190,27 @@ namespace Assets.Game.Control
 
         internal void WinGame()
         {
+            PrintWinGameText();
+
+            // Enable our ui
             ui.enabled = true;  // Our UI need to be up again now
 
-            PrintWinGameText();
+            // Destroy our player
+            Destroy(myPlayerObj);
+
+            PrintMainMenu();
+        }
+
+        internal void QuitRun()
+        {
+            string text = "This run is no more";
+            UIBehaviour.PrintText(text);
+
+            // Enable our ui
+            ui.enabled = true;  // Our UI need to be up again now
+
+            // Destroy our player
+            Destroy(myPlayerObj);
 
             PrintMainMenu();
         }
@@ -225,21 +239,7 @@ namespace Assets.Game.Control
             text += $"Then, without warning a police car pulls up and the officers jump out and start shouting at you and reaching for their tasers. Your adventure is over.";
             
             UIBehaviour.PrintText(text);
-        }
-
-        public void QuitRun()
-        {
-            string text = "This run is no more";
-            UIBehaviour.PrintText(text);
-
-            // Enable our ui
-            ui.enabled = true;
-
-            // Destroy our player
-            Destroy(myPlayerObj);
-
-            PrintMainMenu();
-        }
+        }        
 
         private static void AssignDoorBetweenRooms(IRoom roomA,
                                                    IRoom roomB,

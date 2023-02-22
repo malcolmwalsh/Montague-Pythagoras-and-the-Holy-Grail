@@ -14,13 +14,13 @@ namespace Assets.Game.Objects.Players
     internal class PlayerBehaviour : MonoBehaviour, IPlayer
     {
         // Parameters
-        public GameObject uiObj;
+        [SerializeField] private GameObject uiObj;
 
         // Fields
-        private string name;
-        private string description;
+        private string? name;
+        private string? description;
 
-        private ManagerBehaviour manager;
+        private ManagerBehaviour? manager;
         private IRoom? currentRoom;
 
         private IBackpack backpack = new BackpackLogic();
@@ -39,7 +39,7 @@ namespace Assets.Game.Objects.Players
         // Begin MonoBehaviour
         public void Start()
         {
-            Debug.Log("Player behaviour script starts");
+            //Debug.Log("Player behaviour script starts");
 
             // Set up UI
             myUIObj = Instantiate(uiObj);
@@ -53,7 +53,7 @@ namespace Assets.Game.Objects.Players
 
         private void InspectRoomEvent(object sender, EventArgs e)
         {
-            InspectRoom(this.currentRoom);
+            InspectRoom(this.currentRoom!);
         }
 
         private void TryMoveToRoomEvent(object sender, MoveInDirectionEventArgs e)
@@ -69,10 +69,6 @@ namespace Assets.Game.Objects.Players
         private void QuitRunEvent(object sender, EventArgs e)
         {
             // Quitting run
-
-            // Shut down our ui
-            ui.enabled = false;
-
             Manager.QuitRun();
         }
 
@@ -164,10 +160,6 @@ namespace Assets.Game.Objects.Players
         private void WinGame()
         {
             // Won the game
-
-            // Shut down our UI
-            ui.enabled = false;
-
             manager.WinGame();
         }
 
@@ -230,16 +222,11 @@ namespace Assets.Game.Objects.Players
         {
             string text = selectedDoor.GetBlockedText();
             UIBehaviour.PrintText(text);
-        }
+        }        
 
-        public void Enable()
+        private void OnDestroy()
         {
-            this.enabled = true;
-        }
-
-        public void Disable()
-        {
-            this.enabled = false;
+            Destroy(myUIObj);
         }
     }
 
