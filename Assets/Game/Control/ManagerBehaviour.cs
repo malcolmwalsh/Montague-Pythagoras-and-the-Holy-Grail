@@ -39,8 +39,18 @@ namespace Assets.Game.Control
         // Begin MonoBehaviour
         public void Awake()
         {
-            UIBehaviour.PrintText("Manager started");
+            // Set up UI
+            UIBehaviour.PrintText("Creating UI...");
+            myUIObj = Instantiate(uiObj);
+            ui = myUIObj.GetComponent<UIBehaviour>();
+            ui.HelpEvent += HelpTextEvent;
+            ui.NewGameEvent += StartNewGameEvent;
+            ui.QuitGameEvent += ExitGameEvent;
+            UIBehaviour.PrintText("...done");
+        }
 
+        private void CreateAllObjects()
+        {
             // Set up all the obstacles
             UIBehaviour.PrintText("Creating obstacles...");
             ObjectFactory<IObstacle> obstacleFactory = new ObstacleFactory();
@@ -113,15 +123,6 @@ namespace Assets.Game.Control
             closet.AddItem(pinkCowboyHat);
             UIBehaviour.PrintText("...done");
 
-            // Set up UI
-            UIBehaviour.PrintText("Creating UI...");
-            myUIObj = Instantiate(uiObj);
-            ui = myUIObj.GetComponent<UIBehaviour>();
-            ui.HelpEvent += HelpTextEvent;
-            ui.NewGameEvent += StartNewGameEvent;
-            ui.QuitGameEvent += ExitGameEvent;
-            UIBehaviour.PrintText("...done");
-
             // Set up player
             UIBehaviour.PrintText("Creating player...");
             myPlayerObj = Instantiate(playerObj);
@@ -161,7 +162,10 @@ namespace Assets.Game.Control
             string text = "A new game. You must go into it and love everyone, try to make everyone happy, and bring peace and contentment everywhere you go.\n" +
                 "Although you'll do better at the game if you don't";
             UIBehaviour.PrintText(text);
-            
+
+            // Create everyhthing
+            CreateAllObjects();
+
             // Shut down our UI
             ui.enabled = false;
 
@@ -190,9 +194,11 @@ namespace Assets.Game.Control
 
         internal void WinGame()
         {
+            ui.enabled = true;  // Our UI need to be up again now
+
             PrintWinGameText();
 
-            ExitGame();
+            PrintMainMenu();
         }
 
         private void PrintIntroduction()
@@ -229,7 +235,8 @@ namespace Assets.Game.Control
             // Enable our ui
             ui.enabled = true;
 
-            // TODO: Destroy our player            
+            // Destroy our player
+            Destroy(myPlayerObj);
 
             PrintMainMenu();
         }
