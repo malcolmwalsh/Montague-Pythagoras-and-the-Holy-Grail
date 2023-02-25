@@ -1,5 +1,6 @@
 ﻿using Assets.Game.Objects.Doors;
 using Assets.Game.Objects.Items;
+using Assets.Game.Objects.NPCs;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,7 @@ using UnityEngine;
 using static Assets.Game.Navigation.Enums;
 
 #nullable enable
+
 namespace Assets.Game.Objects.Rooms
 {
     public class RoomBehaviour : MonoBehaviour, IRoom
@@ -24,6 +26,8 @@ namespace Assets.Game.Objects.Rooms
 
         [SerializeField] private List<GameObject> items;
 
+        [SerializeField] private NPCBehaviour? npc;
+
         // Fields        
         private IDictionary<CompassDirection, IDoor?> behavDoors = new Dictionary<CompassDirection, IDoor?>();
 
@@ -32,6 +36,7 @@ namespace Assets.Game.Objects.Rooms
         public string Description { get => description; set => description = value; }
         public bool IsStartRoom { get => isStartRoom; set => isStartRoom = value; }
         public bool IsFinalRoom { get => isFinalRoom; set => isFinalRoom = value; }
+        public INPC? NPC { get => npc; }
 
         // MonoBehaviour
         public void Start()
@@ -103,6 +108,21 @@ namespace Assets.Game.Objects.Rooms
             }
 
             return sb.ToString();
+        }
+
+        public bool HasNPC()
+        {
+            return npc != null;
+        }
+
+        public void RemoveNPC(INPC npc)
+        {
+            if (!npc.Equals(NPC))
+            {
+                throw new System.Exception("The NPC is not in the room as expected");
+            }
+
+            this.npc = null;
         }
     }
 }

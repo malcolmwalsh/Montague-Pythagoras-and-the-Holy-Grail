@@ -11,5 +11,7 @@ namespace Assets.Game.Objects.Players
         // Methods
         bool HasItem(IItem item);
         void AddItem(IItem item);
+        void ConversationOver();
+        void TurnIntoNewt();
     }
 }

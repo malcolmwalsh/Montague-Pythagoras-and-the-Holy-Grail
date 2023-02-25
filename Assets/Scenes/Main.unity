@@ -259,6 +259,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01fef179c7bae2447afd6a03f70436da, type: 3}
+--- !u!1 &240539279
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 240539280}
+  m_Layer: 0
+  m_Name: BridgeKeepers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &240539280
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 240539279}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1531647318}
+  - {fileID: 1605664260}
+  m_Father: {fileID: 1355492169}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &242015681
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1194,6 +1227,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1977070744}
     m_Modifications:
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
+      propertyPath: npc
+      value: 
+      objectReference: {fileID: 1605664261}
+    - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: northDoor
       value: 
       objectReference: {fileID: 418715566}
@@ -1356,6 +1393,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0bd5e94f6bb1a64a8ecb038c208ed00, type: 3}
+--- !u!1 &1355492168
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1355492169}
+  m_Layer: 0
+  m_Name: NPCs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1355492169
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355492168}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 240539280}
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1394338846
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1479,6 +1548,117 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1531647316
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 240539280}
+    m_Modifications:
+    - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5210088279179737410, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_Name
+      value: BridgeKeeper0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: ui
+      value: 
+      objectReference: {fileID: 8580278475926625550, guid: 01fef179c7bae2447afd6a03f70436da, type: 3}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: description
+      value: You are suprised to see an old, hagged man carrying a basket walking
+        towards you. You also suddenly get an overwhelming desire for spam and eggs
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: primaryLine
+      value: Did you know that the airspeed velocity of an unladen European Swallow
+        is #randomResult m/s?
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: greetingText
+      value: The old man approaches you and starts stroking his long, wirey beard
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: primaryRetort
+      value: You should remember it! It's a very interesting fact.
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: leaveHappyText
+      value: I have no time for riddles. I'm a lumberjack!
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: correctResponse
+      value: That's useless, and very silly
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: leaveUnhappyText
+      value: You smell like spam
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: linkedBridgeKeeper
+      value: 
+      objectReference: {fileID: 1605664261}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+--- !u!114 &1531647317 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+  m_PrefabInstance: {fileID: 1531647316}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6690be60775a604ebdc4c1779e2fcfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1531647318 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+  m_PrefabInstance: {fileID: 1531647316}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1533069344
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1704,6 +1884,140 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 428164486490028636, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
   m_PrefabInstance: {fileID: 1563938488}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1605664259
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 240539280}
+    m_Modifications:
+    - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5210088279179737410, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: m_Name
+      value: BridgeKeeper1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: ui
+      value: 
+      objectReference: {fileID: 8580278475926625550, guid: 01fef179c7bae2447afd6a03f70436da, type: 3}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: description
+      value: The old, hagged man from earlier skips towards you
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: primaryLine
+      value: 'He shakes his fist menacingly towards you. You must answer my question
+        if you wish to pass! What is the airspeed velocity of an unladen swallow? '
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: greetingText
+      value: Look who it is! Mr. Doesn't Like Bird Facts returns.
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: primaryRetort
+      value: '#randomResult m/s?! That far too rapid. These birds are tiny. Are you
+        completely mad?'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: leaveHappyText
+      value: The old man looks horrified and then, without warning, he explodes into
+        thousands of geraniums, newts and intestines.
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: correctResponse
+      value: 'Which kind of swallow: African or European?'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: secondaryRetort
+      value: Er, I don't know that!
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: leaveUnhappyText
+      value: 'The man suddenly looks very upset and from his beard he removes a small
+        jar labelled ''Essence of Newt''. He shrugs and throws it at your feet, where
+        it smashes in a puff of dust. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: linkedBridgeKeeper
+      value: 
+      objectReference: {fileID: 1531647317}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: playerResponses.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: playerResponses.Array.data[0]
+      value: The airspeed velocity of an unladen swallow is #randomResult m/s
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: playerResponses.Array.data[1]
+      value: 'Which kind of swallow: African or European?'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+      propertyPath: playerResponses.Array.data[2]
+      value: You're a very naughty boy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+--- !u!4 &1605664260 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+  m_PrefabInstance: {fileID: 1605664259}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1605664261 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5586211878403711936, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
+  m_PrefabInstance: {fileID: 1605664259}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6690be60775a604ebdc4c1779e2fcfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1642026627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1711,6 +2025,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1977070744}
     m_Modifications:
+    - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
+      propertyPath: npc
+      value: 
+      objectReference: {fileID: 1531647317}
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: westDoor
       value: 
