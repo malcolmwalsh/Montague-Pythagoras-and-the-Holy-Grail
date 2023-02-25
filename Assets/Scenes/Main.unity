@@ -2149,12 +2149,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   description: The old, hagged man from earlier skips towards you
-  greetingText: Look who it is! Mr. Doesn't Like Bird Facts returns.
-  primaryLine: 'He shakes his fist menacingly towards you. You must answer my question
-    if you wish to pass! What is the airspeed velocity of an unladen swallow? '
-  primaryRetort: '#randomResult m/s?! That far too rapid. These birds are tiny. Are
-    you completely mad?'
-  secondaryRetort: Er, I don't know that!
+  greetingText: '"Look who it is! Mr. Doesn''t Like Bird Facts returns."'
+  primaryLine: He shakes his fist menacingly towards you. "You must answer my question
+    if you wish to pass! What is the airspeed velocity of an unladen swallow?"
+  primaryRetort: '"#randomResult m/s?! That far too rapid. These birds are tiny.
+    Are you completely mad?"'
+  secondaryRetort: '"Er, I don''t know that!"'
   playerResponses:
   - The airspeed velocity of an unladen swallow is #randomResult m/s
   - 'Which kind of swallow: African or European?'
@@ -2790,9 +2790,9 @@ MonoBehaviour:
   description: You are suprised to see an old, hagged man carrying a basket walking
     towards you. You also suddenly get an overwhelming desire for spam and eggs
   greetingText: The old man approaches you and starts stroking his long, wirey beard
-  primaryLine: Did you know that the airspeed velocity of an unladen European Swallow
-    is #randomResult m/s?
-  primaryRetort: You should remember it! It's a very interesting fact.
+  primaryLine: '"Did you know that the airspeed velocity of an unladen European Swallow
+    is #randomResult m/s?"'
+  primaryRetort: '"You should remember it! It''s a very interesting fact."'
   secondaryRetort: 
   playerResponses:
   - I have no time for riddles. I'm a lumberjack!

@@ -82,12 +82,12 @@ namespace Assets.Game.Objects.NPCs
             return text;
         }
 
-        public string Describe()
+        private string Describe()
         {
             return description;
         }
 
-        public string Greeting()
+        private string Greeting()
         {
             // The NPC greets the player
             return greetingText;
@@ -107,12 +107,12 @@ namespace Assets.Game.Objects.NPCs
             ui.PrintText(PlayerResponseOptions(), addPrompt: true);
         }
 
-        public virtual string Talk()
+        protected virtual string Talk()
         {
             return primaryLine;
         }
 
-        public virtual string Retort(string response)
+        protected virtual string Retort(string response)
         {
             string text;
 
@@ -141,7 +141,7 @@ namespace Assets.Game.Objects.NPCs
             return text;
         }
 
-        public virtual List<string> GetPlayerResponses()
+        protected virtual List<string> GetPlayerResponses()
         {
             return playerResponses;
         }
@@ -163,7 +163,7 @@ namespace Assets.Game.Objects.NPCs
             return text;
         }
 
-        public void Leave(bool happy)
+        protected void Leave(bool happy)
         {
             string text;
 

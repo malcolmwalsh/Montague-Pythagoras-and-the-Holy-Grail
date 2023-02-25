@@ -17,7 +17,7 @@ namespace Assets.Game.Objects.NPCs
         public int RandomResult { get => randomResult; }
 
         // Methods
-        public override string Retort(string response)
+        protected override string Retort(string response)
         {
             // Replacing placeholder text with actual random result value
             this.primaryRetort = UpdateTextWithRandomResult(this.primaryRetort)!;
@@ -26,7 +26,7 @@ namespace Assets.Game.Objects.NPCs
             return base.Retort(response);
         }
 
-        public override string Talk()
+        protected override string Talk()
         {
             // Replacing placeholder text with actual random result value
             string modLine = UpdateTextWithRandomResult(primaryLine)!;
@@ -39,7 +39,7 @@ namespace Assets.Game.Objects.NPCs
             return line.Replace("#randomResult", RandomResult.ToString());
         }
 
-        public override List<string> GetPlayerResponses()
+        protected override List<string> GetPlayerResponses()
         {
             // Replacing placeholder text with actual random result value
             List<string> modPlayerResponses = new();
