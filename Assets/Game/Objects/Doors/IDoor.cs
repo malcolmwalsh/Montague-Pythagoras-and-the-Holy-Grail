@@ -9,7 +9,7 @@ namespace Assets.Game.Objects.Doors
         string GetBlockedText();
 
         // Methods
-        RoomBehaviour GetConnectingRoom(IRoom currentRoom);
+        RoomController GetConnectingRoom(IRoom currentRoom);
         string GetUnblockText();
         bool IsBlocked();
         bool TryTraverse(IPlayer player);

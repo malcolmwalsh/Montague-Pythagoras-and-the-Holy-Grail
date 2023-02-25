@@ -4,6 +4,7 @@ using Assets.Game.Objects.Items;
 using Assets.Game.Objects.NPCs;
 
 #nullable enable
+
 namespace Assets.Game.Objects.Rooms
 {
     public interface IRoom : IObject

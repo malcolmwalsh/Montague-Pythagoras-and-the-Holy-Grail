@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Assets.Game.Objects.NPCs
 {
-    public class NPCBehaviour : MonoBehaviour, INPC
+    public class NPCController : MonoBehaviour, INPC
     {
         // Parameters
         [SerializeField] protected string description;
@@ -26,7 +26,7 @@ namespace Assets.Game.Objects.NPCs
         [SerializeField] protected string leaveHappyText;
         [SerializeField] protected string leaveUnhappyText;
 
-        [SerializeField] private InputBehaviour ui;
+        [SerializeField] private InputController ui;
 
         // Fields
         private bool metBefore = false;

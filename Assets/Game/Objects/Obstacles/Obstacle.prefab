@@ -41,6 +41,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 621314389060308609}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d38cacf835362f04fa3c6945af95e7e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 14c95c0cab2c04c46a36a5253934b233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  description: 
+  nemesis: {fileID: 0}

@@ -9,7 +9,7 @@ using UnityEngine.InputSystem.Controls;
 #nullable enable
 namespace Assets.Game.Control
 {
-    internal class InputBehaviour : MonoBehaviour
+    internal class InputController : MonoBehaviour
     {
         // Constructors
         

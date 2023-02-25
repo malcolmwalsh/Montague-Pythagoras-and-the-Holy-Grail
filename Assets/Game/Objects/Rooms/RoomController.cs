@@ -11,7 +11,7 @@ using static Assets.Game.Navigation.Enums;
 
 namespace Assets.Game.Objects.Rooms
 {
-    public class RoomBehaviour : MonoBehaviour, IRoom
+    public class RoomController : MonoBehaviour, IRoom
     {
         // Parameters
         [SerializeField] private string description;
@@ -26,7 +26,7 @@ namespace Assets.Game.Objects.Rooms
 
         [SerializeField] private List<GameObject> items;
 
-        [SerializeField] private NPCBehaviour? npc;
+        [SerializeField] private NPCController? npc;
 
         // Fields        
         private IDictionary<CompassDirection, IDoor?> behavDoors = new Dictionary<CompassDirection, IDoor?>();
@@ -42,10 +42,10 @@ namespace Assets.Game.Objects.Rooms
         public void Start()
         {
             // Set up doors dictionary
-            if (northDoor != null) behavDoors.Add(CompassDirection.North, northDoor.GetComponent<DoorBehaviour>());
-            if (eastDoor != null) behavDoors.Add(CompassDirection.East, eastDoor.GetComponent<DoorBehaviour>());
-            if (southDoor != null) behavDoors.Add(CompassDirection.South, southDoor.GetComponent<DoorBehaviour>());
-            if (westDoor != null) behavDoors.Add(CompassDirection.West, westDoor.GetComponent<DoorBehaviour>());
+            if (northDoor != null) behavDoors.Add(CompassDirection.North, northDoor.GetComponent<DoorController>());
+            if (eastDoor != null) behavDoors.Add(CompassDirection.East, eastDoor.GetComponent<DoorController>());
+            if (southDoor != null) behavDoors.Add(CompassDirection.South, southDoor.GetComponent<DoorController>());
+            if (westDoor != null) behavDoors.Add(CompassDirection.West, westDoor.GetComponent<DoorController>());
         }
 
         // Methods
@@ -61,7 +61,7 @@ namespace Assets.Game.Objects.Rooms
 
         public IItem? GetItemBehaviour()
         {
-            IItem? item = items.FirstOrDefault()?.GetComponent<ItemBehaviour>();
+            IItem? item = items.FirstOrDefault()?.GetComponent<ItemController>();
 
             // Items have been taken
             items.Clear();

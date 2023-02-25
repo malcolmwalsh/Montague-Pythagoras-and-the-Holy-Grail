@@ -1,5 +1,4 @@
-﻿#nullable enable
-using Assets.Game.Objects.Items;
+﻿using Assets.Game.Objects.Items;
 using Assets.Game.Objects.Obstacles;
 using Assets.Game.Objects.Players;
 using Assets.Game.Objects.Rooms;
@@ -7,15 +6,17 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+#nullable enable
+
 namespace Assets.Game.Objects.Doors
 {
-    public class DoorBehaviour : MonoBehaviour, IDoor
+    public class DoorController : MonoBehaviour, IDoor
     {
         // Parameters
         [SerializeField] private string description;
-        [SerializeField] private List<ObstacleBehaviour> obstacles;
-        [SerializeField] private RoomBehaviour roomA;
-        [SerializeField] private RoomBehaviour roomB;
+        [SerializeField] private List<ObstacleController> obstacles;
+        [SerializeField] private RoomController roomA;
+        [SerializeField] private RoomController roomB;
         [SerializeField] private string? blockedText;
         [SerializeField] private string? unblockText;
 
@@ -54,7 +55,7 @@ namespace Assets.Game.Objects.Doors
 
             // So we have an obstacle
             bool hasNotItem = false;
-            foreach (ObstacleBehaviour obstacle in obstacles)
+            foreach (ObstacleController obstacle in obstacles)
             {
                 // What unblocks this obstacle?
                 IItem obstacleNemesisItem = obstacle.Nemesis!;
@@ -73,9 +74,9 @@ namespace Assets.Game.Objects.Doors
             return !hasNotItem;
         }
 
-        public RoomBehaviour GetConnectingRoom(IRoom currentRoom)
+        public RoomController GetConnectingRoom(IRoom currentRoom)
         {
-            return currentRoom.Equals(roomA.GetComponent<RoomBehaviour>()) ? roomB.GetComponent<RoomBehaviour>() : roomA.GetComponent<RoomBehaviour>();
+            return currentRoom.Equals(roomA.GetComponent<RoomController>()) ? roomB.GetComponent<RoomController>() : roomA.GetComponent<RoomController>();
         }
 
         private bool HasObstacle()

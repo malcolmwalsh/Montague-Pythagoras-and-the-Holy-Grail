@@ -1,19 +1,20 @@
-﻿#nullable enable
-using Assets.Game.Objects.Items;
+﻿using Assets.Game.Objects.Items;
 using UnityEngine;
+
+#nullable enable
 
 namespace Assets.Game.Objects.Obstacles
 {
-    public class ObstacleBehaviour : MonoBehaviour, IObstacle
+    public class ObstacleController : MonoBehaviour, IObstacle
     {
         // Parameters
         [SerializeField] private string description;
-        [SerializeField] private ItemBehaviour? nemesis;
+        [SerializeField] private ItemController? nemesis;
 
         // Fields
 
         // Properties
-        public ItemBehaviour? Nemesis => nemesis;
+        public ItemController? Nemesis => nemesis;
         public string Name { get => name; set => name = value; }
         public string Description { get => description; set => description = value; }
 

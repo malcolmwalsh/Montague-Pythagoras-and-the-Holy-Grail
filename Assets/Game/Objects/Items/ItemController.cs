@@ -2,20 +2,21 @@
 using UnityEngine;
 
 #nullable enable
+
 namespace Assets.Game.Objects.Items
 {
-    public class ItemBehaviour : MonoBehaviour, IItem
+    public class ItemController : MonoBehaviour, IItem
     {
         // Parameters
         [SerializeField] private string description;
-        [SerializeField] private ObstacleBehaviour nemesis;
+        [SerializeField] private ObstacleController nemesis;
 
         // Fields        
         
         // Properties
         public string Name { get => name; set => name = value; }
         public string Description { get => description; set => description = value; }
-        public ObstacleBehaviour Nemisis => nemesis;
+        public ObstacleController Nemisis => nemesis;
 
         // Methods
         public GameObject GetGameObject()

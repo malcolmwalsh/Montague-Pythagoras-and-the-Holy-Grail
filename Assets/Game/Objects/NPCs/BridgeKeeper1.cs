@@ -1,8 +1,9 @@
 ﻿#nullable enable
+
 namespace Assets.Game.Objects.NPCs
 {
     // Constructors
-    public class BridgeKeeper1 : BridgeKeeperBehaviour
+    public class BridgeKeeper1 : BridgeKeeperController
     {
         // Methods
         public override void Start()

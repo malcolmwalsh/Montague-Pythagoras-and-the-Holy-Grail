@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Game.Objects.Backpacks
 {
-    public class BackpackBehaviour : MonoBehaviour, IBackpack
+    public class BackpackController : MonoBehaviour, IBackpack
     {
         // Constructors
 
