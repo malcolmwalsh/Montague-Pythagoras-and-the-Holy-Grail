@@ -10,7 +10,7 @@ namespace Assets.Game.Objects.Rooms
     public interface IRoom : IObject
     {
         // Properties
-        INPC? NPC { get; }
+        INpc? NPC { get; }
         bool IsStartRoom { get; }
         bool IsFinalRoom { get; }
 
@@ -22,6 +22,6 @@ namespace Assets.Game.Objects.Rooms
         bool HasDoorInDirection(Enums.CompassDirection direction);
         IDoor? GetDoorInDirection(Enums.CompassDirection direction);
         bool HasNPC();
-        void RemoveNPC(INPC npc);
+        void RemoveNPC(INpc npc);
     }
 }

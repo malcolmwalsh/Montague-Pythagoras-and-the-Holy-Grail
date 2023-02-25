@@ -7,6 +7,6 @@ namespace Assets.Game.Objects.Items
     public interface IItem : IObject
     {
         // Properties
-        ObstacleController Nemisis { get; }
+        ObstacleController Nemesis { get; }
     }
 }

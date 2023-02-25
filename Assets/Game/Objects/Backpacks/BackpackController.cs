@@ -1,17 +1,19 @@
-﻿using Assets.Game.Objects.Items;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Assets.Game.Objects.Items;
 using UnityEngine;
 
 namespace Assets.Game.Objects.Backpacks
 {
     public class BackpackController : MonoBehaviour, IBackpack
     {
-        // Constructors
+        #region Private fields
 
-        // Fields
-        private ISet<IItem> items = new HashSet<IItem>();
+        private readonly ISet<IItem> items = new HashSet<IItem>();
 
-        // Methods
+        #endregion
+
+        #region IBackpack interface
+
         public bool Contains(IItem item)
         {
             return items.Contains(item);
@@ -21,5 +23,7 @@ namespace Assets.Game.Objects.Backpacks
         {
             items.Add(item);
         }
+
+        #endregion
     }
 }

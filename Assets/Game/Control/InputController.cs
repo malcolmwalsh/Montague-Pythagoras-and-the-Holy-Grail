@@ -1,53 +1,59 @@
-﻿using Assets.Game.Objects.NPCs;
-using Assets.Game.Objects.Players;
-using System;
+﻿using System;
 using System.Reflection;
+using Assets.Game.Objects.NPCs;
+using Assets.Game.Objects.Players;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
-#nullable enable
 namespace Assets.Game.Control
 {
     internal class InputController : MonoBehaviour
     {
-        // Constructors
-        
-        // Fields
-        public event EventHandler? HelpEvent;
-        public event EventHandler? NewGameEvent;
-        public event EventHandler? QuitGameEvent;
-        
-        public event EventHandler? InspectRoomEvent;
-        public event EventHandler<MoveInDirectionEventArgs>? TryMoveToRoomEvent;
-
-        public event EventHandler? TalkToNPCEvent;
-
-        public event EventHandler<RespondToNPCArgs>? RespondToNPCEvent;
+        #region Private fields
 
         private Keyboard keyboard;
-
         private string prompt;
 
-        // Properties
-        public string Prompt { set => prompt = value; }
+        #endregion
 
-        // Methods
-        // Begin MonoBehaviour
+        #region Properties
+
+        public string Prompt
+        {
+            set => prompt = value;
+        }
+
+        #endregion
+
+        #region Public methods
+
+        public event EventHandler HelpEvent;
+        public event EventHandler NewGameEvent;
+        public event EventHandler QuitGameEvent;
+
+        public event EventHandler InspectRoomEvent;
+        public event EventHandler<MoveInDirectionEventArgs> TryMoveToRoomEvent;
+
+        public event EventHandler TalkToNPCEvent;
+
+        public event EventHandler<RespondToNpcArgs> RespondToNPCEvent;
+
+
         public void Awake()
         {
             // Hold a reference to the current keyboard
-            keyboard = Keyboard.current;            
+            keyboard = Keyboard.current;
         }
 
         public void Update()
         {
-            if(!keyboard.anyKey.wasPressedThisFrame) return;  // Nothing pressed
+            if (!keyboard.anyKey.wasPressedThisFrame) return; // Nothing pressed
 
             // Loop through all keys and find the one pressed 
             // TODO: Seems very inefficient!
             foreach (KeyControl keyID in keyboard.allKeys)
-            {
                 if (keyID.wasPressedThisFrame)
                 {
                     // What is pressed
@@ -55,9 +61,7 @@ namespace Assets.Game.Control
 
                     FireEvent(pressedKey);
                 }
-            }
         }
-        // End MonoBehaviour
 
         public void FireEvent(Key key)
         {
@@ -89,7 +93,7 @@ namespace Assets.Game.Control
             else if (KeyBindings.responseKeys.ContainsKey(key) && (RespondToNPCEvent is not null))
             {
                 // Respond to NPC
-                RespondToNPCArgs args = new()
+                RespondToNpcArgs args = new()
                 {
                     ResponseNum = KeyBindings.responseKeys[key]
                 };
@@ -111,31 +115,19 @@ namespace Assets.Game.Control
             }
         }
 
-        private void PrintInvalidKeyText(Key key)
+        public void PrintText(string text, bool addPrompt = false)
         {
-            string text = $"Invalid key ({key}). Try again, or press {KeyBindings.helpKey} for help";
-            PrintText(text);
+            if (text is null) return;
+            
+            print(text);
+            if (addPrompt) print(prompt);
         }
 
-        public void PrintText(string? text, bool addPrompt = false)
-        {
-            if (text is not null)
-            {
-                MonoBehaviour.print(text);
-
-                if (addPrompt)
-                {
-                    MonoBehaviour.print(prompt);
-                }
-            }
-
-        }
-        
         public void ClearLog()
         {
             // https://stackoverflow.com/questions/40577412/clear-editor-console-logs-from-script
 
-            var assembly = Assembly.GetAssembly(typeof(UnityEditor.Editor));
+            var assembly = Assembly.GetAssembly(typeof(Editor));
             var type = assembly.GetType("UnityEditor.LogEntries");
             var method = type.GetMethod("Clear");
             method.Invoke(new object(), null);
@@ -146,12 +138,24 @@ namespace Assets.Game.Control
             ClearLog();
 
             // Help text
-            string text = $"Use the {KeyBindings.moveNorthKey}, {KeyBindings.moveSouthKey}, {KeyBindings.moveWestKey} and {KeyBindings.moveEastKey} to move North, South, West and East respectively. " +
+            string text =
+                $"Use the {KeyBindings.moveNorthKey}, {KeyBindings.moveSouthKey}, {KeyBindings.moveWestKey} and {KeyBindings.moveEastKey} to move North, South, West and East respectively. " +
                 $"Use {KeyBindings.inspectKey} to inspect a room for items. Use {KeyBindings.talkKey} to speak with NPCs. \n" +
                 $"Press {KeyBindings.helpKey} for this help at any time. To bravely run away, press {KeyBindings.quitKey} to return to the main menu and then {KeyBindings.quitKey} again to exit the game altogether";
 
             PrintText(text);
         }
+
+        #endregion
+
+        #region Private methods
+
+        private void PrintInvalidKeyText(Key key)
+        {
+            string text = $"Invalid key ({key}). Try again, or press {KeyBindings.helpKey} for help";
+            PrintText(text);
+        }
+
+        #endregion
     }
 }
-
