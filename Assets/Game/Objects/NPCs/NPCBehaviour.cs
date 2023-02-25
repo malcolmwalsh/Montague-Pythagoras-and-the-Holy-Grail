@@ -55,7 +55,7 @@ namespace Assets.Game.Objects.NPCs
         {
             // Call retort
             string retort = Retort(response);
-            InputBehaviour.PrintText(retort);
+            ui.PrintText(retort);
 
             // Leave
             Leave(correctResponseGiven);
@@ -98,7 +98,7 @@ namespace Assets.Game.Objects.NPCs
             // Enable our UI
             EnableUI();
 
-            InputBehaviour.PrintText(Talk());
+            ui.PrintText(Talk());
         }
 
         public virtual string Talk()
@@ -157,7 +157,7 @@ namespace Assets.Game.Objects.NPCs
                 player!.TurnIntoNewt();
 
             }
-            InputBehaviour.PrintText(text);
+            ui.PrintText(text);
 
             // Remove NPC from room
             room!.RemoveNPC(this);

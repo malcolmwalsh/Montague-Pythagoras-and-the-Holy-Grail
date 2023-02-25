@@ -841,21 +841,38 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5210088279179737410, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
   m_PrefabInstance: {fileID: 1605664259}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &880081810 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4881277516920196505, guid: c0bd5e94f6bb1a64a8ecb038c208ed00, type: 3}
-  m_PrefabInstance: {fileID: 1329070208}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &880081812 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4881277516920196504, guid: c0bd5e94f6bb1a64a8ecb038c208ed00, type: 3}
   m_PrefabInstance: {fileID: 1329070208}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &880081813 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4881277516920196503, guid: c0bd5e94f6bb1a64a8ecb038c208ed00, type: 3}
+  m_PrefabInstance: {fileID: 1329070208}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ff651941c9bb10449c099696ba70c4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1101528813 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8580278475926625551, guid: 01fef179c7bae2447afd6a03f70436da, type: 3}
   m_PrefabInstance: {fileID: 205440159}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1101528814 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8580278475926625550, guid: 01fef179c7bae2447afd6a03f70436da, type: 3}
+  m_PrefabInstance: {fileID: 205440159}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1101528813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f2fbb9ff85e1d047a37cbe769351a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1106434328
 GameObject:
   m_ObjectHideFlags: 0
@@ -1323,7 +1340,7 @@ PrefabInstance:
     - target: {fileID: 4881277516920196503, guid: c0bd5e94f6bb1a64a8ecb038c208ed00, type: 3}
       propertyPath: ui
       value: 
-      objectReference: {fileID: 1101528813}
+      objectReference: {fileID: 1101528814}
     - target: {fileID: 4881277516920196503, guid: c0bd5e94f6bb1a64a8ecb038c208ed00, type: 3}
       propertyPath: uiObj
       value: 
@@ -1535,7 +1552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3756b064a9d87644bec580243119a4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 880081810}
+  player: {fileID: 880081813}
   ui: {fileID: 1747509059}
 --- !u!4 &1531361274
 Transform:

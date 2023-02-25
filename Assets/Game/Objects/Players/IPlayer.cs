@@ -13,5 +13,6 @@ namespace Assets.Game.Objects.Players
         void AddItem(IItem item);
         void ConversationOver();
         void TurnIntoNewt();
+        void PrintIntroduction();
     }
 }
