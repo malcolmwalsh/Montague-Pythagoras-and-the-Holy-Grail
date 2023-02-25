@@ -24,10 +24,7 @@ All controls use the keyboard.
   - `Esc` to bravely run away to the Main Menu.
   
 * In dialogue, press:
-
-  - `1`, `2`, `3` or `4` based on the choices provided
-  - `H` for help
-  - `Esc` to bravely run away to the Main Menu.
+  - `1`, `2` or `3` to choose the response from the options provided
 
 ## Licence
 You can play if you promise not to tell Monty Python that I've stolen all their jokes.

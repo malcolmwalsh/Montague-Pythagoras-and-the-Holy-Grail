@@ -1,16 +1,15 @@
-﻿using Assets.Game.Objects.Players;
+﻿using Assets.Game.Objects.NPCs;
+using Assets.Game.Objects.Players;
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
-using static Assets.Game.Navigation.Enums;
 
 #nullable enable
 namespace Assets.Game.Control
 {
-    internal class UIBehaviour : MonoBehaviour
+    internal class InputBehaviour : MonoBehaviour
     {
         // Constructors
         
@@ -21,6 +20,10 @@ namespace Assets.Game.Control
         
         public event EventHandler? InspectRoomEvent;
         public event EventHandler<MoveInDirectionEventArgs>? TryMoveToRoomEvent;
+
+        public event EventHandler? TalkToNPCEvent;
+
+        public event EventHandler<RespondToNPCArgs>? RespondToNPCEvent;
 
         private Keyboard keyboard;        
 
@@ -73,6 +76,21 @@ namespace Assets.Game.Control
                 // Inspect room
                 InspectRoomEvent.Invoke(this, EventArgs.Empty);
             }
+            else if (key.Equals(KeyBindings.talkKey) && (TalkToNPCEvent is not null))
+            {
+                // Talk to NPC
+                TalkToNPCEvent.Invoke(this, EventArgs.Empty);
+            }
+            else if (KeyBindings.responseKeys.ContainsKey(key) && (RespondToNPCEvent is not null))
+            {
+                // Respond to NPC
+                RespondToNPCArgs args = new()
+                {
+                    ResponseNum = KeyBindings.responseKeys[key]
+                };
+
+                RespondToNPCEvent.Invoke(this, args);
+            }
             else if (KeyBindings.movementKeys.ContainsKey(key) && (TryMoveToRoomEvent is not null))
             {
                 // Try move
@@ -91,7 +109,7 @@ namespace Assets.Game.Control
         private void PrintInvalidKeyText(Key key)
         {
             string text = $"Invalid key ({key}). Try again, or press {KeyBindings.helpKey} for help";
-            UIBehaviour.PrintText(text);
+            InputBehaviour.PrintText(text);
         }
 
         // Static
@@ -112,13 +130,14 @@ namespace Assets.Game.Control
 
         public static void PrintHelpText()
         {
-            UIBehaviour.ClearLog();
+            ClearLog();
 
             // Help text
-            string text = $"Use the {KeyBindings.moveNorthKey}, {KeyBindings.moveSouthKey}, {KeyBindings.moveWestKey} and {KeyBindings.moveEastKey} to move North, South, West and East respectively. Use {KeyBindings.inspectKey} to inspect a room for items. \n" +
+            string text = $"Use the {KeyBindings.moveNorthKey}, {KeyBindings.moveSouthKey}, {KeyBindings.moveWestKey} and {KeyBindings.moveEastKey} to move North, South, West and East respectively. " +
+                $"Use {KeyBindings.inspectKey} to inspect a room for items. Use {KeyBindings.talkKey} to speak with NPCs. \n" +
                 $"Press {KeyBindings.helpKey} for this help at any time. To bravely run away, press {KeyBindings.quitKey} to return to the main menu and then {KeyBindings.quitKey} again to exit the game altogether";
 
-            UIBehaviour.PrintText(text);
+            PrintText(text);
         }
     }
 }

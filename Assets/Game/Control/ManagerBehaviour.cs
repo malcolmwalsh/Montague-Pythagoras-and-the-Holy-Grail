@@ -1,35 +1,33 @@
 ﻿using Assets.Game.Objects.Players;
 using System;
 using UnityEngine;
-using static Assets.Game.Navigation.Enums;
 
 #nullable enable
 namespace Assets.Game.Control
 {
-    public class ManagerBehaviour : MonoBehaviour
+    public class ManagerBehaviour : MonoBehaviour, IHasUI
     {
         // Parameters
         [SerializeField] private GameObject player;
         [SerializeField] private GameObject ui;
 
         // Fields        
-        private UIBehaviour? uiBehaviour;        
+        private InputBehaviour? uiBehaviour;        
         private PlayerBehaviour? playerBehaviour;
 
         // Properties
-        //public bool WinGame { get => winGame; set => winGame = value; }
-
+        
         // Methods
         // Begin MonoBehaviour
         public void Awake()
         {
             // Set up UI
-            UIBehaviour.PrintText("Creating UI...");            
-            uiBehaviour = ui.GetComponent<UIBehaviour>();
+            InputBehaviour.PrintText("Creating UI...");            
+            uiBehaviour = ui.GetComponent<InputBehaviour>();
             uiBehaviour.HelpEvent += HelpTextEvent;
             uiBehaviour.NewGameEvent += StartNewGameEvent;
             uiBehaviour.QuitGameEvent += ExitGameEvent;
-            UIBehaviour.PrintText("...done");
+            InputBehaviour.PrintText("...done");
         }
 
         public void Start()
@@ -46,7 +44,7 @@ namespace Assets.Game.Control
 
         private void HelpTextEvent(object sender, EventArgs e)
         {
-            UIBehaviour.PrintHelpText();
+            InputBehaviour.PrintHelpText();
         }        
 
         private void StartNewGameEvent(object sender, EventArgs e)
@@ -56,13 +54,13 @@ namespace Assets.Game.Control
 
         private void StartNewGame()
         {
-            UIBehaviour.ClearLog();
+            InputBehaviour.ClearLog();
             string text = "A new game. You must go into it and love everyone, try to make everyone happy, and bring peace and contentment everywhere you go.\n" +
                 "Although you'll do better at the game if you don't";
-            UIBehaviour.PrintText(text);
+            InputBehaviour.PrintText(text);
 
-            // Shut down our UI so we don't detect key presses
-            uiBehaviour!.enabled = false;
+            // Don't want out UI anymore
+            DisableUI();
 
             // Activate player
             player.SetActive(true);
@@ -74,10 +72,10 @@ namespace Assets.Game.Control
         private void ExitGame()
         {
             string text = "When you're chewing on life's gristle, don't grumble, give a whistle. And this'll help things turn out for the best.";
-            UIBehaviour.PrintText(text);
+            InputBehaviour.PrintText(text);
 
             text = "Exiting game";
-            UIBehaviour.PrintText(text);
+            InputBehaviour.PrintText(text);
 
             #if UNITY_STANDALONE
                 Application.Quit();
@@ -91,13 +89,16 @@ namespace Assets.Game.Control
         {
             PrintWinGameText();
 
-            // Enable our ui
-            uiBehaviour!.enabled = true;  // Our UI need to be up again now
+            ExitGame();
+        }
 
-            //// Destroy our player
-            //Destroy(player);
-
-            //PrintMainMenu();
+        public void LoseGame(bool isNewt)
+        {
+            if (isNewt)
+            {
+                string newtText = "You were always pretty small, but now you're a newt, no longer than the blade of your axe. Your adventure is over.";
+                InputBehaviour.PrintText(newtText);
+            }
 
             ExitGame();
         }
@@ -105,10 +106,10 @@ namespace Assets.Game.Control
         internal void QuitRun()
         {
             string text = "This run is no more";
-            UIBehaviour.PrintText(text);
+            InputBehaviour.PrintText(text);
 
-            // Enable our ui
-            uiBehaviour!.enabled = true;  // Our UI need to be up again now
+            // Our UI need to be up again now
+            EnableUI();
 
             //// Destroy our player
             //Destroy(player);
@@ -118,30 +119,47 @@ namespace Assets.Game.Control
             ExitGame();
         }
 
+        public void EnableUI()
+        {
+            // Enable our ui so we do detect key presses
+            uiBehaviour!.enabled = true;  
+        }
+
+        public void DisableUI()
+        {
+            // Shut down our UI so we don't detect key presses
+            uiBehaviour!.enabled = false;
+        }
+
         private void PrintIntroduction()
         {
             string text = $"You find yourself in a medium-sized closet, surrounded by various tins, jars, blankets, brooms, and a single pink cowboy hat.\n" +
                 $"As nice as the closet is, you'd rather be outside, leaping from tree to tree as they float down the mighty rivers of British Columbia!";
 
-            UIBehaviour.PrintText(text);
+            InputBehaviour.PrintText(text);
         }
 
         private void PrintMainMenu()
         {
-            UIBehaviour.ClearLog();
+            InputBehaviour.ClearLog();
 
             // Menu
             string text = $"Welcome to Monague Pythagoras and the Holey Grail\nPress {KeyBindings.helpKey} for help, {KeyBindings.newGameKey} for a new game or {KeyBindings.quitKey} to shuffle of this mortal coil";
 
-            UIBehaviour.PrintText(text);
+            InputBehaviour.PrintText(text);
         }
 
         private void PrintWinGameText()
         {
             string text = $"You walk off into the freezing night, only stopping briefly to turn around and look back. There's mixed emotions, but overall you feel content.\n";
-            text += $"Then, without warning a police car pulls up and the officers jump out and start shouting at you and reaching for their tasers. Your adventure is over.";
+            text += $"Then, without warning a police car pulls up and the officers jump out and start shouting at you and reaching for their tasers. This is as good as it gets. Well done!";
             
-            UIBehaviour.PrintText(text);
-        }                
+            InputBehaviour.PrintText(text);
+        }
+
+        public string Prompt()
+        {
+            return "prompt here";
+        }
     }
 }
