@@ -17,10 +17,10 @@ namespace Assets.Game.Objects.NPCs
 
         [SerializeField] protected string primaryLine;
         [SerializeField] protected string primaryRetort;
-        [SerializeField] protected string? secondaryRetort;
+        [SerializeField] protected string secondaryRetort;
 
         [SerializeField] protected List<string> playerResponses;
-        [SerializeField] protected string? correctResponse;
+        [SerializeField] protected string correctResponse;
 
         [SerializeField] protected string leaveHappyText;
         [SerializeField] protected string leaveUnhappyText;
@@ -40,8 +40,7 @@ namespace Assets.Game.Objects.NPCs
         // Methods
         public virtual void Start()
         {
-            // Set up UI
-            ui.RespondToNPCEvent += RespondToNPCEvent;
+            ui.RespondToNPCEvent += RespondToNPCEvent;            
         }
 
         private void RespondToNPCEvent(object sender, RespondToNPCArgs e)
@@ -111,17 +110,24 @@ namespace Assets.Game.Objects.NPCs
         {
             string text;
 
-            if ((correctResponse != null) && (secondaryRetort != null) && response.Equals(correctResponse))
+            if ((correctResponse != String.Empty) && (secondaryRetort != String.Empty) && response.Equals(correctResponse))
             {
                 // Correct response given
                 correctResponseGiven = true;
 
                 text = secondaryRetort;
             }
-            else
+            else if ((correctResponse != String.Empty) && (secondaryRetort != String.Empty) && !response.Equals(correctResponse))            
             {
                 // Wrong response given
                 correctResponseGiven = false;
+
+                text = primaryRetort;
+            }
+            else
+            {
+                // No correct option, always happy
+                correctResponseGiven = true;
 
                 text = primaryRetort;
             }

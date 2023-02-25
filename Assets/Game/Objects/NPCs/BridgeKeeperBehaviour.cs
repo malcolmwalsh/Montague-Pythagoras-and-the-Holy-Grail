@@ -33,9 +33,9 @@ namespace Assets.Game.Objects.NPCs
             return modLine;
         }
 
-        private string? UpdateTextWithRandomResult(string? line)
+        private string UpdateTextWithRandomResult(string line)
         {
-            return line?.Replace("#randomResult", RandomResult.ToString());
+            return line.Replace("#randomResult", RandomResult.ToString());
         }
 
         public override List<string> GetPlayerResponses()
@@ -45,10 +45,13 @@ namespace Assets.Game.Objects.NPCs
 
             foreach (string response in playerResponses)
             {
-                modPlayerResponses.Add(UpdateTextWithRandomResult(response)!);
+                modPlayerResponses.Add(UpdateTextWithRandomResult(response));
             }
 
-            return modPlayerResponses;
+            // Use these ones
+            playerResponses = modPlayerResponses;
+
+            return playerResponses;
         }
     }
 }

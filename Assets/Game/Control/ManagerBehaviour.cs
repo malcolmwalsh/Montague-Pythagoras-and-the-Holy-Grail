@@ -1,7 +1,6 @@
 ﻿using Assets.Game.Objects.Players;
 using System;
 using UnityEngine;
-using static Assets.Game.Navigation.Enums;
 
 #nullable enable
 namespace Assets.Game.Control
@@ -17,8 +16,7 @@ namespace Assets.Game.Control
         private PlayerBehaviour? playerBehaviour;
 
         // Properties
-        //public bool WinGame { get => winGame; set => winGame = value; }
-
+        
         // Methods
         // Begin MonoBehaviour
         public void Awake()
@@ -91,14 +89,6 @@ namespace Assets.Game.Control
         {
             PrintWinGameText();
 
-            // Enable our ui
-            EnableUI();
-
-            //// Destroy our player
-            //Destroy(player);
-
-            //PrintMainMenu();
-
             ExitGame();
         }
 
@@ -110,7 +100,7 @@ namespace Assets.Game.Control
                 InputBehaviour.PrintText(newtText);
             }
 
-            QuitRun();
+            ExitGame();
         }
 
         internal void QuitRun()
@@ -162,7 +152,7 @@ namespace Assets.Game.Control
         private void PrintWinGameText()
         {
             string text = $"You walk off into the freezing night, only stopping briefly to turn around and look back. There's mixed emotions, but overall you feel content.\n";
-            text += $"Then, without warning a police car pulls up and the officers jump out and start shouting at you and reaching for their tasers. Your adventure is over.";
+            text += $"Then, without warning a police car pulls up and the officers jump out and start shouting at you and reaching for their tasers. This is as good as it gets. Well done!";
             
             InputBehaviour.PrintText(text);
         }
