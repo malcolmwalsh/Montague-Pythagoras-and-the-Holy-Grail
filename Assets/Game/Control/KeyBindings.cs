@@ -20,9 +20,9 @@ namespace Assets.Game.Control
 
         internal static Key talkKey = Key.T;
 
-        internal static Key response0 = Key.Digit1;
-        internal static Key response1 = Key.Digit2;
-        internal static Key response2 = Key.Digit3;
+        internal static Key response0Key = Key.Digit1;
+        internal static Key response1Key = Key.Digit2;
+        internal static Key response2Key = Key.Digit3;
 
         internal static IDictionary<Key, CompassDirection> movementKeys = new Dictionary<Key, CompassDirection>() {
                 { KeyBindings.moveNorthKey, CompassDirection.North },
@@ -32,9 +32,9 @@ namespace Assets.Game.Control
             };
 
         internal static IDictionary<Key, int> responseKeys = new Dictionary<Key, int>() {
-                { KeyBindings.response0, 0 },
-                { KeyBindings.response1, 1 },
-                { KeyBindings.response2, 2 }
+                { KeyBindings.response0Key, 0 },
+                { KeyBindings.response1Key, 1 },
+                { KeyBindings.response2Key, 2 }
             };
     }
 }

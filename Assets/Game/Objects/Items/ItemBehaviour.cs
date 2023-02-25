@@ -4,18 +4,18 @@ using UnityEngine;
 #nullable enable
 namespace Assets.Game.Objects.Items
 {
-    internal class ItemBehaviour : MonoBehaviour, IItem
+    public class ItemBehaviour : MonoBehaviour, IItem
     {
         // Parameters
         [SerializeField] private string description;
-        [SerializeField] private GameObject nemesis;
+        [SerializeField] private ObstacleBehaviour nemesis;
 
         // Fields        
         
         // Properties
         public string Name { get => name; set => name = value; }
         public string Description { get => description; set => description = value; }
-        public IObstacle? NemisisBehaviour => nemesis.GetComponent<ObstacleBehaviour>();
+        public ObstacleBehaviour Nemisis => nemesis;
 
         // Methods
         public GameObject GetGameObject()

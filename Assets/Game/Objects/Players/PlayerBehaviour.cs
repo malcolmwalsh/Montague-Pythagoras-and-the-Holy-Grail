@@ -6,7 +6,6 @@ using Assets.Game.Objects.NPCs;
 using Assets.Game.Objects.Rooms;
 using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using static Assets.Game.Navigation.Enums;
 
 #nullable enable
@@ -18,8 +17,10 @@ namespace Assets.Game.Objects.Players
         [SerializeField] private string description;
 
         [SerializeField] private InputBehaviour ui;
-        [SerializeField] private GameObject currentRoom;
-        [SerializeField] private GameObject backpack;
+        
+        [SerializeField] private RoomBehaviour currentRoom;
+        
+        [SerializeField] private BackpackBehaviour backpack;
 
         [SerializeField] private ManagerBehaviour? manager;
 
@@ -54,7 +55,7 @@ namespace Assets.Game.Objects.Players
 
         private void InspectRoomEvent(object sender, EventArgs e)
         {
-            InspectRoom(currentRoom!.GetComponent<RoomBehaviour>());
+            InspectRoom(currentRoom);
         }
 
         private void TryMoveToRoomEvent(object sender, MoveInDirectionEventArgs e)
@@ -97,11 +98,8 @@ namespace Assets.Game.Objects.Players
 
         private void TryMoveIntoNewRoom(CompassDirection direction)
         {
-            // Pick up current room
-            IRoom currentRoomBehaviour = currentRoom!.GetComponent<RoomBehaviour>();
-
             // Is there a door there?
-            if (!currentRoomBehaviour.HasDoorInDirection(direction))
+            if (!currentRoom.HasDoorInDirection(direction))
             {
                 // No door in that direction
                 // Return text to indicate that to player
@@ -110,7 +108,7 @@ namespace Assets.Game.Objects.Players
             else
             {
                 // Is door in that direction
-                IDoor selectedDoor = currentRoomBehaviour.GetDoorInDirection(direction)!;
+                IDoor selectedDoor = currentRoom.GetDoorInDirection(direction)!;
 
                 // Is the door blocked / locked
                 if (selectedDoor.IsBlocked())
@@ -141,25 +139,25 @@ namespace Assets.Game.Objects.Players
                 if (!selectedDoor.IsBlocked())
                 {
                     // Get room that connects with the current room using this door	                                
-                    IRoom newRoomBehaviour = selectedDoor.GetConnectingRoom(currentRoomBehaviour);
+                    RoomBehaviour newRoom = selectedDoor.GetConnectingRoom(currentRoom);
 
                     // Print text informing player that they are moving into new room
-                    PrintMovingIntoNewRoomText(currentRoomBehaviour, newRoomBehaviour);
+                    PrintMovingIntoNewRoomText(currentRoom, newRoom);
 
                     // Set new room as current room
-                    currentRoom = newRoomBehaviour.GetGameObject();
+                    currentRoom = newRoom;
 
                     // has NPC?
-                    bool hasNPC = newRoomBehaviour.HasNPC();
+                    bool hasNPC = newRoom.HasNPC();
 
                     // Describe new room
-                    PrintRoomDescriptionText(newRoomBehaviour, !hasNPC);
+                    PrintRoomDescriptionText(!hasNPC);
 
                     // Check for NPC in room
                     if (hasNPC)
                     {
                         // Get the NPC
-                        INPC npc = newRoomBehaviour.NPC!;
+                        INPC npc = newRoom.NPC!;
 
                         // Meet the NPC
                         string meetText = npc.Meet();
@@ -167,7 +165,7 @@ namespace Assets.Game.Objects.Players
                     }
 
                     // Check whether this is the final room
-                    if (newRoomBehaviour.IsFinalRoom)
+                    if (newRoom.IsFinalRoom)
                     {
                         WinGame();
                     }
@@ -178,7 +176,7 @@ namespace Assets.Game.Objects.Players
         private void TalkToNPC()
         {
             // Get the NPC
-            INPC? npc = currentRoom.GetComponent<RoomBehaviour>().NPC;
+            INPC? npc = currentRoom.NPC;
 
             if (npc != null)
             {
@@ -188,7 +186,7 @@ namespace Assets.Game.Objects.Players
                 DisableUI();
 
                 // Start talking
-                npc.StartConversation(this, currentRoom.GetComponent<IRoom>());
+                npc.StartConversation(this, currentRoom);
             }
             else
             {
@@ -210,6 +208,8 @@ namespace Assets.Game.Objects.Players
 
                 // Enable UI
                 EnableUI();
+
+                PrintRoomDescriptionText(addPrompt: true);
             }
         }
 
@@ -225,9 +225,9 @@ namespace Assets.Game.Objects.Players
             Manager!.LoseGame(true);
         }
 
-        private void PrintRoomDescriptionText(IRoom newRoom, bool addPrompt = false)
+        private void PrintRoomDescriptionText(bool addPrompt = false)
         {
-            string text = newRoom.Description;
+            string text = currentRoom.Description;
 
             ui.PrintText(text, addPrompt: addPrompt);
         }

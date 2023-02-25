@@ -13,9 +13,9 @@ namespace Assets.Game.Objects.Doors
     {
         // Parameters
         [SerializeField] private string description;
-        [SerializeField] private List<GameObject> obstacles;
-        [SerializeField] private GameObject roomA;
-        [SerializeField] private GameObject roomB;
+        [SerializeField] private List<ObstacleBehaviour> obstacles;
+        [SerializeField] private RoomBehaviour roomA;
+        [SerializeField] private RoomBehaviour roomB;
         [SerializeField] private string? blockedText;
         [SerializeField] private string? unblockText;
 
@@ -54,12 +54,10 @@ namespace Assets.Game.Objects.Doors
 
             // So we have an obstacle
             bool hasNotItem = false;
-            foreach (GameObject obstacleObj in obstacles)
+            foreach (ObstacleBehaviour obstacle in obstacles)
             {
-                IObstacle obstacle = obstacleObj.GetComponent<ObstacleBehaviour>();
-
                 // What unblocks this obstacle?
-                IItem obstacleNemesisItem = obstacle.NemesisBehaviour;
+                IItem obstacleNemesisItem = obstacle.Nemesis!;
 
                 // Does player have it?
                 if (!player.HasItem(obstacleNemesisItem))
@@ -75,7 +73,7 @@ namespace Assets.Game.Objects.Doors
             return !hasNotItem;
         }
 
-        public IRoom GetConnectingRoom(IRoom currentRoom)
+        public RoomBehaviour GetConnectingRoom(IRoom currentRoom)
         {
             return currentRoom.Equals(roomA.GetComponent<RoomBehaviour>()) ? roomB.GetComponent<RoomBehaviour>() : roomA.GetComponent<RoomBehaviour>();
         }

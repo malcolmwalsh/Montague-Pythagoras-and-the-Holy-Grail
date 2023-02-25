@@ -4,17 +4,16 @@ using UnityEngine;
 
 namespace Assets.Game.Objects.Obstacles
 {
-    internal class ObstacleBehaviour : MonoBehaviour, IObstacle
+    public class ObstacleBehaviour : MonoBehaviour, IObstacle
     {
         // Parameters
         [SerializeField] private string description;
-        [SerializeField] private GameObject? nemesis;
+        [SerializeField] private ItemBehaviour? nemesis;
 
         // Fields
 
-
         // Properties
-        public IItem? NemesisBehaviour => nemesis?.GetComponent<ItemBehaviour>();
+        public ItemBehaviour? Nemesis => nemesis;
         public string Name { get => name; set => name = value; }
         public string Description { get => description; set => description = value; }
 
