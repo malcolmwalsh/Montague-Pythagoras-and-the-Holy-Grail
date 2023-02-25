@@ -3,6 +3,7 @@ using Assets.Game.Objects.Players;
 using Assets.Game.Objects.Rooms;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 #nullable enable
@@ -40,13 +41,16 @@ namespace Assets.Game.Objects.NPCs
         // Methods
         public virtual void Start()
         {
-            ui.RespondToNPCEvent += RespondToNPCEvent;            
+            ui.RespondToNPCEvent += RespondToNPCEvent;
+
+            ui.Prompt = Prompt();
         }
 
         private void RespondToNPCEvent(object sender, RespondToNPCArgs e)
         {
             // Get response chosen
             string response = playerResponses[e.ResponseNum];
+            ui.PrintText(response);
 
             RespondToNPC(response);
         }
@@ -55,7 +59,7 @@ namespace Assets.Game.Objects.NPCs
         {
             // Call retort
             string retort = Retort(response);
-            InputBehaviour.PrintText(retort);
+            ui.PrintText(retort);
 
             // Leave
             Leave(correctResponseGiven);
@@ -98,7 +102,9 @@ namespace Assets.Game.Objects.NPCs
             // Enable our UI
             EnableUI();
 
-            InputBehaviour.PrintText(Talk());
+            ui.PrintText(Talk());
+
+            ui.PrintText(PlayerResponseOptions(), addPrompt: true);
         }
 
         public virtual string Talk()
@@ -140,6 +146,23 @@ namespace Assets.Game.Objects.NPCs
             return playerResponses;
         }
 
+        protected virtual string PlayerResponseOptions()
+        {
+            int i = 0;
+            StringBuilder sb = new();            
+
+            foreach(string response in GetPlayerResponses())
+            {
+                i++;
+
+                sb.Append($"{i}: {response}. ");
+            }
+
+            string text = sb.ToString();
+
+            return text;
+        }
+
         public void Leave(bool happy)
         {
             string text;
@@ -157,7 +180,7 @@ namespace Assets.Game.Objects.NPCs
                 player!.TurnIntoNewt();
 
             }
-            InputBehaviour.PrintText(text);
+            ui.PrintText(text);
 
             // Remove NPC from room
             room!.RemoveNPC(this);
@@ -189,7 +212,10 @@ namespace Assets.Game.Objects.NPCs
 
         public string Prompt()
         {
-            return "prompt here";
+            string text = "Make your choice\n" +
+                $"[Press {KeyBindings.response0Key}, {KeyBindings.response1Key} or {KeyBindings.response2Key}]";
+
+            return text;
         }
         // End IHasUI
     }

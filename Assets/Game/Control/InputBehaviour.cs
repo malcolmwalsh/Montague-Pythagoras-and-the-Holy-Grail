@@ -25,7 +25,12 @@ namespace Assets.Game.Control
 
         public event EventHandler<RespondToNPCArgs>? RespondToNPCEvent;
 
-        private Keyboard keyboard;        
+        private Keyboard keyboard;
+
+        private string prompt;
+
+        // Properties
+        public string Prompt { set => prompt = value; }
 
         // Methods
         // Begin MonoBehaviour
@@ -109,16 +114,24 @@ namespace Assets.Game.Control
         private void PrintInvalidKeyText(Key key)
         {
             string text = $"Invalid key ({key}). Try again, or press {KeyBindings.helpKey} for help";
-            InputBehaviour.PrintText(text);
+            PrintText(text);
         }
 
-        // Static
-        public static void PrintText(string? text)
+        public void PrintText(string? text, bool addPrompt = false)
         {
-            if (text is not null) MonoBehaviour.print(text);
-        }
+            if (text is not null)
+            {
+                MonoBehaviour.print(text);
 
-        public static void ClearLog()
+                if (addPrompt)
+                {
+                    MonoBehaviour.print(prompt);
+                }
+            }
+
+        }
+        
+        public void ClearLog()
         {
             // https://stackoverflow.com/questions/40577412/clear-editor-console-logs-from-script
 
@@ -128,7 +141,7 @@ namespace Assets.Game.Control
             method.Invoke(new object(), null);
         }
 
-        public static void PrintHelpText()
+        public void PrintHelpText()
         {
             ClearLog();
 

@@ -16,14 +16,15 @@ namespace Assets.Game.Objects.Players
         // Parameters
         [SerializeField] private string description;
 
-        [SerializeField] private GameObject ui;
-        [SerializeField] private GameObject currentRoom;
-        [SerializeField] private GameObject backpack;
+        [SerializeField] private InputBehaviour ui;
+        
+        [SerializeField] private RoomBehaviour currentRoom;
+        
+        [SerializeField] private BackpackBehaviour backpack;
 
         [SerializeField] private ManagerBehaviour? manager;
 
-        // Fields        
-        private InputBehaviour uiBehaviour;
+        // Fields                
         private bool isNewt;
 
         // Properties        
@@ -39,17 +40,22 @@ namespace Assets.Game.Objects.Players
             //Debug.Log("Player behaviour script starts");
 
             // Set up UI
-            uiBehaviour = ui.GetComponent<InputBehaviour>();
-            uiBehaviour.InspectRoomEvent += InspectRoomEvent;
-            uiBehaviour.TryMoveToRoomEvent += TryMoveToRoomEvent;
-            uiBehaviour.QuitGameEvent += QuitRunEvent;
-            uiBehaviour.HelpEvent += HelpTextEvent;
+            ui.InspectRoomEvent += InspectRoomEvent;
+            ui.TryMoveToRoomEvent += TryMoveToRoomEvent;
+            ui.QuitGameEvent += QuitRunEvent;
+            ui.HelpEvent += HelpTextEvent;            
+            ui.TalkToNPCEvent += TalkToNPCEvent;
+
+            ui.Prompt = Prompt();
+
+            // Don't need it yet
+            DisableUI();
         }
         // End MonoBehaviour
 
         private void InspectRoomEvent(object sender, EventArgs e)
         {
-            InspectRoom(currentRoom!.GetComponent<RoomBehaviour>());
+            InspectRoom(currentRoom);
         }
 
         private void TryMoveToRoomEvent(object sender, MoveInDirectionEventArgs e)
@@ -59,7 +65,7 @@ namespace Assets.Game.Objects.Players
 
         private void HelpTextEvent(object sender, EventArgs e)
         {
-            InputBehaviour.PrintHelpText();
+            ui.PrintHelpText();
         }
 
         private void TalkToNPCEvent(object sender, EventArgs e)
@@ -92,11 +98,8 @@ namespace Assets.Game.Objects.Players
 
         private void TryMoveIntoNewRoom(CompassDirection direction)
         {
-            // Pick up current room
-            IRoom currentRoomBehaviour = currentRoom!.GetComponent<RoomBehaviour>();
-
             // Is there a door there?
-            if (!currentRoomBehaviour.HasDoorInDirection(direction))
+            if (!currentRoom.HasDoorInDirection(direction))
             {
                 // No door in that direction
                 // Return text to indicate that to player
@@ -105,7 +108,7 @@ namespace Assets.Game.Objects.Players
             else
             {
                 // Is door in that direction
-                IDoor selectedDoor = currentRoomBehaviour.GetDoorInDirection(direction)!;
+                IDoor selectedDoor = currentRoom.GetDoorInDirection(direction)!;
 
                 // Is the door blocked / locked
                 if (selectedDoor.IsBlocked())
@@ -136,38 +139,33 @@ namespace Assets.Game.Objects.Players
                 if (!selectedDoor.IsBlocked())
                 {
                     // Get room that connects with the current room using this door	                                
-                    IRoom newRoomBehaviour = selectedDoor.GetConnectingRoom(currentRoomBehaviour);
+                    RoomBehaviour newRoom = selectedDoor.GetConnectingRoom(currentRoom);
 
                     // Print text informing player that they are moving into new room
-                    PrintMovingIntoNewRoomText(currentRoomBehaviour, newRoomBehaviour);
+                    PrintMovingIntoNewRoomText(currentRoom, newRoom);
 
                     // Set new room as current room
-                    currentRoom = newRoomBehaviour.GetGameObject();
+                    currentRoom = newRoom;
+
+                    // has NPC?
+                    bool hasNPC = newRoom.HasNPC();
 
                     // Describe new room
-                    PrintRoomDescriptionText(newRoomBehaviour);
+                    PrintRoomDescriptionText(!hasNPC);
 
                     // Check for NPC in room
-                    if (newRoomBehaviour.HasNPC())
+                    if (hasNPC)
                     {
                         // Get the NPC
-                        INPC npc = newRoomBehaviour.NPC!;
+                        INPC npc = newRoom.NPC!;
 
                         // Meet the NPC
                         string meetText = npc.Meet();
-                        InputBehaviour.PrintText(meetText);
-
-                        // Add talk option
-                        uiBehaviour.TalkToNPCEvent += TalkToNPCEvent;
-                    }
-                    else
-                    {
-                        // Remove talk option
-                        uiBehaviour.TalkToNPCEvent -= TalkToNPCEvent;
+                        ui.PrintText(meetText, addPrompt: true);
                     }
 
                     // Check whether this is the final room
-                    if (newRoomBehaviour.IsFinalRoom)
+                    if (newRoom.IsFinalRoom)
                     {
                         WinGame();
                     }
@@ -178,13 +176,23 @@ namespace Assets.Game.Objects.Players
         private void TalkToNPC()
         {
             // Get the NPC
-            INPC npc = currentRoom.GetComponent<RoomBehaviour>().NPC!;
+            INPC? npc = currentRoom.NPC;
 
-            // Disable our UI
-            DisableUI();
+            if (npc != null)
+            {
+                // There's someone there
 
-            // Start talking
-            npc.StartConversation(this, currentRoom.GetComponent<IRoom>());
+                // Disable our UI
+                DisableUI();
+
+                // Start talking
+                npc.StartConversation(this, currentRoom);
+            }
+            else
+            {
+                string text = "Talking to yourself won't get you back to chopping wood";
+                ui.PrintText(text);
+            }
         }
 
         public void ConversationOver()
@@ -200,6 +208,8 @@ namespace Assets.Game.Objects.Players
 
                 // Enable UI
                 EnableUI();
+
+                PrintRoomDescriptionText(addPrompt: true);
             }
         }
 
@@ -215,10 +225,11 @@ namespace Assets.Game.Objects.Players
             Manager!.LoseGame(true);
         }
 
-        private void PrintRoomDescriptionText(IRoom newRoom)
+        private void PrintRoomDescriptionText(bool addPrompt = false)
         {
-            string text = newRoom.Description;
-            InputBehaviour.PrintText(text);
+            string text = currentRoom.Description;
+
+            ui.PrintText(text, addPrompt: addPrompt);
         }
 
         private void InspectRoom(IRoom room)
@@ -247,33 +258,34 @@ namespace Assets.Game.Objects.Players
                 text += " In the end, there's nothing of interest.";
             }
 
-            InputBehaviour.PrintText(text);
+            ui.PrintText(text, addPrompt: true);
         }
 
         private void PrintInvalidDirectionText(CompassDirection direction)
         {
-            string text = $"No door in the direction selected ({direction}). Try again, or press {KeyBindings.inspectKey} to inspect the room again, or press {KeyBindings.helpKey} for help";
-            InputBehaviour.PrintText(text);
+            string text = $"No door in the direction selected ({direction})";
+
+            ui.PrintText(text, addPrompt: true);
         }
 
         private void PrintUnblockingDoorText(IDoor selectedDoor)
         {
             string text = selectedDoor.GetUnblockText();
-            InputBehaviour.PrintText(text);
+            ui.PrintText(text);
         }
 
         private void PrintMovingIntoNewRoomText(IRoom currentRoom, IRoom newRoom)
         {
-            InputBehaviour.ClearLog();
+            ui.ClearLog();
 
             string text = $"You open the door and pass from {currentRoom} into {newRoom}";
-            InputBehaviour.PrintText(text);
+            ui.PrintText(text);
         }
 
         private void PrintCannotEnterDoorText(IDoor selectedDoor)
         {
             string text = selectedDoor.GetBlockedText();
-            InputBehaviour.PrintText(text);
+            ui.PrintText(text);
         }        
 
         public GameObject GetGameObject()
@@ -284,23 +296,38 @@ namespace Assets.Game.Objects.Players
         public void EnableUI()
         {
             // Enable our ui so we do detect key presses
-            uiBehaviour!.enabled = true;
+            ui!.enabled = true;
         }
 
         public void DisableUI()
         {
             // Shut down our UI so we don't detect key presses
-            uiBehaviour!.enabled = false;
-        }
-
-        public string Prompt()
-        {
-            return "prompt here";
+            ui!.enabled = false;
         }
 
         public void TurnIntoNewt()
         {
             this.isNewt = true;
+        }
+
+        public string Prompt()
+        {
+            string text = "Make your choice\n" +
+                $"[{String.Join(", ", KeyBindings.movementKeys)} to move; {KeyBindings.inspectKey} to inspect; " +
+                $"{KeyBindings.talkKey} to talk; {KeyBindings.helpKey} for help; {KeyBindings.quitKey} to quit]";
+
+            return text;
+        }
+
+        public void PrintIntroduction()
+        {
+            // Enable our UI as we're in charge now
+            EnableUI();
+
+            string text = $"You find yourself in a medium-sized closet, surrounded by various tins, jars, blankets, brooms, and a single pink cowboy hat.\n" +
+                $"As nice as the closet is, you'd rather be outside, leaping from tree to tree as they float down the mighty rivers of British Columbia!";
+
+            ui.PrintText(text, addPrompt: true);
         }
     }
 
