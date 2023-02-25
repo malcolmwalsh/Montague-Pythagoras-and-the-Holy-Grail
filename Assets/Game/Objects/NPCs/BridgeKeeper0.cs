@@ -6,6 +6,8 @@ namespace Assets.Game.Objects.NPCs
 {
     public class BridgeKeeper0 : BridgeKeeperController
     {
+        #region Public methods
+
         // Methods
         public override void Start()
         {
@@ -13,6 +15,8 @@ namespace Assets.Game.Objects.NPCs
 
             // Sample a random value for the airspeed velocity of a sparrow, as you do
             randomResult = Range(46, 63);
-        }        
+        }
+
+        #endregion
     }
 }

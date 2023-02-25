@@ -1,27 +1,36 @@
 ﻿using Assets.Game.Objects.Items;
 using UnityEngine;
 
-#nullable enable
-
 namespace Assets.Game.Objects.Obstacles
 {
     public class ObstacleController : MonoBehaviour, IObstacle
     {
-        // Parameters
+        #region Private fields
+
+        [SerializeField] private ItemController nemesis;
         [SerializeField] private string description;
-        [SerializeField] private ItemController? nemesis;
 
-        // Fields
+        #endregion
 
-        // Properties
-        public ItemController? Nemesis => nemesis;
-        public string Name { get => name; set => name = value; }
-        public string Description { get => description; set => description = value; }
+        #region Properties
 
-        // Methods
+        public ItemController Nemesis => nemesis;
+
+        public string Description
+        {
+            get => description;
+            set => description = value;
+        }
+
+        #endregion
+
+        #region IObject interface
+
         public GameObject GetGameObject()
         {
             return gameObject;
         }
+
+        #endregion
     }
 }

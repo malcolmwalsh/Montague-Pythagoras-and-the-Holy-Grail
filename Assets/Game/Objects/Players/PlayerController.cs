@@ -1,41 +1,142 @@
+using System;
 using Assets.Game.Control;
 using Assets.Game.Objects.Backpacks;
 using Assets.Game.Objects.Doors;
 using Assets.Game.Objects.Items;
 using Assets.Game.Objects.NPCs;
 using Assets.Game.Objects.Rooms;
-using System;
 using UnityEngine;
 using static Assets.Game.Navigation.Enums;
-
-#nullable enable
 
 namespace Assets.Game.Objects.Players
 {
     internal class PlayerController : MonoBehaviour, IPlayer, IHasUI
     {
-        // Parameters
-        [SerializeField] private string description;
+        #region Private fields
 
-        [SerializeField] private InputController ui;
-        
-        [SerializeField] private RoomController currentRoom;
-        
         [SerializeField] private BackpackController backpack;
 
-        [SerializeField] private MainMenuController? manager;
+        [SerializeField] private RoomController currentRoom;
+
+        // Parameters
+        [SerializeField] private string description;
 
         // Fields                
         private bool isNewt;
 
-        // Properties        
-        public MainMenuController? Manager { get => manager; set => manager = value; }
-        public string Name { get => name; set => name = value; }
-        public string Description { get => description; set => description = value; }
+        [SerializeField] private MainMenuController manager;
 
-        // Methods
+        [SerializeField] private InputController ui;
 
-        // Begin MonoBehaviour
+        #endregion
+
+        #region Properties
+
+        public MainMenuController Manager
+        {
+            get => manager;
+            set => manager = value;
+        }
+
+        public string Name
+        {
+            get => name;
+            set => name = value;
+        }
+
+        public string Description
+        {
+            get => description;
+            set => description = value;
+        }
+
+        #endregion
+
+        #region IHasUI
+
+        public void EnableUI()
+        {
+            // Enable our ui so we do detect key presses
+            ui!.enabled = true;
+        }
+
+        public void DisableUI()
+        {
+            // Shut down our UI so we don't detect key presses
+            ui!.enabled = false;
+        }
+
+        public string Prompt()
+        {
+            string text = "Make your choice\n" +
+                          $"[{string.Join(", ", KeyBindings.movementKeys)} to move; {KeyBindings.inspectKey} to inspect; " +
+                          $"{KeyBindings.talkKey} to talk; {KeyBindings.helpKey} for help; {KeyBindings.quitKey} to quit]";
+
+            return text;
+        }
+
+        #endregion
+
+        #region IObject
+
+        public GameObject GetGameObject()
+        {
+            return gameObject;
+        }
+
+        #endregion
+
+        #region IPlayer
+
+        public bool HasItem(IItem item)
+        {
+            return backpack.GetComponent<BackpackController>().Contains(item);
+        }
+
+        public void AddItem(IItem item)
+        {
+            this.backpack.GetComponent<BackpackController>().Add(item);
+        }
+
+        public void ConversationOver()
+        {
+            // Check if newt
+            if (isNewt)
+            {
+                LoseGame();
+            }
+            else
+            {
+                // We're OK
+
+                // Enable UI
+                EnableUI();
+
+                PrintRoomDescriptionText(true);
+            }
+        }
+
+        public void TurnIntoNewt()
+        {
+            this.isNewt = true;
+        }
+
+        public void PrintIntroduction()
+        {
+            // Enable our UI as we're in charge now
+            EnableUI();
+
+            string text =
+                $"You find yourself in a medium-sized closet, surrounded by various tins, jars, blankets, brooms, and a single pink cowboy hat.\n" +
+                $"As nice as the closet is, you'd rather be outside, leaping from tree to tree as they float down the mighty rivers of British Columbia!";
+
+            ui.PrintText(text, true);
+        }
+
+        #endregion
+
+        #region Public methods
+
         public void Start()
         {
             //Debug.Log("Player behaviour script starts");
@@ -44,7 +145,7 @@ namespace Assets.Game.Objects.Players
             ui.InspectRoomEvent += InspectRoomEvent;
             ui.TryMoveToRoomEvent += TryMoveToRoomEvent;
             ui.QuitGameEvent += QuitRunEvent;
-            ui.HelpEvent += HelpTextEvent;            
+            ui.HelpEvent += HelpTextEvent;
             ui.TalkToNPCEvent += TalkToNPCEvent;
 
             ui.Prompt = Prompt();
@@ -52,7 +153,15 @@ namespace Assets.Game.Objects.Players
             // Don't need it yet
             DisableUI();
         }
-        // End MonoBehaviour
+        
+        public override string ToString()
+        {
+            return name;
+        }
+
+        #endregion
+
+        #region Private methods
 
         private void InspectRoomEvent(object sender, EventArgs e)
         {
@@ -78,23 +187,6 @@ namespace Assets.Game.Objects.Players
         {
             // Quitting run
             Manager!.QuitRun();
-        }
-
-        // Begin IPlayer
-        public bool HasItem(IItem item)
-        {
-            return backpack.GetComponent<BackpackController>().Contains(item);
-        }
-
-        public void AddItem(IItem item)
-        {
-            this.backpack.GetComponent<BackpackController>().Add(item);
-        }
-        // End IPlayer
-
-        public override string ToString()
-        {
-            return name;
         }
 
         private void TryMoveIntoNewRoom(CompassDirection direction)
@@ -136,48 +228,45 @@ namespace Assets.Game.Objects.Players
                     }
                 }
 
+                if (selectedDoor.IsBlocked()) return;  // Door is blocked
+
                 // Door was either unblocked already or has been unblocked	
-                if (!selectedDoor.IsBlocked())
+
+                // Get room that connects with the current room using this door	                                
+                RoomController newRoom = selectedDoor.GetConnectingRoom(currentRoom);
+
+                // Print text informing player that they are moving into new room
+                PrintMovingIntoNewRoomText(currentRoom, newRoom);
+
+                // Set new room as current room
+                currentRoom = newRoom;
+
+                // has NPC?
+                bool hasNPC = newRoom.HasNPC();
+
+                // Describe new room
+                PrintRoomDescriptionText(!hasNPC);
+
+                // Check for NPC in room
+                if (hasNPC)
                 {
-                    // Get room that connects with the current room using this door	                                
-                    RoomController newRoom = selectedDoor.GetConnectingRoom(currentRoom);
+                    // Get the NPC
+                    INpc npc = newRoom.NPC!;
 
-                    // Print text informing player that they are moving into new room
-                    PrintMovingIntoNewRoomText(currentRoom, newRoom);
-
-                    // Set new room as current room
-                    currentRoom = newRoom;
-
-                    // has NPC?
-                    bool hasNPC = newRoom.HasNPC();
-
-                    // Describe new room
-                    PrintRoomDescriptionText(!hasNPC);
-
-                    // Check for NPC in room
-                    if (hasNPC)
-                    {
-                        // Get the NPC
-                        INPC npc = newRoom.NPC!;
-
-                        // Meet the NPC
-                        string meetText = npc.Meet();
-                        ui.PrintText(meetText, addPrompt: true);
-                    }
-
-                    // Check whether this is the final room
-                    if (newRoom.IsFinalRoom)
-                    {
-                        WinGame();
-                    }
+                    // Meet the NPC
+                    string meetText = npc.Meet();
+                    ui.PrintText(meetText, true);
                 }
+
+                // Check whether this is the final room
+                if (newRoom.IsFinalRoom) WinGame();
             }
         }
 
         private void TalkToNPC()
         {
             // Get the NPC
-            INPC? npc = currentRoom.NPC;
+            INpc npc = currentRoom.NPC;
 
             if (npc != null)
             {
@@ -193,24 +282,6 @@ namespace Assets.Game.Objects.Players
             {
                 string text = "Talking to yourself won't get you back to chopping wood";
                 ui.PrintText(text);
-            }
-        }
-
-        public void ConversationOver()
-        {
-            // Check if newt
-            if (isNewt)
-            {
-                LoseGame();
-            }
-            else
-            {
-                // We're OK
-
-                // Enable UI
-                EnableUI();
-
-                PrintRoomDescriptionText(addPrompt: true);
             }
         }
 
@@ -230,7 +301,7 @@ namespace Assets.Game.Objects.Players
         {
             string text = currentRoom.Description;
 
-            ui.PrintText(text, addPrompt: addPrompt);
+            ui.PrintText(text, addPrompt);
         }
 
         private void InspectRoom(IRoom room)
@@ -243,7 +314,7 @@ namespace Assets.Game.Objects.Players
             if (room.HasItem())
             {
                 // Get the item
-                IItem? item = room.GetItemBehaviour();
+                IItem item = room.GetItemBehaviour();
 
                 if (item != null)
                 {
@@ -259,14 +330,14 @@ namespace Assets.Game.Objects.Players
                 text += " In the end, there's nothing of interest.";
             }
 
-            ui.PrintText(text, addPrompt: true);
+            ui.PrintText(text, true);
         }
 
         private void PrintInvalidDirectionText(CompassDirection direction)
         {
             string text = $"No door in the direction selected ({direction})";
 
-            ui.PrintText(text, addPrompt: true);
+            ui.PrintText(text, true);
         }
 
         private void PrintUnblockingDoorText(IDoor selectedDoor)
@@ -275,11 +346,11 @@ namespace Assets.Game.Objects.Players
             ui.PrintText(text);
         }
 
-        private void PrintMovingIntoNewRoomText(IRoom currentRoom, IRoom newRoom)
+        private void PrintMovingIntoNewRoomText(IRoom oldRoom, IRoom newRoom)
         {
             ui.ClearLog();
 
-            string text = $"You open the door and pass from {currentRoom} into {newRoom}";
+            string text = $"You open the door and pass from {oldRoom} into {newRoom}";
             ui.PrintText(text);
         }
 
@@ -287,53 +358,17 @@ namespace Assets.Game.Objects.Players
         {
             string text = selectedDoor.GetBlockedText();
             ui.PrintText(text);
-        }        
-
-        public GameObject GetGameObject()
-        {
-            return gameObject;
         }
 
-        public void EnableUI()
-        {
-            // Enable our ui so we do detect key presses
-            ui!.enabled = true;
-        }
-
-        public void DisableUI()
-        {
-            // Shut down our UI so we don't detect key presses
-            ui!.enabled = false;
-        }
-
-        public void TurnIntoNewt()
-        {
-            this.isNewt = true;
-        }
-
-        public string Prompt()
-        {
-            string text = "Make your choice\n" +
-                $"[{String.Join(", ", KeyBindings.movementKeys)} to move; {KeyBindings.inspectKey} to inspect; " +
-                $"{KeyBindings.talkKey} to talk; {KeyBindings.helpKey} for help; {KeyBindings.quitKey} to quit]";
-
-            return text;
-        }
-
-        public void PrintIntroduction()
-        {
-            // Enable our UI as we're in charge now
-            EnableUI();
-
-            string text = $"You find yourself in a medium-sized closet, surrounded by various tins, jars, blankets, brooms, and a single pink cowboy hat.\n" +
-                $"As nice as the closet is, you'd rather be outside, leaping from tree to tree as they float down the mighty rivers of British Columbia!";
-
-            ui.PrintText(text, addPrompt: true);
-        }
+        #endregion
     }
 
     public class MoveInDirectionEventArgs : EventArgs
     {
-        public CompassDirection Direction { get; set; } 
+        #region Properties
+
+        public CompassDirection Direction { get; set; }
+
+        #endregion
     }
 }

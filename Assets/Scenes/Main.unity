@@ -197,11 +197,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
   m_PrefabInstance: {fileID: 15800934}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &15800936 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6087133784493322953, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
+--- !u!114 &15800937 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
   m_PrefabInstance: {fileID: 15800934}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eb285b840a7e25438f7b19e4a119a55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &205440159
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -359,7 +365,7 @@ PrefabInstance:
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: eastDoor
       value: 
-      objectReference: {fileID: 310995375}
+      objectReference: {fileID: 310995376}
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: description
       value: 'This library has books floor to ceiling. '
@@ -371,7 +377,7 @@ PrefabInstance:
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: items.Array.data[0]
       value: 
-      objectReference: {fileID: 1394338848}
+      objectReference: {fileID: 1394338849}
     - target: {fileID: 428164486490028636, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -528,11 +534,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
   m_PrefabInstance: {fileID: 310995373}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &310995375 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6087133784493322953, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
+--- !u!114 &310995376 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
   m_PrefabInstance: {fileID: 310995373}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eb285b840a7e25438f7b19e4a119a55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &312967579
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,11 +671,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
   m_PrefabInstance: {fileID: 418715564}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &418715566 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6087133784493322953, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
+--- !u!114 &418715567 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
   m_PrefabInstance: {fileID: 418715564}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eb285b840a7e25438f7b19e4a119a55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &517006659
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,17 +787,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7970951523728721056, guid: 1fdbd9260741831449455c0beca58e8d, type: 3}
   m_PrefabInstance: {fileID: 712236101}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &712236103 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9115943792806206138, guid: 1fdbd9260741831449455c0beca58e8d, type: 3}
-  m_PrefabInstance: {fileID: 712236101}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &712236104 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2409247081885917737, guid: 1fdbd9260741831449455c0beca58e8d, type: 3}
   m_PrefabInstance: {fileID: 712236101}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 712236103}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afb8f121202d52d45acec078af23ef30, type: 3}
@@ -1012,17 +1025,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7970951523728721056, guid: 1fdbd9260741831449455c0beca58e8d, type: 3}
   m_PrefabInstance: {fileID: 1126302859}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1126302861 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9115943792806206138, guid: 1fdbd9260741831449455c0beca58e8d, type: 3}
-  m_PrefabInstance: {fileID: 1126302859}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1126302862 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2409247081885917737, guid: 1fdbd9260741831449455c0beca58e8d, type: 3}
   m_PrefabInstance: {fileID: 1126302859}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1126302861}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afb8f121202d52d45acec078af23ef30, type: 3}
@@ -1119,7 +1127,7 @@ PrefabInstance:
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: northDoor
       value: 
-      objectReference: {fileID: 2057486149}
+      objectReference: {fileID: 2057486150}
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: description
       value: 'You''re currently in a medium-sized closet. '
@@ -1135,7 +1143,7 @@ PrefabInstance:
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: items.Array.data[0]
       value: 
-      objectReference: {fileID: 1896395749}
+      objectReference: {fileID: 1896395750}
     - target: {fileID: 428164486490028636, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1212,19 +1220,19 @@ PrefabInstance:
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: eastDoor
       value: 
-      objectReference: {fileID: 15800936}
+      objectReference: {fileID: 15800937}
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: westDoor
       value: 
-      objectReference: {fileID: 310995375}
+      objectReference: {fileID: 310995376}
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: northDoor
       value: 
-      objectReference: {fileID: 1533069346}
+      objectReference: {fileID: 1533069347}
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: southDoor
       value: 
-      objectReference: {fileID: 2057486149}
+      objectReference: {fileID: 2057486150}
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: description
       value: 'This is a huge entrance room with doors on all four walls. '
@@ -1236,7 +1244,7 @@ PrefabInstance:
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: items.Array.data[0]
       value: 
-      objectReference: {fileID: 712236103}
+      objectReference: {fileID: 712236104}
     - target: {fileID: 428164486490028636, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1317,11 +1325,11 @@ PrefabInstance:
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: northDoor
       value: 
-      objectReference: {fileID: 418715566}
+      objectReference: {fileID: 418715567}
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: southDoor
       value: 
-      objectReference: {fileID: 1533069346}
+      objectReference: {fileID: 1533069347}
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: description
       value: 'This is a relatively small room with a large billiards table in the
@@ -1592,17 +1600,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7970951523728721056, guid: 1fdbd9260741831449455c0beca58e8d, type: 3}
   m_PrefabInstance: {fileID: 1394338846}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1394338848 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9115943792806206138, guid: 1fdbd9260741831449455c0beca58e8d, type: 3}
-  m_PrefabInstance: {fileID: 1394338846}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1394338849 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2409247081885917737, guid: 1fdbd9260741831449455c0beca58e8d, type: 3}
   m_PrefabInstance: {fileID: 1394338846}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1394338848}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afb8f121202d52d45acec078af23ef30, type: 3}
@@ -1865,11 +1868,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
   m_PrefabInstance: {fileID: 1533069344}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1533069346 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6087133784493322953, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
+--- !u!114 &1533069347 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
   m_PrefabInstance: {fileID: 1533069344}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eb285b840a7e25438f7b19e4a119a55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1545516805
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1937,7 +1946,7 @@ PrefabInstance:
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: southDoor
       value: 
-      objectReference: {fileID: 418715566}
+      objectReference: {fileID: 418715567}
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: description
       value: 'The freezing wind hits your face as you step outside and into the blizzard. '
@@ -2148,23 +2157,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30ce33d3a8acf6f45b654d4677e33070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: The old, hagged man from earlier skips towards you
-  greetingText: Look who it is! Mr. Doesn't Like Bird Facts returns.
-  primaryLine: 'He shakes his fist menacingly towards you. You must answer my question
-    if you wish to pass! What is the airspeed velocity of an unladen swallow? '
-  primaryRetort: '#randomResult m/s?! That far too rapid. These birds are tiny. Are
-    you completely mad?'
-  secondaryRetort: Er, I don't know that!
-  playerResponses:
-  - The airspeed velocity of an unladen swallow is #randomResult m/s
-  - 'Which kind of swallow: African or European?'
-  - '#randomResult is my favourite number'
   correctResponse: 'Which kind of swallow: African or European?'
+  description: The old, hagged man from earlier skips towards you
+  greetingText: '"Look who it is! Mr. Doesn''t Like Bird Facts returns."'
   leaveHappyText: The old man looks horrified and then, without warning, he explodes
     into thousands of geraniums, newts and intestines.
   leaveUnhappyText: 'The man suddenly looks very upset and from his beard he removes
     a small jar labelled ''Essence of Newt''. He shrugs and throws it at your feet,
     where it smashes in a puff of dust. '
+  playerResponses:
+  - The airspeed velocity of an unladen swallow is #randomResult m/s
+  - 'Which kind of swallow: African or European?'
+  - '#randomResult is my favourite number'
+  primaryLine: He shakes his fist menacingly towards you. "You must answer my question
+    if you wish to pass! What is the airspeed velocity of an unladen swallow?"
+  primaryRetort: '"#randomResult m/s?! That far too rapid. These birds are tiny.
+    Are you completely mad?"'
+  secondaryRetort: '"Er, I don''t know that!"'
   ui: {fileID: 1853575807}
   linkedBridgeKeeper: {fileID: 2121617121}
 --- !u!1001 &1642026627
@@ -2181,7 +2190,7 @@ PrefabInstance:
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: westDoor
       value: 
-      objectReference: {fileID: 15800936}
+      objectReference: {fileID: 15800937}
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: description
       value: 'You''re in a cavernous room with a large dining table in the middle. '
@@ -2193,7 +2202,7 @@ PrefabInstance:
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: items.Array.data[0]
       value: 
-      objectReference: {fileID: 1126302861}
+      objectReference: {fileID: 1126302862}
     - target: {fileID: 428164486490028636, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -2496,11 +2505,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7970951523728721056, guid: 1fdbd9260741831449455c0beca58e8d, type: 3}
   m_PrefabInstance: {fileID: 1896395747}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1896395749 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9115943792806206138, guid: 1fdbd9260741831449455c0beca58e8d, type: 3}
+--- !u!114 &1896395750 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2409247081885917737, guid: 1fdbd9260741831449455c0beca58e8d, type: 3}
   m_PrefabInstance: {fileID: 1896395747}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb8f121202d52d45acec078af23ef30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1966175316
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2765,11 +2780,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
   m_PrefabInstance: {fileID: 2057486147}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2057486149 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6087133784493322953, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
+--- !u!114 &2057486150 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
   m_PrefabInstance: {fileID: 2057486147}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eb285b840a7e25438f7b19e4a119a55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2121617120 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5210088279179737410, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
@@ -2787,20 +2808,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0d3525bb938d6d45b48b798361e0f45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  correctResponse: 
   description: You are suprised to see an old, hagged man carrying a basket walking
     towards you. You also suddenly get an overwhelming desire for spam and eggs
   greetingText: The old man approaches you and starts stroking his long, wirey beard
-  primaryLine: Did you know that the airspeed velocity of an unladen European Swallow
-    is #randomResult m/s?
-  primaryRetort: You should remember it! It's a very interesting fact.
-  secondaryRetort: 
+  leaveHappyText: The old man picks up a small wicker basket filled with fruit and
+    merrily skips off
+  leaveUnhappyText: 
   playerResponses:
   - I have no time for riddles. I'm a lumberjack!
   - That's useless to me, and very silly
   - You smell like spam
-  correctResponse: 
-  leaveHappyText: The old man picks up a small wicker basket filled with fruit and
-    merrily skips off
-  leaveUnhappyText: 
+  primaryLine: '"Did you know that the airspeed velocity of an unladen European Swallow
+    is #randomResult m/s?"'
+  primaryRetort: '"You should remember it! It''s a very interesting fact."'
+  secondaryRetort: 
   ui: {fileID: 2023602537}
   linkedBridgeKeeper: {fileID: 1605664261}

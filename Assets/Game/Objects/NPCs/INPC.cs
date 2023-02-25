@@ -1,18 +1,21 @@
-﻿using Assets.Game.Objects.Players;
+﻿#nullable enable
+
+#region Imports
+
+using Assets.Game.Objects.Players;
 using Assets.Game.Objects.Rooms;
 
-#nullable enable
+#endregion
 
 namespace Assets.Game.Objects.NPCs
 {
-    public interface INPC : IObject, IHasUI
+    public interface INpc : IObject, IHasUI
     {
+        #region Public methods
+
         string Meet();
-        string Describe();
-        string Greeting();
-        string Talk();
-        string Retort(string response);
-        void Leave(bool happy);
         void StartConversation(IPlayer player, IRoom room);
+
+        #endregion
     }
 }

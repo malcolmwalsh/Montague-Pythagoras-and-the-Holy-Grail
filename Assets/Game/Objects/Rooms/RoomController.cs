@@ -1,67 +1,86 @@
-﻿using Assets.Game.Objects.Doors;
-using Assets.Game.Objects.Items;
-using Assets.Game.Objects.NPCs;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Game.Objects.Doors;
+using Assets.Game.Objects.Items;
+using Assets.Game.Objects.NPCs;
 using UnityEngine;
 using static Assets.Game.Navigation.Enums;
-
-#nullable enable
 
 namespace Assets.Game.Objects.Rooms
 {
     public class RoomController : MonoBehaviour, IRoom
     {
-        // Parameters
+        #region Private fields
+
+        private readonly IDictionary<CompassDirection, IDoor> doors = new Dictionary<CompassDirection, IDoor>();
+
+        [SerializeField] private bool isFinalRoom;
+        [SerializeField] private bool isStartRoom;
+
+        [SerializeField] private DoorController eastDoor;
+        [SerializeField] private DoorController northDoor;
+        [SerializeField] private DoorController southDoor;
+        [SerializeField] private DoorController westDoor;
+
+        [SerializeField] private List<ItemController> items;
+
+        [SerializeField] private NpcController npc;
+
         [SerializeField] private string description;
-        
-        [SerializeField] private GameObject? northDoor;
-        [SerializeField] private GameObject? eastDoor;        
-        [SerializeField] private GameObject? southDoor;
-        [SerializeField] private GameObject? westDoor;
 
-        [SerializeField] private bool isStartRoom = false;
-        [SerializeField] private bool isFinalRoom = false;
+        #endregion
 
-        [SerializeField] private List<GameObject> items;
+        #region Properties
 
-        [SerializeField] private NPCController? npc;
-
-        // Fields        
-        private IDictionary<CompassDirection, IDoor?> behavDoors = new Dictionary<CompassDirection, IDoor?>();
-
-        // Properties
-        public string Name { get => name; set => name = value; }
-        public string Description { get => description; set => description = value; }
-        public bool IsStartRoom { get => isStartRoom; set => isStartRoom = value; }
-        public bool IsFinalRoom { get => isFinalRoom; set => isFinalRoom = value; }
-        public INPC? NPC { get => npc; }
-
-        // MonoBehaviour
-        public void Start()
+        public string Name
         {
-            // Set up doors dictionary
-            if (northDoor != null) behavDoors.Add(CompassDirection.North, northDoor.GetComponent<DoorController>());
-            if (eastDoor != null) behavDoors.Add(CompassDirection.East, eastDoor.GetComponent<DoorController>());
-            if (southDoor != null) behavDoors.Add(CompassDirection.South, southDoor.GetComponent<DoorController>());
-            if (westDoor != null) behavDoors.Add(CompassDirection.West, westDoor.GetComponent<DoorController>());
+            get => name;
+            set => name = value;
         }
 
-        // Methods
+        public string Description
+        {
+            get => description;
+            set => description = value;
+        }
+
+        public bool IsStartRoom
+        {
+            get => isStartRoom;
+            set => isStartRoom = value;
+        }
+
+        public bool IsFinalRoom
+        {
+            get => isFinalRoom;
+            set => isFinalRoom = value;
+        }
+
+        public INpc NPC => npc;
+
+        #endregion
+
+        #region IObject interface
+
         public GameObject GetGameObject()
         {
             return gameObject;
         }
+
+        #endregion
+
+        #region IRoom interface
 
         public bool HasItem()
         {
             return items.Any();
         }
 
-        public IItem? GetItemBehaviour()
+        public IItem GetItemBehaviour()
         {
-            IItem? item = items.FirstOrDefault()?.GetComponent<ItemController>();
+            IItem item = items.FirstOrDefault()?.GetComponent<ItemController>();
 
             // Items have been taken
             items.Clear();
@@ -71,40 +90,33 @@ namespace Assets.Game.Objects.Rooms
 
         public bool HasDoorInDirection(CompassDirection direction)
         {
-            IDoor? door = GetDoorInDirection(direction);
+            IDoor door = GetDoorInDirection(direction);
 
             return door is not null;
         }
 
-        public IDoor? GetDoorInDirection(CompassDirection direction)
+        public IDoor GetDoorInDirection(CompassDirection direction)
         {
-            behavDoors.TryGetValue(direction, out IDoor? door);
+            doors.TryGetValue(direction, out IDoor door);
 
             return door;
         }
 
-        public override string ToString()
-        {
-            return Name;
-        }
-
         public int NumDoors()
         {
-            return behavDoors.Count;
+            return doors.Count;
         }
 
         public string DoorLocationText()
         {
             StringBuilder sb = new();
 
-            foreach (KeyValuePair<CompassDirection, IDoor?> entry in behavDoors)
+            foreach (KeyValuePair<CompassDirection, IDoor> entry in doors)
             {
-                if (entry.Value is not null)
-                {
-                    string text = $"There is a door to the {entry.Key}. ";
+                if (entry.Value is null) continue;
 
-                    sb.Append(text);
-                }
+                string text = $"There is a door to the {entry.Key}. ";
+                sb.Append(text);
             }
 
             return sb.ToString();
@@ -115,14 +127,31 @@ namespace Assets.Game.Objects.Rooms
             return npc != null;
         }
 
-        public void RemoveNPC(INPC npc)
+        public void RemoveNPC(INpc npc)
         {
-            if (!npc.Equals(NPC))
-            {
-                throw new System.Exception("The NPC is not in the room as expected");
-            }
+            if (!npc.Equals(NPC)) throw new Exception("The NPC is not in the room as expected");
 
             this.npc = null;
         }
+
+        #endregion
+
+        #region Public methods
+
+        public void Start()
+        {
+            // Set up doors dictionary
+            if (northDoor != null) doors.Add(CompassDirection.North, northDoor);
+            if (eastDoor != null) doors.Add(CompassDirection.East, eastDoor);
+            if (southDoor != null) doors.Add(CompassDirection.South, southDoor);
+            if (westDoor != null) doors.Add(CompassDirection.West, westDoor);
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        #endregion
     }
 }

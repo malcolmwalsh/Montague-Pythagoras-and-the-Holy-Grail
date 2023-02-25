@@ -1,23 +1,29 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-
-#nullable enable
 
 namespace Assets.Game.Objects.NPCs
 {
-    public class BridgeKeeperController : NPCController
+    public class BridgeKeeperController : NpcController
     {
-        // Parameters
+        #region Protected fields
+
         [SerializeField] protected BridgeKeeperController linkedBridgeKeeper;
 
-        // Fields        
+
         protected int randomResult;
 
-        // Properties
-        public int RandomResult { get => randomResult; }
+        #endregion
 
-        // Methods
-        public override string Retort(string response)
+        #region Properties
+
+        public int RandomResult => randomResult;
+
+        #endregion
+
+        #region Protected methods
+
+        protected override string Retort(string response)
         {
             // Replacing placeholder text with actual random result value
             this.primaryRetort = UpdateTextWithRandomResult(this.primaryRetort)!;
@@ -26,7 +32,7 @@ namespace Assets.Game.Objects.NPCs
             return base.Retort(response);
         }
 
-        public override string Talk()
+        protected override string Talk()
         {
             // Replacing placeholder text with actual random result value
             string modLine = UpdateTextWithRandomResult(primaryLine)!;
@@ -34,25 +40,26 @@ namespace Assets.Game.Objects.NPCs
             return modLine;
         }
 
-        private string UpdateTextWithRandomResult(string line)
-        {
-            return line.Replace("#randomResult", RandomResult.ToString());
-        }
-
-        public override List<string> GetPlayerResponses()
+        protected override IList<string> GetPlayerResponses()
         {
             // Replacing placeholder text with actual random result value
-            List<string> modPlayerResponses = new();
-
-            foreach (string response in playerResponses)
-            {
-                modPlayerResponses.Add(UpdateTextWithRandomResult(response));
-            }
+            List<string> modPlayerResponses = playerResponses.Select(response => UpdateTextWithRandomResult(response)).ToList();
 
             // Use these ones
             playerResponses = modPlayerResponses;
 
             return playerResponses;
         }
+
+        #endregion
+
+        #region Private methods
+
+        private string UpdateTextWithRandomResult(string line)
+        {
+            return line.Replace("#randomResult", RandomResult.ToString());
+        }
+
+        #endregion
     }
 }

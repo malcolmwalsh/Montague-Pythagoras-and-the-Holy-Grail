@@ -1,33 +1,46 @@
-﻿using Assets.Game.Objects.Items;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Assets.Game.Objects.Items;
 using Assets.Game.Objects.Obstacles;
 using Assets.Game.Objects.Players;
 using Assets.Game.Objects.Rooms;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-
-#nullable enable
 
 namespace Assets.Game.Objects.Doors
 {
     public class DoorController : MonoBehaviour, IDoor
     {
-        // Parameters
-        [SerializeField] private string description;
+        #region Private fields
+
+        private bool blocked;
         [SerializeField] private List<ObstacleController> obstacles;
         [SerializeField] private RoomController roomA;
         [SerializeField] private RoomController roomB;
-        [SerializeField] private string? blockedText;
-        [SerializeField] private string? unblockText;
 
-        // Fields
-        private bool blocked;        
+        [SerializeField] private string description;
+        [SerializeField] private string blockedText;
+        [SerializeField] private string unblockText;
 
-        // Properties
-        public string Name { get => name; set => name = value; }
-        public string Description { get => description; set => description = value; }
+        #endregion
 
-        // Methods
+        #region Properties
+
+        public string Name
+        {
+            get => name;
+            set => name = value;
+        }
+
+        public string Description
+        {
+            get => description;
+            set => description = value;
+        }
+
+        #endregion
+
+        #region IDoor interface
+
         public bool ConnectsRoom(IRoom room)
         {
             return room.Equals(roomA) || room.Equals(roomB);
@@ -46,12 +59,10 @@ namespace Assets.Game.Objects.Doors
         public bool TryTraverse(IPlayer player)
         {
             if (!HasObstacle())
-            {
                 // No obstacle, unlock if not already
                 blocked = false;
-            }
 
-            if (!IsBlocked()) return true;  // Not locked
+            if (!IsBlocked()) return true; // Not locked
 
             // So we have an obstacle
             bool hasNotItem = false;
@@ -76,32 +87,48 @@ namespace Assets.Game.Objects.Doors
 
         public RoomController GetConnectingRoom(IRoom currentRoom)
         {
-            return currentRoom.Equals(roomA.GetComponent<RoomController>()) ? roomB.GetComponent<RoomController>() : roomA.GetComponent<RoomController>();
+            return currentRoom.Equals(roomA.GetComponent<RoomController>())
+                ? roomB.GetComponent<RoomController>()
+                : roomA.GetComponent<RoomController>();
         }
 
-        private bool HasObstacle()
-        {
-            return obstacles.Any();
-        }
-
-        public string? GetBlockedText()
+        public string GetBlockedText()
         {
             return blockedText;
         }
 
-        public string? GetUnblockText()
+        public string GetUnblockText()
         {
             return unblockText;
         }
+
+        #endregion
+
+        #region IObject interface
+
+        public GameObject GetGameObject()
+        {
+            return gameObject;
+        }
+
+        #endregion
+
+        #region Public methods
 
         public override string ToString()
         {
             return Name;
         }
 
-        public GameObject GetGameObject()
+        #endregion
+
+        #region Private methods
+
+        private bool HasObstacle()
         {
-            return gameObject;
+            return obstacles.Any();
         }
+
+        #endregion
     }
 }
