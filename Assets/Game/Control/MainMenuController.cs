@@ -3,13 +3,14 @@ using System;
 using UnityEngine;
 
 #nullable enable
+
 namespace Assets.Game.Control
 {
-    public class ManagerBehaviour : MonoBehaviour, IHasUI
+    public class MainMenuController : MonoBehaviour, IHasUI
     {
         // Parameters
-        [SerializeField] private PlayerBehaviour player;
-        [SerializeField] private InputBehaviour ui;
+        [SerializeField] private PlayerController player;
+        [SerializeField] private InputController ui;
 
         // Fields        
 

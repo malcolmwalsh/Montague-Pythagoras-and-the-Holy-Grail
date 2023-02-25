@@ -6,7 +6,7 @@ namespace Assets.Game.Objects.Players
     public interface IPlayer : IObject
     {
         // Properties
-        ManagerBehaviour Manager { get; set; }
+        MainMenuController Manager { get; set; }
 
         // Methods
         bool HasItem(IItem item);

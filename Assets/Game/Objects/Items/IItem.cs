@@ -1,11 +1,12 @@
-﻿#nullable enable
-using Assets.Game.Objects.Obstacles;
+﻿using Assets.Game.Objects.Obstacles;
+
+#nullable enable
 
 namespace Assets.Game.Objects.Items
 {
     public interface IItem : IObject
     {
         // Properties
-        ObstacleBehaviour Nemisis { get; }
+        ObstacleController Nemisis { get; }
     }
 }

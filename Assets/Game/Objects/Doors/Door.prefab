@@ -41,6 +41,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6087133784493322953}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb9f839d8ff3902478c292ff866f5faa, type: 3}
+  m_Script: {fileID: 11500000, guid: 4eb285b840a7e25438f7b19e4a119a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  description: 
+  obstacles: []
+  roomA: {fileID: 0}
+  roomB: {fileID: 0}
+  blockedText: 
+  unblockText: 

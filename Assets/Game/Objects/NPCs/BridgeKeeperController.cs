@@ -1,13 +1,14 @@
-﻿#nullable enable
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+
+#nullable enable
 
 namespace Assets.Game.Objects.NPCs
 {
-    public class BridgeKeeperBehaviour : NPCBehaviour
+    public class BridgeKeeperController : NPCController
     {
         // Parameters
-        [SerializeField] protected BridgeKeeperBehaviour linkedBridgeKeeper;
+        [SerializeField] protected BridgeKeeperController linkedBridgeKeeper;
 
         // Fields        
         protected int randomResult;

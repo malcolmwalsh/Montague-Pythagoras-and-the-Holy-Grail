@@ -1,7 +1,7 @@
-﻿#nullable enable
-
-using Assets.Game.Objects.Players;
+﻿using Assets.Game.Objects.Players;
 using Assets.Game.Objects.Rooms;
+
+#nullable enable
 
 namespace Assets.Game.Objects.NPCs
 {

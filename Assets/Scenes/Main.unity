@@ -1106,7 +1106,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d38cacf835362f04fa3c6945af95e7e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 14c95c0cab2c04c46a36a5253934b233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1187508435
@@ -1634,7 +1634,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1531361272}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3756b064a9d87644bec580243119a4c, type: 3}
+  m_Script: {fileID: 11500000, guid: 2dcd18e1d7f22e04fb219d3aea5eb01e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 880081813}
@@ -2277,7 +2277,7 @@ PrefabInstance:
       objectReference: {fileID: 712236104}
     - target: {fileID: 3047659253174080895, guid: 33bb62167926e064eb2bcf1ce60c0808, type: 3}
       propertyPath: description
-      value: '"The wind is frigid and the snow swirls and dances'
+      value: The wind is frigid and the snow swirls and dances
       objectReference: {fileID: 0}
     - target: {fileID: 9199511384033284776, guid: 33bb62167926e064eb2bcf1ce60c0808, type: 3}
       propertyPath: m_RootOrder
@@ -2338,7 +2338,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d38cacf835362f04fa3c6945af95e7e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 14c95c0cab2c04c46a36a5253934b233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1747509060 stripped
@@ -2579,7 +2579,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d38cacf835362f04fa3c6945af95e7e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 14c95c0cab2c04c46a36a5253934b233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1977070743

@@ -9,26 +9,27 @@ using UnityEngine;
 using static Assets.Game.Navigation.Enums;
 
 #nullable enable
+
 namespace Assets.Game.Objects.Players
 {
-    internal class PlayerBehaviour : MonoBehaviour, IPlayer, IHasUI
+    internal class PlayerController : MonoBehaviour, IPlayer, IHasUI
     {
         // Parameters
         [SerializeField] private string description;
 
-        [SerializeField] private InputBehaviour ui;
+        [SerializeField] private InputController ui;
         
-        [SerializeField] private RoomBehaviour currentRoom;
+        [SerializeField] private RoomController currentRoom;
         
-        [SerializeField] private BackpackBehaviour backpack;
+        [SerializeField] private BackpackController backpack;
 
-        [SerializeField] private ManagerBehaviour? manager;
+        [SerializeField] private MainMenuController? manager;
 
         // Fields                
         private bool isNewt;
 
         // Properties        
-        public ManagerBehaviour? Manager { get => manager; set => manager = value; }
+        public MainMenuController? Manager { get => manager; set => manager = value; }
         public string Name { get => name; set => name = value; }
         public string Description { get => description; set => description = value; }
 
@@ -82,12 +83,12 @@ namespace Assets.Game.Objects.Players
         // Begin IPlayer
         public bool HasItem(IItem item)
         {
-            return backpack.GetComponent<BackpackBehaviour>().Contains(item);
+            return backpack.GetComponent<BackpackController>().Contains(item);
         }
 
         public void AddItem(IItem item)
         {
-            this.backpack.GetComponent<BackpackBehaviour>().Add(item);
+            this.backpack.GetComponent<BackpackController>().Add(item);
         }
         // End IPlayer
 
@@ -139,7 +140,7 @@ namespace Assets.Game.Objects.Players
                 if (!selectedDoor.IsBlocked())
                 {
                     // Get room that connects with the current room using this door	                                
-                    RoomBehaviour newRoom = selectedDoor.GetConnectingRoom(currentRoom);
+                    RoomController newRoom = selectedDoor.GetConnectingRoom(currentRoom);
 
                     // Print text informing player that they are moving into new room
                     PrintMovingIntoNewRoomText(currentRoom, newRoom);

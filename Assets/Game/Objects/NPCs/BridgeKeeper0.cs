@@ -1,9 +1,10 @@
-﻿#nullable enable
-using static UnityEngine.Random;
+﻿using static UnityEngine.Random;
+
+#nullable enable
 
 namespace Assets.Game.Objects.NPCs
 {
-    public class BridgeKeeper0 : BridgeKeeperBehaviour
+    public class BridgeKeeper0 : BridgeKeeperController
     {
         // Methods
         public override void Start()
