@@ -1,10 +1,13 @@
-﻿using Assets.Game.Objects.Items;
+﻿using System.Collections.Generic;
+using Assets.Game.Objects.Items;
 
 namespace Assets.Game.Objects.Backpacks
 {
     public interface IBackpack
     {
-        void Add(IItem item);
-        bool Contains(IItem item);
+        bool IsEmpty();
+        void AddItem(ItemController item);
+        IList<ItemController> GetItems();
+        bool HasItem(ItemController item);
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Assets.Game.Control;
 using Assets.Game.Objects.Backpacks;
 using Assets.Game.Objects.Doors;
@@ -7,7 +8,6 @@ using Assets.Game.Objects.NPCs;
 using Assets.Game.Objects.Rooms;
 using UnityEngine;
 using static Assets.Game.Navigation.Enums;
-using static UnityEditor.Progress;
 
 namespace Assets.Game.Objects.Players
 {
@@ -16,13 +16,13 @@ namespace Assets.Game.Objects.Players
         #region Private fields
 
         [SerializeField] private BackpackController backpack;
+
+        private bool isNewt;
         [SerializeField] private CompletionTracker completionTracker;
         [SerializeField] private GameManager manager;
         [SerializeField] private InputController ui;
         [SerializeField] private RoomController currentRoom;
         [SerializeField] private string description;
-
-        private bool isNewt;
 
         #endregion
 
@@ -220,13 +220,9 @@ namespace Assets.Game.Objects.Players
             string text = currentRoom.Description;
 
             if (addPrompt)
-            {
                 ui.PrintTextAndPrompt(text, this);
-            }
             else
-            {
                 ui.PrintText(text);
-            }
         }
 
         private void InspectRoom(IRoom room)
@@ -236,18 +232,21 @@ namespace Assets.Game.Objects.Players
             text += $"\nYou walk around the room slowly, pushing and prodding at things.";
 
             // Check for items in the room
-            if (room.HasItem())
+            if (!room.IsEmpty())
             {
-                // Get the item
-                IItem item = room.GetItemBehaviour();
+                // Get the items
+                IList<ItemController> items = room.GetItems();
 
-                if (item != null)
+                foreach (ItemController item in items)
                 {
-                    // Shouldn't be null as we checked above
-                    text += $" You see a {item}. {item.Description}";
+                    if (item != null)
+                    {
+                        // Shouldn't be null as we checked above
+                        text += $" You see a {item}. {item.Description}";
 
-                    // Player now has this item
-                    this.AddItem(item);
+                        // Player now has this item
+                        this.AddItem(item);
+                    }
                 }
             }
             else
@@ -317,14 +316,24 @@ namespace Assets.Game.Objects.Players
 
         #region IPlayer
 
-        public bool HasItem(IItem item)
+        public IList<ItemController> GetItems()
         {
-            return backpack.GetComponent<BackpackController>().Contains(item);
+            return backpack.GetItems();
         }
 
-        private void AddItem(IItem item)
+        public bool HasItem(ItemController item)
         {
-            this.backpack.GetComponent<BackpackController>().Add(item);
+            return backpack.HasItem(item);
+        }
+
+        public bool IsEmpty()
+        {
+            return backpack.IsEmpty();
+        }
+
+        public void AddItem(ItemController item)
+        {
+            this.backpack.AddItem(item);
 
             completionTracker.Register(item);
         }

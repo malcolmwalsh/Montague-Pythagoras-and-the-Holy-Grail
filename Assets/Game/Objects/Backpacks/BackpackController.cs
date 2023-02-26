@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Assets.Game.Objects.Items;
 using UnityEngine;
 
@@ -8,20 +9,30 @@ namespace Assets.Game.Objects.Backpacks
     {
         #region Private fields
 
-        private readonly ISet<IItem> items = new HashSet<IItem>();
+        [SerializeField] private List<ItemController> items;
 
         #endregion
 
         #region IBackpack interface
 
-        public bool Contains(IItem item)
-        {
-            return items.Contains(item);
-        }
-
-        public void Add(IItem item)
+        public void AddItem(ItemController item)
         {
             items.Add(item);
+        }
+
+        public bool IsEmpty()
+        {
+            return !items.Any();
+        }
+
+        public IList<ItemController> GetItems()
+        {
+            return items;
+        }
+
+        public bool HasItem(ItemController item)
+        {
+            return items.Contains(item);
         }
 
         #endregion

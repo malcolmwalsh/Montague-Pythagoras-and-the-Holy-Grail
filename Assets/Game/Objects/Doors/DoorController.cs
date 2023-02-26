@@ -12,7 +12,6 @@ namespace Assets.Game.Objects.Doors
     {
         #region Private fields
 
-        private bool blocked;
         [SerializeField] private List<ObstacleController> obstacles;
         [SerializeField] private RoomController roomA;
         [SerializeField] private RoomController roomB;
@@ -20,6 +19,8 @@ namespace Assets.Game.Objects.Doors
         [SerializeField] private string description;
         [SerializeField] private string blockedText;
         [SerializeField] private string unblockText;
+
+        private bool blocked;
 
         #endregion
 
@@ -38,6 +39,11 @@ namespace Assets.Game.Objects.Doors
         }
 
         #endregion
+
+        public void Awake()
+        {
+            blocked = obstacles.Any();
+        }
 
         #region IDoor interface
 
@@ -69,7 +75,7 @@ namespace Assets.Game.Objects.Doors
             foreach (ObstacleController obstacle in obstacles)
             {
                 // What unblocks this obstacle?
-                IItem obstacleNemesisItem = obstacle.Nemesis!;
+                ItemController obstacleNemesisItem = obstacle.Nemesis!;
 
                 // Does player have it?
                 if (!player.HasItem(obstacleNemesisItem))

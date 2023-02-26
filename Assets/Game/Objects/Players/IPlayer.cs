@@ -1,12 +1,11 @@
-﻿using Assets.Game.Objects.Items;
+﻿using Assets.Game.Objects.Backpacks;
 
 namespace Assets.Game.Objects.Players
 {
-    public interface IPlayer : IObject
+    public interface IPlayer : IObject, IBackpack
     {
         #region Public methods
 
-        bool HasItem(IItem item);
         void ConversationOver();
         void TurnIntoNewt();
         void PrintIntroduction();
