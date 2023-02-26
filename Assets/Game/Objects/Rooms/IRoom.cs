@@ -1,15 +1,14 @@
-﻿using Assets.Game.Objects.Doors;
-using Assets.Game.Objects.Items;
+﻿using Assets.Game.Objects.Backpacks;
+using Assets.Game.Objects.Doors;
 using Assets.Game.Objects.NPCs;
 using static Assets.Game.Navigation.Enums;
 
 namespace Assets.Game.Objects.Rooms
 {
-    public interface IRoom : IObject
+    public interface IRoom : IObject, IBackpack
     {
         #region Properties
 
-        // Properties
         INpc NPC { get; }
         bool IsStartRoom { get; }
         bool IsFinalRoom { get; }
@@ -18,9 +17,6 @@ namespace Assets.Game.Objects.Rooms
 
         #region Public methods
 
-        // Methods
-        bool HasItem();
-        ItemController GetItem();
         int NumDoors();
         string DoorLocationText();
         bool HasDoorInDirection(CompassDirection direction);

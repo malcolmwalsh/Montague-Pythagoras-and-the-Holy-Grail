@@ -1,6 +1,8 @@
-﻿namespace Assets.Game.Objects.Players
+﻿using Assets.Game.Objects.Backpacks;
+
+namespace Assets.Game.Objects.Players
 {
-    public interface IPlayer : IObject, IHasBackpack
+    public interface IPlayer : IObject, IBackpack
     {
         #region Public methods
 

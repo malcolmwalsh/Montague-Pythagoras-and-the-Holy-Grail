@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Assets.Game.Objects.Items;
 using UnityEngine;
 
@@ -14,14 +15,24 @@ namespace Assets.Game.Objects.Backpacks
 
         #region IBackpack interface
 
-        public bool Contains(ItemController item)
-        {
-            return items.Contains(item);
-        }
-
-        public void Add(ItemController item)
+        public void AddItem(ItemController item)
         {
             items.Add(item);
+        }
+
+        public bool IsEmpty()
+        {
+            return !items.Any();
+        }
+
+        public IList<ItemController> GetItems()
+        {
+            return items;
+        }
+
+        public bool HasItem(ItemController item)
+        {
+            return items.Contains(item);
         }
 
         #endregion

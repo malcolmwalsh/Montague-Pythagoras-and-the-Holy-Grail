@@ -8,6 +8,7 @@ using Assets.Game.Objects.Backpacks;
 using Assets.Game.Objects.Items;
 using Assets.Game.Objects.Players;
 using Assets.Game.Objects.Rooms;
+using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
 #endregion
@@ -202,6 +203,9 @@ namespace Assets.Game.Objects.NPCs
             if (happy)
             {
                 text = leaveHappyText;
+
+                // Drop item
+                DropItem();
             }
             else
             {
@@ -221,6 +225,19 @@ namespace Assets.Game.Objects.NPCs
 
             // Hand back to player
             engagingPlayer!.ConversationOver();
+        }
+
+        private void DropItem()
+        {
+            if (IsEmpty()) return;  // Nothing to do
+
+            // Have items
+            IList<ItemController> items = backpack.GetItems();
+
+            foreach (ItemController item in items)
+            {
+                currentRoom.AddItem(item);
+            }
         }
 
         #endregion
@@ -259,14 +276,24 @@ namespace Assets.Game.Objects.NPCs
 
         #endregion
 
+        public IList<ItemController> GetItems()
+        {
+            return backpack.GetItems();
+        }
+
         public bool HasItem(ItemController item)
         {
-            return backpack.GetComponent<BackpackController>().Contains(item);
+            return backpack.HasItem(item);
+        }
+
+        public bool IsEmpty()
+        {
+            return backpack.IsEmpty();
         }
 
         public void AddItem(ItemController item)
         {
-            backpack.GetComponent<BackpackController>().Add(item);
+            backpack.AddItem(item);
             
         }
     }

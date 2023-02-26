@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Assets.Game.Control;
 using Assets.Game.Objects.Backpacks;
 using Assets.Game.Objects.Doors;
@@ -231,18 +232,21 @@ namespace Assets.Game.Objects.Players
             text += $"\nYou walk around the room slowly, pushing and prodding at things.";
 
             // Check for items in the room
-            if (room.HasItem())
+            if (!room.IsEmpty())
             {
-                // Get the item
-                ItemController item = room.GetItem();
+                // Get the items
+                IList<ItemController> items = room.GetItems();
 
-                if (item != null)
+                foreach (ItemController item in items)
                 {
-                    // Shouldn't be null as we checked above
-                    text += $" You see a {item}. {item.Description}";
+                    if (item != null)
+                    {
+                        // Shouldn't be null as we checked above
+                        text += $" You see a {item}. {item.Description}";
 
-                    // Player now has this item
-                    this.AddItem(item);
+                        // Player now has this item
+                        this.AddItem(item);
+                    }
                 }
             }
             else
@@ -312,14 +316,24 @@ namespace Assets.Game.Objects.Players
 
         #region IPlayer
 
+        public IList<ItemController> GetItems()
+        {
+            return backpack.GetItems();
+        }
+
         public bool HasItem(ItemController item)
         {
-            return backpack.GetComponent<BackpackController>().Contains(item);
+            return backpack.HasItem(item);
+        }
+
+        public bool IsEmpty()
+        {
+            return backpack.IsEmpty();
         }
 
         public void AddItem(ItemController item)
         {
-            this.backpack.GetComponent<BackpackController>().Add(item);
+            this.backpack.AddItem(item);
 
             completionTracker.Register(item);
         }

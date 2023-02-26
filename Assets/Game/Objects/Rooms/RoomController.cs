@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Game.Objects.Backpacks;
 using Assets.Game.Objects.Doors;
 using Assets.Game.Objects.Items;
 using Assets.Game.Objects.NPCs;
@@ -24,11 +25,11 @@ namespace Assets.Game.Objects.Rooms
         [SerializeField] private DoorController southDoor;
         [SerializeField] private DoorController westDoor;
 
-        [SerializeField] private List<ItemController> items;
-
         [SerializeField] private NpcController npc;
 
         [SerializeField] private string description;
+
+        [SerializeField] private BackpackController backpack;
 
         #endregion
 
@@ -73,19 +74,24 @@ namespace Assets.Game.Objects.Rooms
 
         #region IRoom interface
 
-        public bool HasItem()
+        public IList<ItemController> GetItems()
         {
-            return items.Any();
+            return backpack.GetItems();
         }
 
-        public ItemController GetItem()
+        public bool HasItem(ItemController item)
         {
-            ItemController item = items.FirstOrDefault()?.GetComponent<ItemController>();
+            return backpack.HasItem(item);
+        }
 
-            // Items have been taken
-            items.Clear();
+        public bool IsEmpty()
+        {
+            return backpack.IsEmpty();
+        }
 
-            return item;
+        public void AddItem(ItemController item)
+        {
+            backpack.AddItem(item);
         }
 
         public bool HasDoorInDirection(CompassDirection direction)
