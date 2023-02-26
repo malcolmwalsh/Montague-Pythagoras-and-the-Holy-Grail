@@ -1,15 +1,9 @@
-﻿#nullable enable
-
-#region Imports
-
-using Assets.Game.Objects.Players;
+﻿using Assets.Game.Objects.Players;
 using Assets.Game.Objects.Rooms;
-
-#endregion
 
 namespace Assets.Game.Objects.NPCs
 {
-    public interface INpc : IObject, IHasUI
+    public interface INpc : IObject, IHasUI, IHasBackpack
     {
         #region Public methods
 

@@ -8,18 +8,18 @@ namespace Assets.Game.Objects.Backpacks
     {
         #region Private fields
 
-        private readonly ISet<IItem> items = new HashSet<IItem>();
+        [SerializeField] private List<ItemController> items;
 
         #endregion
 
         #region IBackpack interface
 
-        public bool Contains(IItem item)
+        public bool Contains(ItemController item)
         {
             return items.Contains(item);
         }
 
-        public void Add(IItem item)
+        public void Add(ItemController item)
         {
             items.Add(item);
         }

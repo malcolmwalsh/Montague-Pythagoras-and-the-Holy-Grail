@@ -78,9 +78,9 @@ namespace Assets.Game.Objects.Rooms
             return items.Any();
         }
 
-        public IItem GetItemBehaviour()
+        public ItemController GetItem()
         {
-            IItem item = items.FirstOrDefault()?.GetComponent<ItemController>();
+            ItemController item = items.FirstOrDefault()?.GetComponent<ItemController>();
 
             // Items have been taken
             items.Clear();

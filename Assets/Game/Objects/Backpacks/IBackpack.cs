@@ -4,7 +4,7 @@ namespace Assets.Game.Objects.Backpacks
 {
     public interface IBackpack
     {
-        void Add(IItem item);
-        bool Contains(IItem item);
+        void Add(ItemController item);
+        bool Contains(ItemController item);
     }
 }

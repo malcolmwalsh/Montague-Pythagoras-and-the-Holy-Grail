@@ -7,7 +7,6 @@ using Assets.Game.Objects.NPCs;
 using Assets.Game.Objects.Rooms;
 using UnityEngine;
 using static Assets.Game.Navigation.Enums;
-using static UnityEditor.Progress;
 
 namespace Assets.Game.Objects.Players
 {
@@ -16,13 +15,13 @@ namespace Assets.Game.Objects.Players
         #region Private fields
 
         [SerializeField] private BackpackController backpack;
+
+        private bool isNewt;
         [SerializeField] private CompletionTracker completionTracker;
         [SerializeField] private GameManager manager;
         [SerializeField] private InputController ui;
         [SerializeField] private RoomController currentRoom;
         [SerializeField] private string description;
-
-        private bool isNewt;
 
         #endregion
 
@@ -220,13 +219,9 @@ namespace Assets.Game.Objects.Players
             string text = currentRoom.Description;
 
             if (addPrompt)
-            {
                 ui.PrintTextAndPrompt(text, this);
-            }
             else
-            {
                 ui.PrintText(text);
-            }
         }
 
         private void InspectRoom(IRoom room)
@@ -239,7 +234,7 @@ namespace Assets.Game.Objects.Players
             if (room.HasItem())
             {
                 // Get the item
-                IItem item = room.GetItemBehaviour();
+                ItemController item = room.GetItem();
 
                 if (item != null)
                 {
@@ -317,12 +312,12 @@ namespace Assets.Game.Objects.Players
 
         #region IPlayer
 
-        public bool HasItem(IItem item)
+        public bool HasItem(ItemController item)
         {
             return backpack.GetComponent<BackpackController>().Contains(item);
         }
 
-        private void AddItem(IItem item)
+        public void AddItem(ItemController item)
         {
             this.backpack.GetComponent<BackpackController>().Add(item);
 

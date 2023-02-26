@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Assets.Game.Control;
+using Assets.Game.Objects.Backpacks;
+using Assets.Game.Objects.Items;
 using Assets.Game.Objects.Players;
 using Assets.Game.Objects.Rooms;
 using UnityEngine;
@@ -15,6 +17,7 @@ namespace Assets.Game.Objects.NPCs
     public class NpcController : MonoBehaviour, INpc
     {
         #region Protected fields
+        [SerializeField] private BackpackController backpack;
 
         [SerializeField] protected string correctResponse;
 
@@ -255,6 +258,17 @@ namespace Assets.Game.Objects.NPCs
         }
 
         #endregion
+
+        public bool HasItem(ItemController item)
+        {
+            return backpack.GetComponent<BackpackController>().Contains(item);
+        }
+
+        public void AddItem(ItemController item)
+        {
+            backpack.GetComponent<BackpackController>().Add(item);
+            
+        }
     }
 
     public class RespondToNpcArgs : EventArgs

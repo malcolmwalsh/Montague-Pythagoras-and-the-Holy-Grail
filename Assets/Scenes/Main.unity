@@ -716,6 +716,74 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &571599824
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1531647318}
+    m_Modifications:
+    - target: {fileID: 2625398152380037960, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625398152380037960, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625398152380037960, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625398152380037960, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625398152380037960, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625398152380037960, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625398152380037960, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625398152380037960, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625398152380037960, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625398152380037960, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625398152380037960, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6357267788084302873, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_Name
+      value: BridgeKeeper0 Backpack
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+--- !u!114 &571599825 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4526962295890765670, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+  m_PrefabInstance: {fileID: 571599824}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c2ee5b48bb59cc409e58fa42d1ca64c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &576857911 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6107484432571183103, guid: a483d014f904bc84f9e9ca5a3c6130b0, type: 3}
@@ -1255,7 +1323,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: items.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -3173502345553669459, guid: d3f22edf978abd745a2efa3b2a28e670, type: 3}
       propertyPath: items.Array.data[0]
@@ -1721,6 +1789,82 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1442783875
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1605664260}
+    m_Modifications:
+    - target: {fileID: 2625398152380037960, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625398152380037960, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625398152380037960, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625398152380037960, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625398152380037960, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625398152380037960, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625398152380037960, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625398152380037960, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625398152380037960, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625398152380037960, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625398152380037960, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526962295890765670, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: items.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526962295890765670, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: items.Array.data[0]
+      value: 
+      objectReference: {fileID: 712236104}
+    - target: {fileID: 6357267788084302873, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+      propertyPath: m_Name
+      value: BridgeKeeper1 Backpack
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+--- !u!114 &1442783876 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4526962295890765670, guid: 28e2d7b1285671448970e1617bde9546, type: 3}
+  m_PrefabInstance: {fileID: 1442783875}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c2ee5b48bb59cc409e58fa42d1ca64c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1531361272
 GameObject:
   m_ObjectHideFlags: 0
@@ -2267,6 +2411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30ce33d3a8acf6f45b654d4677e33070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backpack: {fileID: 1442783876}
   correctResponse: 'Which kind of swallow: African or European?'
   description: The old, hagged man from earlier skips towards you
   greetingText: '"Look who it is! Mr. Doesn''t Like Bird Facts returns."'
@@ -2753,7 +2898,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8580278475926625549, guid: 01fef179c7bae2447afd6a03f70436da, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8580278475926625549, guid: 01fef179c7bae2447afd6a03f70436da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2918,6 +3063,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0d3525bb938d6d45b48b798361e0f45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backpack: {fileID: 571599825}
   correctResponse: 
   description: You are suprised to see an old, hagged man carrying a basket walking
     towards you. You also suddenly get an overwhelming desire for spam and eggs
