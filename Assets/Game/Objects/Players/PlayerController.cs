@@ -62,8 +62,6 @@ namespace Assets.Game.Objects.Players
             ui.HelpEvent += HelpTextEvent;
             ui.TalkToNPCEvent += TalkToNPCEvent;
 
-            ui.Prompt = Prompt();
-
             // Don't need it yet
             DisableUI();
         }
@@ -172,7 +170,7 @@ namespace Assets.Game.Objects.Players
 
                     // Meet the NPC
                     string meetText = npc.Meet();
-                    ui.PrintText(meetText, true);
+                    ui.PrintTextAndPrompt(meetText, this);
                 }
 
                 // Check whether this is the final room
@@ -221,7 +219,14 @@ namespace Assets.Game.Objects.Players
         {
             string text = currentRoom.Description;
 
-            ui.PrintText(text, addPrompt);
+            if (addPrompt)
+            {
+                ui.PrintTextAndPrompt(text, this);
+            }
+            else
+            {
+                ui.PrintText(text);
+            }
         }
 
         private void InspectRoom(IRoom room)
@@ -250,14 +255,14 @@ namespace Assets.Game.Objects.Players
                 text += " In the end, there's nothing of interest.";
             }
 
-            ui.PrintText(text, true);
+            ui.PrintTextAndPrompt(text, this);
         }
 
         private void PrintInvalidDirectionText(CompassDirection direction)
         {
             string text = $"No door in the direction selected ({direction})";
 
-            ui.PrintText(text, true);
+            ui.PrintTextAndPrompt(text, this);
         }
 
         private void PrintUnblockingDoorText(IDoor selectedDoor)
@@ -301,7 +306,7 @@ namespace Assets.Game.Objects.Players
             // Get prop complete
             float percComplete = completionTracker.percentageCompleted();
 
-            string text = $"Make your choice    [{percComplete}%]\n" +
+            string text = $"Make your choice    [{percComplete:0.0}% complete]\n" +
                           $"[{string.Join(", ", KeyBindings.movementKeys)} to move; {KeyBindings.inspectKey} to inspect; " +
                           $"{KeyBindings.talkKey} to talk; {KeyBindings.helpKey} for help; {KeyBindings.quitKey} to quit]";
 
@@ -356,7 +361,10 @@ namespace Assets.Game.Objects.Players
                 $"You find yourself in a medium-sized closet, surrounded by various tins, jars, blankets, brooms, and a single pink cowboy hat.\n" +
                 $"As nice as the closet is, you'd rather be outside, leaping from tree to tree as they float down the mighty rivers of British Columbia!";
 
-            ui.PrintText(text, true);
+            // We start in a room
+            completionTracker.Register(currentRoom);
+
+            ui.PrintTextAndPrompt(text, this);
         }
 
         #endregion
