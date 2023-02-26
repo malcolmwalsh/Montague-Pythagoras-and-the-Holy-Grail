@@ -24,7 +24,7 @@ namespace Assets.Game.Objects.Players
         // Fields                
         private bool isNewt;
 
-        [SerializeField] private MainMenuController manager;
+        [SerializeField] private GameManager manager;
 
         [SerializeField] private InputController ui;
 
@@ -32,7 +32,7 @@ namespace Assets.Game.Objects.Players
 
         #region Properties
 
-        public MainMenuController Manager
+        public GameManager Manager
         {
             get => manager;
             set => manager = value;

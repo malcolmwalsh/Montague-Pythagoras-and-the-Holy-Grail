@@ -5,12 +5,13 @@ using UnityEngine;
 
 namespace Assets.Game.Control
 {
-    public class MainMenuController : MonoBehaviour, IHasUI
+    public class GameManager : MonoBehaviour, IHasUI
     {
         #region Private fields
 
         [SerializeField] private PlayerController player;
         [SerializeField] private InputController ui;
+        [SerializeField] private CompletionTracker completionTracker;
 
         #endregion
 
