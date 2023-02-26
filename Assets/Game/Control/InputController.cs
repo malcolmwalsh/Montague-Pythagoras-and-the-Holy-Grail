@@ -14,16 +14,10 @@ namespace Assets.Game.Control
         #region Private fields
 
         private Keyboard keyboard;
-        private string prompt;
 
         #endregion
 
         #region Properties
-
-        public string Prompt
-        {
-            set => prompt = value;
-        }
 
         #endregion
 
@@ -115,12 +109,22 @@ namespace Assets.Game.Control
             }
         }
 
-        public void PrintText(string text, bool addPrompt = false)
+        public void PrintText(string text)
         {
             if (text is null) return;
-            
+
             print(text);
-            if (addPrompt) print(prompt);
+        }
+
+        public void PrintTextAndPrompt(string text, IHasUI caller)
+        {
+            // Print the text
+            PrintText(text);
+
+            if (caller == null) return;  // No caller, no prompt
+
+            string promptText = caller.Prompt();
+            print(promptText);
         }
 
         public void ClearLog()

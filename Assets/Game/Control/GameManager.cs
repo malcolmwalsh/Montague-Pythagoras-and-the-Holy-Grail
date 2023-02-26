@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets.Game.Control
 {
-    public class MainMenuController : MonoBehaviour, IHasUI
+    public class GameManager : MonoBehaviour, IHasUI
     {
         #region Private fields
 
@@ -46,8 +46,6 @@ namespace Assets.Game.Control
             ui.HelpEvent += HelpTextEvent;
             ui.NewGameEvent += StartNewGameEvent;
             ui.QuitGameEvent += ExitGameEvent;
-
-            ui.Prompt = Prompt();
         }
 
         public void Start()
@@ -151,17 +149,16 @@ namespace Assets.Game.Control
             ui.ClearLog();
 
             // Menu
-            string text = $"Welcome to Monague Pythagoras and the Holey Grail";
+            string text = $"Welcome to Montague Pythagoras and the Holey Grail";
 
-            ui.PrintText(text, true);
+            ui.PrintTextAndPrompt(text, this);
         }
 
         private void PrintWinGameText()
         {
             string text =
-                $"You walk off into the freezing night, only stopping briefly to turn around and look back. There's mixed emotions, but overall you feel content.\n";
-            text +=
-                $"Then, without warning a police car pulls up and the officers jump out and start shouting at you and reaching for their tasers. This is as good as it gets. Well done!";
+                "You walk off into the freezing night, only stopping briefly to turn around and look back. There's mixed emotions, but overall you feel content.\n" +
+                "Then, without warning a police car pulls up and the officers jump out and start shouting at you and reaching for their tasers. This is as good as it gets. Well done!";
 
             ui.PrintText(text);
         }

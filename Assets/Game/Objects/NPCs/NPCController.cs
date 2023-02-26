@@ -108,7 +108,7 @@ namespace Assets.Game.Objects.NPCs
 
             ui.PrintText(Talk());
 
-            ui.PrintText(PlayerResponseOptions(), true);
+            ui.PrintTextAndPrompt(PlayerResponseOptions(), this);
         }
 
         #endregion
@@ -127,8 +127,6 @@ namespace Assets.Game.Objects.NPCs
         public virtual void Start()
         {
             ui.RespondToNPCEvent += RespondToNpcEvent;
-
-            ui.Prompt = Prompt();
         }
 
         #endregion
