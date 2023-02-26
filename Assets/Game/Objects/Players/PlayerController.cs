@@ -7,6 +7,7 @@ using Assets.Game.Objects.NPCs;
 using Assets.Game.Objects.Rooms;
 using UnityEngine;
 using static Assets.Game.Navigation.Enums;
+using static UnityEditor.Progress;
 
 namespace Assets.Game.Objects.Players
 {
@@ -15,34 +16,17 @@ namespace Assets.Game.Objects.Players
         #region Private fields
 
         [SerializeField] private BackpackController backpack;
-
+        [SerializeField] private CompletionTracker completionTracker;
+        [SerializeField] private GameManager manager;
+        [SerializeField] private InputController ui;
         [SerializeField] private RoomController currentRoom;
-
-        // Parameters
         [SerializeField] private string description;
 
-        // Fields                
         private bool isNewt;
-
-        [SerializeField] private GameManager manager;
-
-        [SerializeField] private InputController ui;
 
         #endregion
 
         #region Properties
-
-        public GameManager Manager
-        {
-            get => manager;
-            set => manager = value;
-        }
-
-        public string Name
-        {
-            get => name;
-            set => name = value;
-        }
 
         public string Description
         {
@@ -52,30 +36,7 @@ namespace Assets.Game.Objects.Players
 
         #endregion
 
-        #region IHasUI
-
-        public void EnableUI()
-        {
-            // Enable our ui so we do detect key presses
-            ui!.enabled = true;
-        }
-
-        public void DisableUI()
-        {
-            // Shut down our UI so we don't detect key presses
-            ui!.enabled = false;
-        }
-
-        public string Prompt()
-        {
-            string text = "Make your choice\n" +
-                          $"[{string.Join(", ", KeyBindings.movementKeys)} to move; {KeyBindings.inspectKey} to inspect; " +
-                          $"{KeyBindings.talkKey} to talk; {KeyBindings.helpKey} for help; {KeyBindings.quitKey} to quit]";
-
-            return text;
-        }
-
-        #endregion
+        #region IObject interface
 
         #region IObject
 
@@ -85,53 +46,6 @@ namespace Assets.Game.Objects.Players
         }
 
         #endregion
-
-        #region IPlayer
-
-        public bool HasItem(IItem item)
-        {
-            return backpack.GetComponent<BackpackController>().Contains(item);
-        }
-
-        public void AddItem(IItem item)
-        {
-            this.backpack.GetComponent<BackpackController>().Add(item);
-        }
-
-        public void ConversationOver()
-        {
-            // Check if newt
-            if (isNewt)
-            {
-                LoseGame();
-            }
-            else
-            {
-                // We're OK
-
-                // Enable UI
-                EnableUI();
-
-                PrintRoomDescriptionText(true);
-            }
-        }
-
-        public void TurnIntoNewt()
-        {
-            this.isNewt = true;
-        }
-
-        public void PrintIntroduction()
-        {
-            // Enable our UI as we're in charge now
-            EnableUI();
-
-            string text =
-                $"You find yourself in a medium-sized closet, surrounded by various tins, jars, blankets, brooms, and a single pink cowboy hat.\n" +
-                $"As nice as the closet is, you'd rather be outside, leaping from tree to tree as they float down the mighty rivers of British Columbia!";
-
-            ui.PrintText(text, true);
-        }
 
         #endregion
 
@@ -153,7 +67,7 @@ namespace Assets.Game.Objects.Players
             // Don't need it yet
             DisableUI();
         }
-        
+
         public override string ToString()
         {
             return name;
@@ -186,7 +100,7 @@ namespace Assets.Game.Objects.Players
         private void QuitRunEvent(object sender, EventArgs e)
         {
             // Quitting run
-            Manager!.QuitRun();
+            manager!.QuitRun();
         }
 
         private void TryMoveIntoNewRoom(CompassDirection direction)
@@ -228,7 +142,7 @@ namespace Assets.Game.Objects.Players
                     }
                 }
 
-                if (selectedDoor.IsBlocked()) return;  // Door is blocked
+                if (selectedDoor.IsBlocked()) return; // Door is blocked
 
                 // Door was either unblocked already or has been unblocked	
 
@@ -240,6 +154,9 @@ namespace Assets.Game.Objects.Players
 
                 // Set new room as current room
                 currentRoom = newRoom;
+
+                // Register the room
+                completionTracker.Register(newRoom);
 
                 // has NPC?
                 bool hasNPC = newRoom.HasNPC();
@@ -275,6 +192,9 @@ namespace Assets.Game.Objects.Players
                 // Disable our UI
                 DisableUI();
 
+                // Register we've met them
+                completionTracker.Register(npc);
+
                 // Start talking
                 npc.StartConversation(this, currentRoom);
             }
@@ -288,13 +208,13 @@ namespace Assets.Game.Objects.Players
         private void WinGame()
         {
             // Won the game
-            Manager!.WinGame();
+            manager!.WinGame();
         }
 
         private void LoseGame()
         {
             // Lost the game
-            Manager!.LoseGame(true);
+            manager!.LoseGame(true);
         }
 
         private void PrintRoomDescriptionText(bool addPrompt = false)
@@ -358,6 +278,85 @@ namespace Assets.Game.Objects.Players
         {
             string text = selectedDoor.GetBlockedText();
             ui.PrintText(text);
+        }
+
+        #endregion
+
+        #region IHasUI
+
+        public void EnableUI()
+        {
+            // Enable our ui so we do detect key presses
+            ui!.enabled = true;
+        }
+
+        public void DisableUI()
+        {
+            // Shut down our UI so we don't detect key presses
+            ui!.enabled = false;
+        }
+
+        public string Prompt()
+        {
+            // Get prop complete
+            float percComplete = completionTracker.percentageCompleted();
+
+            string text = $"Make your choice    [{percComplete}%]\n" +
+                          $"[{string.Join(", ", KeyBindings.movementKeys)} to move; {KeyBindings.inspectKey} to inspect; " +
+                          $"{KeyBindings.talkKey} to talk; {KeyBindings.helpKey} for help; {KeyBindings.quitKey} to quit]";
+
+            return text;
+        }
+
+        #endregion
+
+        #region IPlayer
+
+        public bool HasItem(IItem item)
+        {
+            return backpack.GetComponent<BackpackController>().Contains(item);
+        }
+
+        private void AddItem(IItem item)
+        {
+            this.backpack.GetComponent<BackpackController>().Add(item);
+
+            completionTracker.Register(item);
+        }
+
+        public void ConversationOver()
+        {
+            // Check if newt
+            if (isNewt)
+            {
+                LoseGame();
+            }
+            else
+            {
+                // We're OK
+
+                // Enable UI
+                EnableUI();
+
+                PrintRoomDescriptionText(true);
+            }
+        }
+
+        public void TurnIntoNewt()
+        {
+            this.isNewt = true;
+        }
+
+        public void PrintIntroduction()
+        {
+            // Enable our UI as we're in charge now
+            EnableUI();
+
+            string text =
+                $"You find yourself in a medium-sized closet, surrounded by various tins, jars, blankets, brooms, and a single pink cowboy hat.\n" +
+                $"As nice as the closet is, you'd rather be outside, leaping from tree to tree as they float down the mighty rivers of British Columbia!";
+
+            ui.PrintText(text, true);
         }
 
         #endregion

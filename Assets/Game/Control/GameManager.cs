@@ -11,7 +11,6 @@ namespace Assets.Game.Control
 
         [SerializeField] private PlayerController player;
         [SerializeField] private InputController ui;
-        [SerializeField] private CompletionTracker completionTracker;
 
         #endregion
 

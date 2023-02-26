@@ -55,6 +55,11 @@ namespace Assets.Game.Control
             return propComplete;
         }
 
+        public float percentageCompleted()
+        {
+            return proportionCompleted() * 100;
+        }
+
         #endregion
     }
 }
