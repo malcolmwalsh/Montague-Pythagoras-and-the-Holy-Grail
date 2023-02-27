@@ -225,7 +225,10 @@ namespace Assets.Game.Objects.NPCs
             ui.ClearLog();
 
             // Get response chosen
-            string response = $"You reply quickly, \"{playerResponses[e.ResponseNum]}\"";
+            string response = playerResponses[e.ResponseNum];
+
+            // Print
+            string responseText = $"You reply quickly, \"{response}\"";
             ui.PrintText(response);
 
             RespondToNpc(response);

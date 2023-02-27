@@ -355,12 +355,12 @@ PrefabInstance:
       objectReference: {fileID: 173956824}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: blockedText
-      value: Unarmed you'd be no match for this legendary warrior.
+      value: Standing rigid in front of the door is the Black Knight, taunting you
+        to a duel. Unarmed you'd be no match for this legendary warrior.
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: description
-      value: A simple door labelled 'MUSEUM'. Less straightforward is the Black Knight
-        who stands in front of it, taunting you to a duel.
+      value: A simple door labelled 'MUSEUM'
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: unblockText
@@ -962,12 +962,12 @@ PrefabInstance:
       objectReference: {fileID: 1811059139}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: blockedText
-      value: The moat is too wide to cross without your trusty steed
+      value: There's the trifling issue of the large, alligator-filled moat just
+        outside. The moat is too wide to cross without your trusty steed
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: description
-      value: A thick door with a mail slot. More of an issue is the large, alligator-filled
-        moat just outside it.
+      value: A thick door with a mail slot
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: unblockText
@@ -1875,13 +1875,13 @@ PrefabInstance:
       objectReference: {fileID: 1946928046}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: blockedText
-      value: '"We demand a shrubbery!", shouts one of the knights, "or we will say
-        ''Ni!'' at you."'
+      value: For unfathomable reasons, two Knights That Say Ni guard the door. "We
+        demand a shrubbery!", shouts one of the knights, "or we will say 'Ni!' at
+        you."
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: description
-      value: A two-way door for the servants. Also, for unfathomable reasons, two
-        Knights That Say Ni guard the door.
+      value: A two-way door for the servants
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: unblockText
@@ -3441,7 +3441,7 @@ MonoBehaviour:
   greetingText: The old, hagged man from earlier skips towards you. "Look who it
     is! Mr. Doesn't Like Bird Facts returns."
   leaveHappyText: The old man looks horrified and then, without warning, he explodes
-    into thousands of geraniums, newts, intestines and cocnuts
+    into thousands of geraniums, newts, intestines and coconuts
   leaveUnhappyText: 'The man suddenly looks very upset and from his beard he removes
     a small jar labelled ''Essence of Newt''. He shrugs and throws it at your feet,
     where it smashes in a puff of dust. '
@@ -3550,13 +3550,13 @@ PrefabInstance:
       objectReference: {fileID: 117435473}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: blockedText
-      value: You have no interest in finding out just how deadly that rabbit really
-        is
+      value: Just behind the door bounds a rabbit with enormous fangs. It looks dangerous,
+        especially for a small rodent. You have no interest in finding out just how
+        deadly that rabbit really is
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: description
-      value: A simple door made of glass. Just behind the door, however, is a rabbit
-        with enormous fangs. It looks dangerous, especially for a small rodent.
+      value: A simple door made of glass
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: unblockText
