@@ -1,4 +1,5 @@
-﻿using Assets.Game.Objects.Backpacks;
+﻿using System.Collections.Generic;
+using Assets.Game.Objects.Backpacks;
 using Assets.Game.Objects.Doors;
 using Assets.Game.Objects.NPCs;
 using static Assets.Game.Navigation.Enums;
@@ -25,5 +26,7 @@ namespace Assets.Game.Objects.Rooms
         void RemoveNPC(INpc npc);
 
         #endregion
+
+        IDictionary<CompassDirection, IDoor> GetDoors();
     }
 }

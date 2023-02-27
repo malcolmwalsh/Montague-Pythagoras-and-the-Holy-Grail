@@ -12,15 +12,15 @@ namespace Assets.Game.Objects.Doors
     {
         #region Private fields
 
+        private bool blocked;
+
         [SerializeField] private List<ObstacleController> obstacles;
         [SerializeField] private RoomController roomA;
         [SerializeField] private RoomController roomB;
-
-        [SerializeField] private string description;
         [SerializeField] private string blockedText;
         [SerializeField] private string unblockText;
 
-        private bool blocked;
+        [SerializeField] private string description;
 
         #endregion
 
@@ -39,11 +39,6 @@ namespace Assets.Game.Objects.Doors
         }
 
         #endregion
-
-        public void Awake()
-        {
-            blocked = obstacles.Any();
-        }
 
         #region IDoor interface
 
@@ -65,8 +60,10 @@ namespace Assets.Game.Objects.Doors
         public bool TryTraverse(IPlayer player)
         {
             if (!HasObstacle())
+            {
                 // No obstacle, unlock if not already
                 blocked = false;
+            }
 
             if (!IsBlocked()) return true; // Not locked
 
@@ -120,6 +117,11 @@ namespace Assets.Game.Objects.Doors
         #endregion
 
         #region Public methods
+
+        public void Awake()
+        {
+            blocked = obstacles.Any();
+        }
 
         public override string ToString()
         {
