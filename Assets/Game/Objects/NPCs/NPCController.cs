@@ -8,7 +8,6 @@ using Assets.Game.Objects.Backpacks;
 using Assets.Game.Objects.Items;
 using Assets.Game.Objects.Players;
 using Assets.Game.Objects.Rooms;
-using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
 #endregion
@@ -18,34 +17,35 @@ namespace Assets.Game.Objects.NPCs
     public class NpcController : MonoBehaviour, INpc
     {
         #region Protected fields
-        [SerializeField] private BackpackController backpack;
+
+        [SerializeField] protected List<string> playerResponses;
 
         [SerializeField] protected string correctResponse;
-
-        // Parameters
-        [SerializeField] protected string description;
         [SerializeField] protected string greetingText;
 
         [SerializeField] protected string leaveHappyText;
         [SerializeField] protected string leaveUnhappyText;
 
-        [SerializeField] protected List<string> playerResponses;
-
         [SerializeField] protected string primaryLine;
         [SerializeField] protected string primaryRetort;
         [SerializeField] protected string secondaryRetort;
+
+        // Parameters
+        [SerializeField] protected string description;
 
         #endregion
 
         #region Private fields
 
+        [SerializeField] private BackpackController backpack;
+
         private bool correctResponseGiven;
 
         private bool metBefore;
-        private IPlayer engagingPlayer;
-        private IRoom currentRoom;
 
         [SerializeField] private InputController ui;
+        private IPlayer engagingPlayer;
+        private IRoom currentRoom;
 
         #endregion
 
@@ -60,62 +60,36 @@ namespace Assets.Game.Objects.NPCs
 
         #endregion
 
-        #region IHasUI
+        #region IBackpack interface
 
-        public void EnableUI()
+        public IList<ItemController> GetItems()
         {
-            // Enable our ui so we do detect key presses
-            ui.enabled = true;
+            return backpack.GetItems();
         }
 
-        public void DisableUI()
+        public bool HasItem(ItemController item)
         {
-            // Shut down our UI so we don't detect key presses
-            ui.enabled = false;
+            return backpack.HasItem(item);
         }
 
-        public string Prompt()
+        public bool IsEmpty()
         {
-            string text = "Make your choice\n" +
-                          $"[Press {KeyBindings.response0Key}, {KeyBindings.response1Key} or {KeyBindings.response2Key}]";
-
-            return text;
+            return backpack.IsEmpty();
         }
 
-        #endregion
-
-        #region INPC
-
-        public string Meet()
+        public void AddItem(ItemController item)
         {
-            string text = string.Empty;
-
-            if (!metBefore)
-                // Add description if first time meeting them
-                text = Describe() + "\n";
-
-            text += Greeting();
-
-            metBefore = true; // Have now met once before
-
-            return text;
+            backpack.AddItem(item);
         }
 
-        public void StartConversation(IPlayer player, IRoom room)
+        public void RemoveItem(ItemController item)
         {
-            // Hold a ref to the player and room we're all in
-            this.engagingPlayer = player;
-            this.currentRoom = room;
-
-            // Enable our UI
-            EnableUI();
-
-            ui.PrintText(Talk());
-
-            ui.PrintTextAndPrompt(PlayerResponseOptions(), this);
+            backpack.RemoveItem(item);
         }
 
         #endregion
+
+        #region IObject interface
 
         #region IObject
 
@@ -123,6 +97,8 @@ namespace Assets.Game.Objects.NPCs
         {
             return gameObject;
         }
+
+        #endregion
 
         #endregion
 
@@ -227,9 +203,13 @@ namespace Assets.Game.Objects.NPCs
             engagingPlayer!.ConversationOver();
         }
 
+        #endregion
+
+        #region Private methods
+
         private void DropItem()
         {
-            if (IsEmpty()) return;  // Nothing to do
+            if (IsEmpty()) return; // Nothing to do
 
             // Have items
             IList<ItemController> items = backpack.GetItems();
@@ -239,10 +219,6 @@ namespace Assets.Game.Objects.NPCs
                 currentRoom.AddItem(item);
             }
         }
-
-        #endregion
-
-        #region Private methods
 
         private void RespondToNpcEvent(object sender, RespondToNpcArgs e)
         {
@@ -276,26 +252,62 @@ namespace Assets.Game.Objects.NPCs
 
         #endregion
 
-        public IList<ItemController> GetItems()
+        #region IHasUI
+
+        public void EnableUI()
         {
-            return backpack.GetItems();
+            // Enable our ui so we do detect key presses
+            ui.enabled = true;
         }
 
-        public bool HasItem(ItemController item)
+        public void DisableUI()
         {
-            return backpack.HasItem(item);
+            // Shut down our UI so we don't detect key presses
+            ui.enabled = false;
         }
 
-        public bool IsEmpty()
+        public string Prompt()
         {
-            return backpack.IsEmpty();
+            string text = "Make your choice\n" +
+                          $"[Press {KeyBindings.response0Key}, {KeyBindings.response1Key} or {KeyBindings.response2Key}]";
+
+            return text;
         }
 
-        public void AddItem(ItemController item)
+        #endregion
+
+        #region INPC
+
+        public string Meet()
         {
-            backpack.AddItem(item);
-            
+            string text = string.Empty;
+
+            if (!metBefore)
+                // Add description if first time meeting them
+                text = Describe() + "\n";
+
+            text += Greeting();
+
+            metBefore = true; // Have now met once before
+
+            return text;
         }
+
+        public void StartConversation(IPlayer player, IRoom room)
+        {
+            // Hold a ref to the player and room we're all in
+            this.engagingPlayer = player;
+            this.currentRoom = room;
+
+            // Enable our UI
+            EnableUI();
+
+            ui.PrintText(Talk());
+
+            ui.PrintTextAndPrompt(PlayerResponseOptions(), this);
+        }
+
+        #endregion
     }
 
     public class RespondToNpcArgs : EventArgs

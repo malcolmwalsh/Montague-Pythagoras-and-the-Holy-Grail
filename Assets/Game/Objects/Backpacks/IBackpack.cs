@@ -7,6 +7,7 @@ namespace Assets.Game.Objects.Backpacks
     {
         bool IsEmpty();
         void AddItem(ItemController item);
+        void RemoveItem(ItemController item);
         IList<ItemController> GetItems();
         bool HasItem(ItemController item);
     }

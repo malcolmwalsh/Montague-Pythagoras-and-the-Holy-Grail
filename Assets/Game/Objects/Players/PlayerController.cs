@@ -8,6 +8,7 @@ using Assets.Game.Objects.NPCs;
 using Assets.Game.Objects.Rooms;
 using UnityEngine;
 using static Assets.Game.Navigation.Enums;
+using static UnityEditor.Progress;
 
 namespace Assets.Game.Objects.Players
 {
@@ -36,11 +37,112 @@ namespace Assets.Game.Objects.Players
 
         #endregion
 
+        #region IBackpack interface
+
+        public IList<ItemController> GetItems()
+        {
+            return backpack.GetItems();
+        }
+
+        public bool HasItem(ItemController item)
+        {
+            return backpack.HasItem(item);
+        }
+
+        public bool IsEmpty()
+        {
+            return backpack.IsEmpty();
+        }
+
+        public void RemoveItem(ItemController item)
+        {
+            this.backpack.RemoveItem(item);
+        }
+
+        public void AddItem(ItemController item)
+        {
+            this.backpack.AddItem(item);
+
+            completionTracker.Register(item);
+        }
+
+        #endregion
+
+        #region IHasUI interface
+
+        public void EnableUI()
+        {
+            // Enable our ui so we do detect key presses
+            ui!.enabled = true;
+        }
+
+        public void DisableUI()
+        {
+            // Shut down our UI so we don't detect key presses
+            ui!.enabled = false;
+        }
+
+        public string Prompt()
+        {
+            // Get prop complete
+            float percComplete = completionTracker.percentageCompleted();
+
+            string text = $"Make your choice    [{percComplete:0.0}% complete]\n" +
+                          $"[{string.Join(", ", KeyBindings.movementKeys)} to move; {KeyBindings.inspectKey} to inspect; " +
+                          $"{KeyBindings.talkKey} to talk; {KeyBindings.helpKey} for help; {KeyBindings.quitKey} to quit]";
+
+            return text;
+        }
+
+        #endregion
+
         #region IObject interface
 
         public GameObject GetGameObject()
         {
             return gameObject;
+        }
+
+        #endregion
+
+        #region IPlayer interface
+
+        public void ConversationOver()
+        {
+            // Check if newt
+            if (isNewt)
+            {
+                LoseGame();
+            }
+            else
+            {
+                // We're OK
+
+                // Enable UI
+                EnableUI();
+
+                PrintRoomDescriptionText(true);
+            }
+        }
+
+        public void TurnIntoNewt()
+        {
+            this.isNewt = true;
+        }
+
+        public void PrintIntroduction()
+        {
+            // Enable our UI as we're in charge now
+            EnableUI();
+
+            string text =
+                $"You find yourself in a medium-sized closet, surrounded by various tins, jars, blankets, brooms, and a single pink cowboy hat.\n" +
+                $"As nice as the closet is, you'd rather be outside, leaping from tree to tree as they float down the mighty rivers of British Columbia!";
+
+            // We start in a room
+            completionTracker.Register(currentRoom);
+
+            ui.PrintTextAndPrompt(text, this);
         }
 
         #endregion
@@ -238,11 +340,17 @@ namespace Assets.Game.Objects.Players
                     if (item != null)
                     {
                         // Shouldn't be null as we checked above
-                        text += $" You see a {item}. {item.Description}";
+                        text += $" You see a {item}. {item.Description}. You put it in your black lumberjack backpack";
 
                         // Player now has this item
                         this.AddItem(item);
                     }
+                }
+
+                // Remove all from room
+                foreach (ItemController item in new List<ItemController>(items))
+                {
+                    room.RemoveItem(item);
                 }
             }
             else
@@ -281,90 +389,6 @@ namespace Assets.Game.Objects.Players
         }
 
         #endregion
-
-        public void EnableUI()
-        {
-            // Enable our ui so we do detect key presses
-            ui!.enabled = true;
-        }
-
-        public void DisableUI()
-        {
-            // Shut down our UI so we don't detect key presses
-            ui!.enabled = false;
-        }
-
-        public string Prompt()
-        {
-            // Get prop complete
-            float percComplete = completionTracker.percentageCompleted();
-
-            string text = $"Make your choice    [{percComplete:0.0}% complete]\n" +
-                          $"[{string.Join(", ", KeyBindings.movementKeys)} to move; {KeyBindings.inspectKey} to inspect; " +
-                          $"{KeyBindings.talkKey} to talk; {KeyBindings.helpKey} for help; {KeyBindings.quitKey} to quit]";
-
-            return text;
-        }
-
-        public IList<ItemController> GetItems()
-        {
-            return backpack.GetItems();
-        }
-
-        public bool HasItem(ItemController item)
-        {
-            return backpack.HasItem(item);
-        }
-
-        public bool IsEmpty()
-        {
-            return backpack.IsEmpty();
-        }
-
-        public void AddItem(ItemController item)
-        {
-            this.backpack.AddItem(item);
-
-            completionTracker.Register(item);
-        }
-
-        public void ConversationOver()
-        {
-            // Check if newt
-            if (isNewt)
-            {
-                LoseGame();
-            }
-            else
-            {
-                // We're OK
-
-                // Enable UI
-                EnableUI();
-
-                PrintRoomDescriptionText(true);
-            }
-        }
-
-        public void TurnIntoNewt()
-        {
-            this.isNewt = true;
-        }
-
-        public void PrintIntroduction()
-        {
-            // Enable our UI as we're in charge now
-            EnableUI();
-
-            string text =
-                $"You find yourself in a medium-sized closet, surrounded by various tins, jars, blankets, brooms, and a single pink cowboy hat.\n" +
-                $"As nice as the closet is, you'd rather be outside, leaping from tree to tree as they float down the mighty rivers of British Columbia!";
-
-            // We start in a room
-            completionTracker.Register(currentRoom);
-
-            ui.PrintTextAndPrompt(text, this);
-        }
     }
 
     public class MoveInDirectionEventArgs : EventArgs
