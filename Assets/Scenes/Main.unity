@@ -971,7 +971,7 @@ PrefabInstance:
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: unblockText
       value: Armed with the coconut shells, you can now leap over the moat like a
-        showjumping horse.=
+        showjumping horse.
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: obstacles.Array.size
@@ -2309,7 +2309,7 @@ PrefabInstance:
     - target: {fileID: 4881277516920196503, guid: c0bd5e94f6bb1a64a8ecb038c208ed00, type: 3}
       propertyPath: currentRoom
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1896227833}
     - target: {fileID: 4881277516920196503, guid: c0bd5e94f6bb1a64a8ecb038c208ed00, type: 3}
       propertyPath: description
       value: Our hero, but he is very small
@@ -3436,7 +3436,7 @@ MonoBehaviour:
   description: The old, hagged man from earlier skips towards you
   greetingText: '"Look who it is! Mr. Doesn''t Like Bird Facts returns."'
   leaveHappyText: The old man looks horrified and then, without warning, he explodes
-    into thousands of geraniums, newts, intestines and a bright orange beanie.
+    into thousands of geraniums, newts, intestines and cocnuts
   leaveUnhappyText: 'The man suddenly looks very upset and from his beard he removes
     a small jar labelled ''Essence of Newt''. He shrugs and throws it at your feet,
     where it smashes in a puff of dust. '
