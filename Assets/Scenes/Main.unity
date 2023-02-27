@@ -1979,7 +1979,7 @@ PrefabInstance:
       objectReference: {fileID: 173956824}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: description
-      value: Another ornate door with a handle of ivory.
+      value: Another ornate door with a handle of ivory
       objectReference: {fileID: 0}
     - target: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: m_RootOrder
@@ -3062,7 +3062,7 @@ PrefabInstance:
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: description
       value: The door to the library is ajar, and you can see bookshelves from floor
-        to ceiling.
+        to ceiling
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: unblockText
@@ -3931,7 +3931,7 @@ PrefabInstance:
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: description
       value: A door labelled 'CONSERVATORY'. You can feel a cold draught from the
-        gap under the door.
+        gap under the door
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: unblockText
@@ -4677,7 +4677,7 @@ PrefabInstance:
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: description
       value: 'The plaque on the door reads: ''MASTER STUDY. KEEP OUT''. You''ve never
-        been good with instructions.'
+        been good with instructions'
       objectReference: {fileID: 0}
     - target: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: m_RootOrder

@@ -133,7 +133,7 @@ namespace Assets.Game.Control
                 "When you're chewing on life's gristle, don't grumble, give a whistle. And this'll help things turn out for the best.";
             ui.PrintText(text);
 
-            text = "Exited Game";
+            text = "Exited game";
             ui.PrintText(text);
 
 #if UNITY_STANDALONE
@@ -149,7 +149,7 @@ namespace Assets.Game.Control
             ui.ClearLog();
 
             // Menu
-            string text = $"Welcome to Montague Pythagoras and the Holey Grail";
+            string text = $"Welcome to Montague Pythagoras and the Holy Grail";
 
             ui.PrintTextAndPrompt(text, this);
         }

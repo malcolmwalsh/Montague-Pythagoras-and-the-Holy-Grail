@@ -231,6 +231,7 @@ namespace Assets.Game.Objects.Players
                     else
                     {
                         // Can unblock door
+                        ui.PrintText(selectedDoor.GetBlockedText());
 
                         // Print text that door is unlocked by using item
                         PrintUnblockingDoorText(selectedDoor);
