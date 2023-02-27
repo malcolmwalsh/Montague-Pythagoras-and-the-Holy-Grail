@@ -20,6 +20,11 @@ namespace Assets.Game.Objects.Backpacks
             items.Add(item);
         }
 
+        public void RemoveItem(ItemController item)
+        {
+            items.Remove(item);
+        }
+
         public bool IsEmpty()
         {
             return !items.Any();

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using Assets.Game.Objects.Backpacks;
 using Assets.Game.Objects.Doors;
@@ -15,21 +14,21 @@ namespace Assets.Game.Objects.Rooms
     {
         #region Private fields
 
-        private readonly IDictionary<CompassDirection, IDoor> doors = new Dictionary<CompassDirection, IDoor>();
-
-        [SerializeField] private bool isFinalRoom;
-        [SerializeField] private bool isStartRoom;
+        [SerializeField] private BackpackController backpack;
 
         [SerializeField] private DoorController eastDoor;
         [SerializeField] private DoorController northDoor;
         [SerializeField] private DoorController southDoor;
         [SerializeField] private DoorController westDoor;
 
-        [SerializeField] private NpcController npc;
+        private readonly IDictionary<CompassDirection, IDoor> doors = new Dictionary<CompassDirection, IDoor>();
 
         [SerializeField] private string description;
 
-        [SerializeField] private BackpackController backpack;
+        [SerializeField] private bool isFinalRoom;
+        [SerializeField] private bool isStartRoom;
+
+        [SerializeField] private NpcController npc;
 
         #endregion
 
@@ -63,16 +62,7 @@ namespace Assets.Game.Objects.Rooms
 
         #endregion
 
-        #region IObject interface
-
-        public GameObject GetGameObject()
-        {
-            return gameObject;
-        }
-
-        #endregion
-
-        #region IRoom interface
+        #region IBackpack interface
 
         public IList<ItemController> GetItems()
         {
@@ -93,6 +83,24 @@ namespace Assets.Game.Objects.Rooms
         {
             backpack.AddItem(item);
         }
+
+        public void RemoveItem(ItemController item)
+        {
+            backpack.RemoveItem(item);
+        }
+
+        #endregion
+
+        #region IObject interface
+
+        public GameObject GetGameObject()
+        {
+            return gameObject;
+        }
+
+        #endregion
+
+        #region IRoom interface
 
         public bool HasDoorInDirection(CompassDirection direction)
         {
