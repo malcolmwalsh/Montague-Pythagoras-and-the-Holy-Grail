@@ -144,7 +144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -355,17 +355,18 @@ PrefabInstance:
       objectReference: {fileID: 173956824}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: blockedText
-      value: Unarmed you'd be no match for this legendary warrior.
+      value: Standing rigid in front of the door is the Black Knight, taunting you
+        to a duel. Unarmed you'd be no match for this legendary warrior.
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: description
-      value: A simple door labelled 'MUSEUM'. Less straightforward is the Black Knight
-        who stands in front of it, taunting you to a duel.
+      value: A simple door labelled 'MUSEUM'
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: unblockText
-      value: '"''Tis but a scratch", shouts the knight as you step over his limbless
-        torso'
+      value: Armed with Excalibur, you quickly slice both the knight's arms off,
+        followed by his legs. "'Tis but a scratch", shouts the knight as you step
+        over his limbless torso
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: obstacles.Array.size
@@ -377,7 +378,7 @@ PrefabInstance:
       objectReference: {fileID: 1153330142}
     - target: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -961,17 +962,17 @@ PrefabInstance:
       objectReference: {fileID: 1811059139}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: blockedText
-      value: The moat is too wide to cross without your trusty steed
+      value: There's the trifling issue of the large, alligator-filled moat just
+        outside. The moat is too wide to cross without your trusty steed
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: description
-      value: A thick door with a mail slot. More of an issue is the large, alligator-filled
-        moat just outside it.
+      value: A thick door with a mail slot
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: unblockText
-      value: Armed with the coconut shells, you can now leap over the moat like a
-        showjumping horse.
+      value: Armed with the coconut shells, you take a good run up and leap over
+        the moat like a showjumping horse.
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: obstacles.Array.size
@@ -983,7 +984,7 @@ PrefabInstance:
       objectReference: {fileID: 386888974}
     - target: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1771,8 +1772,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1605664260}
   - {fileID: 1531647318}
+  - {fileID: 1605664260}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1874,17 +1875,18 @@ PrefabInstance:
       objectReference: {fileID: 1946928046}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: blockedText
-      value: '"We demand a shrubbery!", shouts one of the knights, "or we will say
-        ''Ni!'' at you."'
+      value: For unfathomable reasons, two Knights That Say Ni guard the door. "We
+        demand a shrubbery!", shouts one of the knights, "or we will say 'Ni!' at
+        you."
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: description
-      value: A two-way door for the servants. Also, for unfathomable reasons, two
-        Knights That Say Ni guard the door.
+      value: A two-way door for the servants
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: unblockText
-      value: With the knights distracted by the uprooted bush, you sneak past
+      value: You hand the lead knight the shrubbery you ripped out of the garden.
+        With the knights distracted by the uprooted bush, you sneak past
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: obstacles.Array.size
@@ -1977,11 +1979,11 @@ PrefabInstance:
       objectReference: {fileID: 173956824}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: description
-      value: Another ornate door with a handle of ivory.
+      value: Another ornate door with a handle of ivory
       objectReference: {fileID: 0}
     - target: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2929,7 +2931,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3060,7 +3062,7 @@ PrefabInstance:
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: description
       value: The door to the library is ajar, and you can see bookshelves from floor
-        to ceiling.
+        to ceiling
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: unblockText
@@ -3076,7 +3078,7 @@ PrefabInstance:
       objectReference: {fileID: 1153330142}
     - target: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3304,7 +3306,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 151736594296041585, guid: ad6521f4b522dc04c88b31a478ec2ea8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3436,18 +3438,21 @@ MonoBehaviour:
   - 'Which kind of swallow: African or European?'
   - '#randomResult is my favourite number'
   correctResponse: 'Which kind of swallow: African or European?'
-  greetingText: '"Look who it is! Mr. Doesn''t Like Bird Facts returns."'
+  greetingText: The old, hagged man from earlier skips towards you. "Look who it
+    is! Mr. Doesn't Like Bird Facts returns."
   leaveHappyText: The old man looks horrified and then, without warning, he explodes
-    into thousands of geraniums, newts, intestines and cocnuts
+    into thousands of geraniums, newts, intestines and coconuts
   leaveUnhappyText: 'The man suddenly looks very upset and from his beard he removes
     a small jar labelled ''Essence of Newt''. He shrugs and throws it at your feet,
     where it smashes in a puff of dust. '
   primaryLine: He shakes his fist menacingly towards you. "You must answer my question
     if you wish to pass! What is the airspeed velocity of an unladen swallow?"
-  primaryRetort: '"#randomResult m/s?! That far too rapid. These birds are tiny.
-    Are you completely mad?"'
-  secondaryRetort: '"Er, I don''t know that!"'
-  description: The old, hagged man from earlier skips towards you
+  primaryRetort: The man looks aghast and extorts, "#randomResult m/s?! That far
+    too rapid. These birds are tiny. Are you completely mad?"
+  secondaryRetort: The old man looks momentarily confused before stuttering, "Er,
+    well, um, I don't know that!"
+  description: an old man with a long grey beard, carrying a small wicker basket.
+    Somehow, he looks both grumpy and cheery at the same time.
   backpack: {fileID: 1442783876}
   ui: {fileID: 1853575807}
   linkedBridgeKeeper: {fileID: 2121617121}
@@ -3545,18 +3550,19 @@ PrefabInstance:
       objectReference: {fileID: 117435473}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: blockedText
-      value: You have no interest in finding out just how deadly that rabbit really
-        is
+      value: Just behind the door bounds a rabbit with enormous fangs. It looks dangerous,
+        especially for a small rodent. You have no interest in finding out just how
+        deadly that rabbit really is
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: description
-      value: A simple door made of glass. Just behind the door, however, is a rabbit
-        with enormous fangs. It looks dangerous, especially for a small rodent.
+      value: A simple door made of glass
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: unblockText
-      value: With the rabbit now in small bite-size pieces, you proceed through the
-        door.
+      value: You lob the grenade out the conservatory window in the direction of
+        the murderous hare. A large explosion ensues. With the rabbit now in small
+        bite-size pieces, you proceed through the door.
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: obstacles.Array.size
@@ -3568,7 +3574,7 @@ PrefabInstance:
       objectReference: {fileID: 1979788662}
     - target: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3925,7 +3931,7 @@ PrefabInstance:
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: description
       value: A door labelled 'CONSERVATORY'. You can feel a cold draught from the
-        gap under the door.
+        gap under the door
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: unblockText
@@ -4090,7 +4096,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4576,8 +4582,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: unblockText
-      value: God snatches the grail from your hand, giggles, then disappears with
-        a 'bing'.
+      value: You pull the grail from your backpack and hold it out in front of you.
+        God snatches the grail from your hand, giggles, then disappears with a 'bing'.
       objectReference: {fileID: 0}
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: obstacles.Array.size
@@ -4589,7 +4595,7 @@ PrefabInstance:
       objectReference: {fileID: 858404341}
     - target: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4671,11 +4677,11 @@ PrefabInstance:
     - target: {fileID: 838862612957381737, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: description
       value: 'The plaque on the door reads: ''MASTER STUDY. KEEP OUT''. You''ve never
-        been good with instructions.'
+        been good with instructions'
       objectReference: {fileID: 0}
     - target: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6087133784493322952, guid: 12a2ffcbafaa50d4ab079b7b6947ae2e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5133,16 +5139,19 @@ MonoBehaviour:
   - That's useless to me, and very silly
   - You smell like spam
   correctResponse: 
-  greetingText: The old man approaches you and starts stroking his long, wirey beard
-  leaveHappyText: The old man picks up a small wicker basket filled with fruit and
-    merrily skips off
+  greetingText: You are suprised to see an old, hagged man carrying a basket walking
+    towards you. The old man approaches you and starts stroking his long, wirey beard
+  leaveHappyText: The old man picks up his small wicker basket filled with fruit
+    and merrily skips off
   leaveUnhappyText: 
-  primaryLine: '"Did you know that the airspeed velocity of an unladen European Swallow
-    is #randomResult m/s?"'
-  primaryRetort: '"You should remember it! It''s a very interesting fact."'
+  primaryLine: The old man looks excited to talk to you. He suddenly exclaims, "Did
+    you know that the airspeed velocity of an unladen European Swallow is #randomResult
+    m/s?"
+  primaryRetort: The elderly man looks you up and down and waggles his finger at
+    you, "You should remember it! It's a very interesting fact."
   secondaryRetort: 
-  description: You are suprised to see an old, hagged man carrying a basket walking
-    towards you. You also suddenly get an overwhelming desire for spam and eggs
+  description: an old man with a long grey beard, carrying a small wicker basket.
+    Somehow, he looks both grumpy and cheery at the same time.
   backpack: {fileID: 571599825}
   ui: {fileID: 2023602537}
   linkedBridgeKeeper: {fileID: 1605664261}

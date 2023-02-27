@@ -121,7 +121,7 @@ namespace Assets.Game.Objects.Players
                 // Enable UI
                 EnableUI();
 
-                PrintRoomDescriptionText(true);
+                ui.PrintPrompt(this);
             }
         }
 
@@ -201,6 +201,8 @@ namespace Assets.Game.Objects.Players
 
         private void TryMoveIntoNewRoom(CompassDirection direction)
         {
+            ui.ClearLog();
+
             // Is there a door there?
             if (!currentRoom.HasDoorInDirection(direction))
             {
@@ -229,6 +231,7 @@ namespace Assets.Game.Objects.Players
                     else
                     {
                         // Can unblock door
+                        ui.PrintText(selectedDoor.GetBlockedText());
 
                         // Print text that door is unlocked by using item
                         PrintUnblockingDoorText(selectedDoor);
@@ -278,6 +281,8 @@ namespace Assets.Game.Objects.Players
 
         private void TalkToNPC()
         {
+            ui.ClearLog();
+
             // Get the NPC
             INpc npc = currentRoom.NPC;
 
@@ -297,7 +302,7 @@ namespace Assets.Game.Objects.Players
             else
             {
                 string text = "Talking to yourself won't get you back to chopping wood";
-                ui.PrintText(text);
+                ui.PrintTextAndPrompt(text, this);
             }
         }
 
@@ -325,9 +330,10 @@ namespace Assets.Game.Objects.Players
 
         private void InspectRoom(IRoom room)
         {
-            string text = room.DoorLocationText();
+            ui.ClearLog();
 
-            text += $"\nYou walk around the room slowly, pushing and prodding at things.";
+            // Describe items
+            string text = $"You walk around the room slowly, pushing and prodding at things.\n";
 
             // Check for items in the room
             if (!room.IsEmpty())
@@ -340,7 +346,7 @@ namespace Assets.Game.Objects.Players
                     if (item != null)
                     {
                         // Shouldn't be null as we checked above
-                        text += $" You see a {item}. {item.Description}. You put it in your black lumberjack backpack";
+                        text += $"You see a {item}. {item.Description}. You put it in your black lumberjack backpack";
 
                         // Player now has this item
                         this.AddItem(item);
@@ -358,7 +364,28 @@ namespace Assets.Game.Objects.Players
                 text += " In the end, there's nothing of interest.";
             }
 
-            ui.PrintTextAndPrompt(text, this);
+            // Print item text
+            ui.PrintText(text);
+
+            // Describe NPC
+            if (room.HasNPC())
+            {
+                INpc npc = room.NPC;
+
+                string npcText = $"Watching your every move is {npc.Description}";
+                ui.PrintText(npcText);
+            }
+
+            // Describe doors
+            IDictionary<CompassDirection, IDoor> doors = room.GetDoors();
+            foreach (KeyValuePair<CompassDirection, IDoor> entry in doors)
+            {
+                string doorText = $"To the {entry.Key}, {entry.Value.Description}";
+                ui.PrintText(doorText);
+            }
+
+            // Final prompt
+            ui.PrintPrompt(this);
         }
 
         private void PrintInvalidDirectionText(CompassDirection direction)
@@ -376,16 +403,15 @@ namespace Assets.Game.Objects.Players
 
         private void PrintMovingIntoNewRoomText(IRoom oldRoom, IRoom newRoom)
         {
-            ui.ClearLog();
-
             string text = $"You open the door and pass from {oldRoom} into {newRoom}";
             ui.PrintText(text);
         }
 
         private void PrintCannotEnterDoorText(IDoor selectedDoor)
         {
-            string text = selectedDoor.GetBlockedText();
-            ui.PrintText(text);
+            string text = $"{selectedDoor.GetBlockedText()}\n" +
+                          $"You cannot go that way just now.";
+            ui.PrintTextAndPrompt(text, this);
         }
 
         #endregion

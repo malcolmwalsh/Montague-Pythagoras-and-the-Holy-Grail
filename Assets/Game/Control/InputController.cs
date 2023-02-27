@@ -123,8 +123,7 @@ namespace Assets.Game.Control
 
             if (caller == null) return;  // No caller, no prompt
 
-            string promptText = caller.Prompt();
-            print(promptText);
+            PrintPrompt(caller);
         }
 
         public void ClearLog()
@@ -161,5 +160,11 @@ namespace Assets.Game.Control
         }
 
         #endregion
+
+        public void PrintPrompt(IHasUI caller)
+        {
+            string promptText = caller.Prompt();
+            print(promptText);
+        }
     }
 }

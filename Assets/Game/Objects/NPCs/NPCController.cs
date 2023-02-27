@@ -41,8 +41,6 @@ namespace Assets.Game.Objects.NPCs
 
         private bool correctResponseGiven;
 
-        private bool metBefore;
-
         [SerializeField] private InputController ui;
         private IPlayer engagingPlayer;
         private IRoom currentRoom;
@@ -159,11 +157,13 @@ namespace Assets.Game.Objects.NPCs
             int i = 0;
             StringBuilder sb = new();
 
+            sb.Append("You should probably respond\n");
+
             foreach (string response in GetPlayerResponses())
             {
                 i++;
 
-                sb.Append($"{i}: {response}. ");
+                sb.Append($"({i}): {response};  ");
             }
 
             string text = sb.ToString();
@@ -222,8 +222,13 @@ namespace Assets.Game.Objects.NPCs
 
         private void RespondToNpcEvent(object sender, RespondToNpcArgs e)
         {
+            ui.ClearLog();
+
             // Get response chosen
             string response = playerResponses[e.ResponseNum];
+
+            // Print
+            string responseText = $"You reply quickly, \"{response}\"";
             ui.PrintText(response);
 
             RespondToNpc(response);
@@ -269,7 +274,7 @@ namespace Assets.Game.Objects.NPCs
         public string Prompt()
         {
             string text = "Make your choice\n" +
-                          $"[Press {KeyBindings.response0Key}, {KeyBindings.response1Key} or {KeyBindings.response2Key}]";
+                          $"[Press 1, 2 or 3]";
 
             return text;
         }
@@ -280,15 +285,7 @@ namespace Assets.Game.Objects.NPCs
 
         public string Meet()
         {
-            string text = string.Empty;
-
-            if (!metBefore)
-                // Add description if first time meeting them
-                text = Describe() + "\n";
-
-            text += Greeting();
-
-            metBefore = true; // Have now met once before
+            string text = Greeting();
 
             return text;
         }

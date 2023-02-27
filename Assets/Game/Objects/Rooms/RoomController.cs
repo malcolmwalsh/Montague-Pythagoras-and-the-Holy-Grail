@@ -148,6 +148,11 @@ namespace Assets.Game.Objects.Rooms
             this.npc = null;
         }
 
+        public IDictionary<CompassDirection, IDoor> GetDoors()
+        {
+            return doors;
+        }
+
         #endregion
 
         #region Public methods
