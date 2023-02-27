@@ -1379,7 +1379,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9115943792806206138, guid: 1fdbd9260741831449455c0beca58e8d, type: 3}
       propertyPath: m_Name
-      value: Coconut Husks
+      value: Pair of Coconut Husks
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1fdbd9260741831449455c0beca58e8d, type: 3}
@@ -3508,7 +3508,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9115943792806206138, guid: 1fdbd9260741831449455c0beca58e8d, type: 3}
       propertyPath: m_Name
-      value: Elderberries
+      value: Bunch of Elderberries
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1fdbd9260741831449455c0beca58e8d, type: 3}
