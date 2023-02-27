@@ -8,7 +8,6 @@ using Assets.Game.Objects.NPCs;
 using Assets.Game.Objects.Rooms;
 using UnityEngine;
 using static Assets.Game.Navigation.Enums;
-using static UnityEditor.Progress;
 
 namespace Assets.Game.Objects.Players
 {
