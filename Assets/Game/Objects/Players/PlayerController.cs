@@ -38,14 +38,10 @@ namespace Assets.Game.Objects.Players
 
         #region IObject interface
 
-        #region IObject
-
         public GameObject GetGameObject()
         {
             return gameObject;
         }
-
-        #endregion
 
         #endregion
 
@@ -286,8 +282,6 @@ namespace Assets.Game.Objects.Players
 
         #endregion
 
-        #region IHasUI
-
         public void EnableUI()
         {
             // Enable our ui so we do detect key presses
@@ -311,10 +305,6 @@ namespace Assets.Game.Objects.Players
 
             return text;
         }
-
-        #endregion
-
-        #region IPlayer
 
         public IList<ItemController> GetItems()
         {
@@ -375,8 +365,6 @@ namespace Assets.Game.Objects.Players
 
             ui.PrintTextAndPrompt(text, this);
         }
-
-        #endregion
     }
 
     public class MoveInDirectionEventArgs : EventArgs
