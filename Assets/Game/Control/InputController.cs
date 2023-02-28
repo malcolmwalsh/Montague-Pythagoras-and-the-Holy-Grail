@@ -1,8 +1,7 @@
-﻿using System;
-using System.Reflection;
-using Assets.Game.Objects.NPCs;
+﻿using Assets.Game.Objects.NPCs;
 using Assets.Game.Objects.Players;
-using UnityEditor;
+using System;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -45,16 +44,27 @@ namespace Assets.Game.Control
         {
             if (!keyboard.anyKey.wasPressedThisFrame) return; // Nothing pressed
 
-            // Loop through all keys and find the one pressed 
-            // TODO: Seems very inefficient!
-            foreach (KeyControl keyID in keyboard.allKeys)
-                if (keyID.wasPressedThisFrame)
-                {
-                    // What is pressed
-                    Key pressedKey = keyID.keyCode;
+            // Which key was it?
+            Key keyPressed = CheckKeyboardInputs();
 
-                    FireEvent(pressedKey);
+            // Fire the relevant event
+            FireEvent(keyPressed);
+        }
+
+        private Key CheckKeyboardInputs()
+        {
+            if (keyboard.anyKey.wasPressedThisFrame)
+            {
+                foreach (KeyControl k in keyboard.allKeys)
+                {
+                    if (k.wasPressedThisFrame)
+                    {
+                        return k.keyCode;
+                    }
                 }
+            }
+
+            return Key.None;
         }
 
         public void FireEvent(Key key)
@@ -128,12 +138,16 @@ namespace Assets.Game.Control
 
         public void ClearLog()
         {
+#if UNITY_EDITOR
             // https://stackoverflow.com/questions/40577412/clear-editor-console-logs-from-script
 
-            var assembly = Assembly.GetAssembly(typeof(Editor));
+            var assembly = Assembly.GetAssembly(typeof(UnityEditor.Editor));
             var type = assembly.GetType("UnityEditor.LogEntries");
             var method = type.GetMethod("Clear");
             method.Invoke(new object(), null);
+#else
+            Debug.ClearDeveloperConsole();
+#endif
         }
 
         public void PrintHelpText()
@@ -149,9 +163,9 @@ namespace Assets.Game.Control
             PrintText(text);
         }
 
-        #endregion
+#endregion
 
-        #region Private methods
+#region Private methods
 
         private void PrintInvalidKeyText(Key key)
         {
@@ -159,7 +173,7 @@ namespace Assets.Game.Control
             PrintText(text);
         }
 
-        #endregion
+#endregion
 
         public void PrintPrompt(IHasUI caller)
         {
