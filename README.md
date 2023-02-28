@@ -1,11 +1,11 @@
-# Scary-House
-Scary house is a very simple console game built with C# and Unity.
+# Montague Pythagoras and the Holy Grail
+Montague Pythagoras and the Holy Grail is a very simple console game built with C# and Unity.
 
 ## Getting Started
-Open Unity project and press play, or, use the executable here (TODO: LINK TO RELEASES)
+Open Unity project and press play.
 
 ## Introduction to the game
-You find yourself in a small closet which isn't as bad as it sounds as you are vertically challenged and basically pretty pathetic. But, as cosy as the closet is, you'd rather be outside with your lumberjack friends. Youe quest is to make your way outside, but beware: whoever put you in the closet doesn't want you to get out. They don't want you to cut down trees, or eat your lunch, or go to the lavatory.
+You find yourself in a small closet which isn't as bad as it sounds as you are vertically challenged and basically pretty pathetic. But, as cosy as the closet is, you'd rather be outside with your lumberjack friends. Your quest is to make your way outside, but beware: whoever put you in the closet doesn't want you to get out. They don't want you to cut down trees, or eat your lunch, or go to the lavatory.
 
 ## Instructions
 All controls use the keyboard.
